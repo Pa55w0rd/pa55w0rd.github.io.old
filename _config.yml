@@ -4,8 +4,8 @@ title: Pa55w0rd
 description: > # this means to ignore newlines until "baseurl:"
   记录生活、总结学习经验
 permalink: ':title/'
-baseurl: "/fresh" # the subpath of your site, e.g. /blog
-url: "artemsheludko.pw" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Social
 facebook: #Add your Facebook
