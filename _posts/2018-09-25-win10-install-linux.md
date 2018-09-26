@@ -4,7 +4,7 @@ title:  "win10安装linux子系统"
 date:   2018-09-25 16:15:07 +0800
 img:
 description: win10系统一周年正式版(1607)之后开始支持内置linux子系统，记录一些关键步骤和遇到的问题
-categories: 小记
+category: 小记
 ---
 win10系统一周年正式版(1607)之后开始支持内置linux子系统，记录一些关键步骤和遇到的问题
 
