@@ -30,10 +30,9 @@ paginate: 5
 paginate_path: /page:num/
 
 # Build settings
-markdown: kramdown
-kramdown:
-  input: GFM
-  syntax_highlighter: rouge
+markdown:redcarpet
+redcarpet:
+    extensions: [ "hard_wrap","autolink", "tables", "strikethrough", "superscript", "with_toc_data", "highlight", "prettify","no_intra_emphasis"]
 
  # url
 category_dir: category/
