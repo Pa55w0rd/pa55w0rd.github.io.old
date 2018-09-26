@@ -1,11 +1,14 @@
 # Profile information
 name: Pa55w0rd
-title: Pa55w0rd
+title: Pa55w0rd的博客
 description: > # this means to ignore newlines until "baseurl:"
   记录生活、总结学习经验
 permalink: ':title/'
 baseurl: "/" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
+
+# 永久链接
+permalink: /:year/:month/:day/:title/
 
 # Social
 facebook: #Add your Facebook
@@ -16,6 +19,9 @@ github: https://github.com/Pa55w0rd
 # Contact form
 email: pa55w0rd@aliyun.com
 
+# 页脚
+description_footer: 来自Pa55w0rd的博客！
+
 # Comments
 discus-identifier: # Add your Disqus identifier
 
@@ -25,6 +31,17 @@ paginate_path: /page:num/
 
 # Build settings
 markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+ # url
+category_dir: category/
+tag_dir: tag/
+  
+# excerpt
+excerpt_separator: "\n\n\n\n"  
+
 gems:
   - jekyll-feed
   - jekyll-paginate
