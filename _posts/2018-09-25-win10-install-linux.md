@@ -7,6 +7,9 @@ description: win10系统一周年正式版(1607)之后开始支持内置linux子
 categories: note
 ---
 
+* 目录
+{:toc}
+
 ## 0x00 描述 
 win10系统一周年正式版(1607)之后开始支持内置linux子系统，记录一些关键步骤和遇到的问题
 

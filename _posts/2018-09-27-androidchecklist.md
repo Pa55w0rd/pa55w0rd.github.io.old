@@ -7,6 +7,9 @@ description: Android APP安全checklist
 categories: 移动安全
 ---
 
+* 目录
+{:toc}
+
 # Checklist整理
 
 ## 一、静态扫描

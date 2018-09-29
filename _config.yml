@@ -32,8 +32,6 @@ paginate_path: /page:num/
 
 # Build settings
 markdown: kramdown
-highlighter: rouge
-excerpt_separator: <!--excerpt-->
 
  # url
 category_dir: category/
