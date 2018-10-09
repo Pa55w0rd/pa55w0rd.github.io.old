@@ -110,40 +110,40 @@ apt-get update && apt-get upgrade && apt-get dist-upgrade
 
 1. 安装公钥
 
-```# apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927```
+    ```# apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927```
 
-2. 添加3.2的源
+1. 添加3.2的源
 
-```# echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list```
+    ```# echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list```
 
-3. 安装数据库
+1. 安装数据库
 
-```# apt-get update && apt-get install -y mongodb-org```
+    ```# apt-get update && apt-get install -y mongodb-org```
 
 4. 启动mongodb服务
 
 
-默认情况下apt方式安装的mongodb会自动启动，查看是否启动成功
+    默认情况下apt方式安装的mongodb会自动启动，查看是否启动成功
 
-```# netstat -antlp | grep 27017```
+    ```# netstat -antlp | grep 27017```
 
-如果没有启动 
+    如果没有启动 
 
-```# systemctl start mongodb```
+    ```# systemctl start mongodb```
 
-设置开机启动
+    设置开机启动
 
-```# systemctl enable mongodb```
+    ```# systemctl enable mongodb```
 
 
-5. mongodb添加认证
-```
-# mongo
-> use xunfeng
-> db.createUser({user:'scan',pwd:'your password',roles:[{role:'dbOwner',db:'xunfeng'}]})
-> exit
-```
-这里的 scan和your password 需要更换为你的mongodb的账户和密码。
+1. mongodb添加认证
+    ```
+    # mongo
+    > use xunfeng
+    > db.createUser({user:'scan',pwd:'your password',roles:[    {role:'dbOwner',db:'xunfeng'}]})
+    > exit
+    ```
+    这里的 scan和your password 需要更换为你的mongodb的账户和密码。
 
 ## 0x02 部署
 
