@@ -31,8 +31,11 @@ Collecting MySQL-python
 
 ## 0x01 解决方法
 
-报错的原因是没有安装:libmysqlclient-dev
+报错的原因是没有安装
 ```
+centos 7
+yum install mysql-devel
+ubuntu
 apt-get install libmysqlclient-dev
 ```
 再执行pip install MySQL-python 安装成功
