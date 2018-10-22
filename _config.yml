@@ -3,6 +3,7 @@ name: Pa55w0rd
 title: Pa55w0rd的博客
 description: > # this means to ignore newlines until "baseurl:"
   记录生活、总结学习经验
+keyword: "信息安全，Pa55w0rd, web安全, 企业安全"
 permalink: ':title/'
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
@@ -25,6 +26,9 @@ description_footer: 来自Pa55w0rd的博客！
 
 # Comments
 discus-identifier: # Add your Disqus identifier
+
+# Search
+search: true
 
 # Paginate
 paginate: 5
