@@ -1,26 +1,11 @@
-Fresh is a free blog template for Jekyll
-=============================
+# 个人博客
 
-![](assets/img/fresh.jpg)
+一个小甲方信息安全工程师
 
-# Demo
+记录点点滴滴，东拼西凑总结和转载
 
-![GIF](assets/img/fresh.gif)
+如有侵权或其他问题请及时联系我，email：pa55w0rd@aliyun.com
 
-View this jekyll theme in action [here](http://artemsheludko.pw/fresh/)
+转载请注明出处
 
-Integrations
-  - [Google Fonts](https://fonts.google.com/)
-  - [Disqus](https://disqus.com/)
-  - [Font Awesome](http://fontawesome.io/)
-  - Social media links
-
-# How to Use
-
-  For those unfamiliar with how Jekyll works, check out [jekyllrb.com](https://jekyllrb.com/) for all the details,
-  or read up on just the basics of [front matter](https://jekyllrb.com/docs/frontmatter/), [writing posts](https://jekyllrb.com/docs/posts/),
-  and [creating pages](https://jekyllrb.com/docs/pages/).
-
-## License
-
-GNU General Public License v3.0
+![](assets/img/zanshang.jpg)
