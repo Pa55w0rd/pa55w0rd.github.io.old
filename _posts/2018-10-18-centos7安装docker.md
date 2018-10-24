@@ -113,6 +113,10 @@ Docker里比较重要的概念有**注册服务器、仓库、镜像、容器**�
         -i 交互式界面，默认是false
         -t 伪终端，默认false
         --name 容器别名，默认随机命名
+        -p 对外端口：docker内部端口
+
+        进入镜像内部操作
+        docker exec -it 容器别名 /bin/bash(镜像shell地址)
 
         exit 退出交互式界面，容器停止运行
         crtl + P 或Q推出交互式界面，容器在后台运行（PQ大写）
@@ -131,6 +135,16 @@ Docker里比较重要的概念有**注册服务器、仓库、镜像、容器**�
     docker rm 容器名  删除容器（删除时必须是停止状态）
     docker top 容器名 查看容器的进程
     docker inspect 容器名 查看docker的底层信息
+    docker commit 临时名 镜像名  保存镜像
+
+    将主机/www/jy 目录拷贝到容器aaa923a806ca的/www目录下
+    docker cp /www/jy aaa923a806ca:/www/
+    将主机/www/jy 目录拷贝到容器aaa923a806ca中，目录重命名www
+    docker cp /www/jy aaa923a806ca:/www
+    将容器aaa923a806ca的/www目录拷贝到主机的/tmp目录
+    docker cp aaa923a806ca:/www /tmp/
+
+
 
     ```
 2. 守护式容器
