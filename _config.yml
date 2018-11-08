@@ -37,6 +37,7 @@ paginate_path: /page:num/
 # Build settings
 markdown: kramdown
 
+highlighter: pygments
  # url
 category_dir: category/
 tag_dir: tag/
