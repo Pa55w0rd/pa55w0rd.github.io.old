@@ -63,3 +63,7 @@ git status
 ### 克隆远程仓库到本地
 
 git clone git@github.com:Pa55w0rd/pa55w0rd.github.io.git
+
+### 高级用法
+
+参考 [阮一峰_ 常用Git命令清单](http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html)
