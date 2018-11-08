@@ -23,3 +23,43 @@ https://github.com/Pa55w0rd/pa55w0rd.github.io.git
 origin  git+ssh://git@github.com/Pa55w0rd/pa55w0rd.github.io.git (fetch)
 origin  git+ssh://git@github.com/Pa55w0rd/pa55w0rd.github.io.git (push)
 ```
+
+
+## 基本使用
+
+### 建立远程仓库
+
+进入GitHub，点击右上角 + 号，选择New repository
+
+输入仓库名称，点击 Create repository
+
+### 建立本地仓库
+
+建立目录，将文件夹初始化为git可以管理的仓库
+
+git init
+
+### 与远程仓库关联
+
+git remote add origin git@github.com:Pa55w0rd/pa55w0rd.github.io.git
+
+### 添加到暂存区
+
+git add .   
+> 注意最后边的 .
+
+### 提交暂存区到仓库区
+
+git commit -m "init"
+
+### 上传本地仓库到远程仓库
+
+git push origin master
+
+### 显示变更的文件
+
+git status
+
+### 克隆远程仓库到本地
+
+git clone git@github.com:Pa55w0rd/pa55w0rd.github.io.git
