@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>centos7 安装docker - Pa55w0rd的博客</title>
+	<meta name="description" content="Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口。">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#2d2a2a">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#2d2a2a">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#2d2a2a">
+
+	<link href="https://fonts.googleapis.com/css?family=Finger+Paint|PT+Sans:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+  <div class="sidebar-container">
+    <div class="sidebar-logo">
+      <a href="/" class="logo">Pa55w0rd</a>
+    </div>
+
+    <menu class="sidebar-menu">
+      <li class="menu-items"><a class="menu-links" href="/">主页</a></li>
+      <li class="menu-items"><a class="menu-links" href="/list/">目录</a></li>
+      <li class="menu-items"><a class="menu-links" href="/about/">关于我</a></li>
+      <li class="menu-items"><a class="menu-links" href="https://github.com/Pa55w0rd/">Github 项目</a></li>
+    </menu>
+
+    <div class="sidebar-social">
+ <!--     <li class="social-items"><a href="https://www.facebook.com/" class="social-links"><i class="social-icons fa fa-facebook" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://twitter.com/" class="social-links"><i class="social-icons fa fa-twitter" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://plus.google.com/" class="social-links"><i class="social-icons fa fa-google-plus" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://github.com/https://github.com/Pa55w0rd" class="social-links"><i class="social-icons fa fa-github" aria-hidden="true"></i></a></li>
+-->
+		      <div>Copyright © 2018 www.pa55w0rd.club All Rights Reserved </div>
+	  <div>Email：pa55w0rd@aliyun.com </div>
+	</div>
+
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126660308-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126660308-1');
+</script>
+
+</aside>
+
+
+  <main role="main">
+    <div class="content">
+      <article class="page-article">
+  <div class="wrap-content">
+    <header class="page-header">
+      <h1 class="page-title">centos7 安装docker</h1>
+      <div class="page-date"><span>2018, Oct 18&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+    </header>
+    <div class="page-content">
+      
+      <ul id="markdown-toc">
+  <li><a href="#0x00-前言" id="markdown-toc-0x00-前言">0x00 前言</a></li>
+  <li><a href="#0x01-安装docker" id="markdown-toc-0x01-安装docker">0x01 安装docker</a></li>
+  <li><a href="#0x02-使用docker" id="markdown-toc-0x02-使用docker">0x02 使用docker</a></li>
+  <li><a href="#0x03-nginx部署示例" id="markdown-toc-0x03-nginx部署示例">0x03 Nginx部署示例</a></li>
+</ul>
+
+<h2 id="0x00-前言">0x00 前言</h2>
+<p>Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口。</p>
+
+<p>Docker从1.13版本之后采用时间线的方式作为版本号，分为社区版CE和企业版EE。</p>
+
+<p>社区版是免费提供给个人开发者和小型团体使用的，企业版会提供额外的收费服务，比如经过官方测试认证过的基础设施、容器、插件等。</p>
+
+<p>社区版按照stable和edge两种方式发布，每个季度更新stable版本，如17.06，17.09；每个月份更新edge版本，如17.09，17.10。</p>
+
+<p>Docker里比较重要的概念有<strong>注册服务器、仓库、镜像、容器</strong>。</p>
+
+<p><strong>仓库</strong>： 注册服务器是存放仓库的地方，其上往往存放着多个仓库。每个仓库集中存放某一类镜像，往往包括多个镜像文件，通过不同的标签（tag）来进行区分。例如存放Ubuntu操作系统镜像的仓库，称为Ubuntu仓库，其中可能包括14.04、12.04等不同版本的镜像。</p>
+
+<p><strong>镜像</strong>： Docker镜像（Image）类似于虚拟机镜像，可以将它理解为一个面向Docker引擎的只读模板，包含了文件系统。例如：一个镜像可以只包含一个完整的Ubuntu操作系统环境，可以把它称为一个Ubuntu镜像。</p>
+
+<p><strong>容器</strong>： 容器是从镜像创建的应用运行实例，可以将其启动、开始、停止、删除，而这些容器都是相互隔离、互不可见的。可以从一个镜像创建无数个容器。平时我们主要操作的就是容器。我们也可以把容器打包成镜像以方便再次使用。镜像自身是只读的。容器从镜像启动的时候，Docker会在镜像的最上层创建一个可写层，镜像本身将保持不变。</p>
+
+<h2 id="0x01-安装docker">0x01 安装docker</h2>
+
+<ol>
+  <li>
+    <p>Docker 要求64位。并且当CentOS7时你的内核必须不小于3.10，查看你的CentOS 版本是否支持 Docker 。</p>
+
+    <p>查看当前的内核版本</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code> # uname -r
+ 3.10.0-693.21.1.el7.x86_64
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>使用 root 权限登录 Centos。确保 yum 包更新到最新。</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code># yum -y update
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>安装和启动docker</p>
+
+    <p>centos7 支持使用yum安装，省事很多</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code> # yum install -y docker
+ # systemctl start docker
+ # systemctl enable docker
+</code></pre>
+    </div>
+  </li>
+  <li>验证是否安装成功
+    <div class="highlighter-rouge"><pre class="highlight"><code> # docker version
+
+ Client:
+  Version:         1.13.1
+  API version:     1.26
+  Package version: docker-1.13.1-75.git8633870.el7.centos.x86_64
+  Go version:      go1.9.4
+  Git commit:      8633870/1.13.1
+  Built:           Fri Sep 28 19:45:08 2018
+  OS/Arch:         linux/amd64
+
+ Server:
+  Version:         1.13.1
+  API version:     1.26 (minimum version 1.12)
+  Package version: docker-1.13.1-75.git8633870.el7.centos.x86_64
+  Go version:      go1.9.4
+  Git commit:      8633870/1.13.1
+  Built:           Fri Sep 28 19:45:08 2018
+  OS/Arch:         linux/amd64
+  Experimental:    false
+</code></pre>
+    </div>
+  </li>
+  <li>测试docker是否正常运行
+    <div class="highlighter-rouge"><pre class="highlight"><code> # docker run hello-world
+
+ Hello from Docker!
+ This message shows that your installation appears to be working correctly.
+</code></pre>
+    </div>
+  </li>
+</ol>
+
+<h2 id="0x02-使用docker">0x02 使用docker</h2>
+
+<ol>
+  <li>
+    <p>常用命令</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code> # 查找并拉取镜像
+ docker search ubuntu
+ docker pull ubuntu
+
+ # 查看所有可用镜像
+ docker images -a
+
+ # 删除镜像
+ docker rmi 容器ID 
+     -f强制删除
+
+ # 导出导入
+ docker save -o ubuntu_latest.tar ubuntu:latest
+ docker load --input ubuntu_latest.tar
+
+ # 从镜像中创建容器(每运行一次便创建一个新的容器)
+ docker run image
+ &gt; docker run ubuntu echo 'hellp world'  运行一个新的容器，并执行命令echo
+
+ &gt; docker run -it --name test ubuntu /bin/bash 以交互式终端运行一个新的容器，镜像ubuntu,使用bash，容器别名test
+     -i 交互式界面，默认是false
+     -t 伪终端，默认false
+     --name 容器别名，默认随机命名
+     -p 对外端口：docker内部端口
+
+     进入镜像内部操作
+     docker exec -it 容器别名 /bin/bash(镜像shell地址)
+
+     exit 退出交互式界面，容器停止运行
+     crtl + P 或Q推出交互式界面，容器在后台运行（PQ大写）
+
+ # 查看容器
+ docker ps 查看正在运行的容器
+ docker ps -a 查看所有容器
+ docker ps -l 查看最近一次运行的容器
+
+ # 其他操作
+ docker create 容器名或容器ID 创建容器
+ docker start 容器名 启动容器
+ docker run 容器名或容器ID 进入容器，相当于dcoker create + docker start
+ docker attach 容器名或容器ID 进入容器的命令行
+ docker stop 容器名 停止容器
+ docker rm 容器名  删除容器（删除时必须是停止状态）
+ docker top 容器名 查看容器的进程
+ docker inspect 容器名 查看docker的底层信息
+ docker commit 临时名 镜像名  保存镜像
+
+ 将主机/www/jy 目录拷贝到容器aaa923a806ca的/www目录下
+ docker cp /www/jy aaa923a806ca:/www/
+ 将主机/www/jy 目录拷贝到容器aaa923a806ca中，目录重命名www
+ docker cp /www/jy aaa923a806ca:/www
+ 将容器aaa923a806ca的/www目录拷贝到主机的/tmp目录
+ docker cp aaa923a806ca:/www /tmp/
+
+
+
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>守护式容器</p>
+
+    <p>我们可以使用守护式容器运行一个或者多个服务，例如运行lamp服务、redis服务、mysql服务等。</p>
+
+    <ul>
+      <li>能够长期运行</li>
+      <li>没有交互式会话</li>
+      <li>适合运行应用程序和服务</li>
+    </ul>
+
+    <p>启动守护式容器<br />
+ <code class="highlighter-rouge">docker run -d image</code><br />
+ -d 让容器在后台运行</p>
+
+    <p>查看守护进行的运行状况<br />
+ <code class="highlighter-rouge">docker logs [-f] [-t] [--tail] 容器名或id</code><br />
+ 查看容器内WEB应用程序日志</p>
+    <ul>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>-f –follow=true</td>
+              <td>false,默认false,一直跟随log变化</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>-t –timestamps=true</td>
+              <td>false,默认false,加上时间戳</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>–tail=”all”,返回最新多少条日志</li>
+    </ul>
+
+    <p>在容器中启动新的进程<br />
+ <code class="highlighter-rouge">docker exec [-d] [-i] [-t] 容器名 [COMMOND] [ARG...]</code></p>
+
+    <p>停止守护式进程<br />
+ <code class="highlighter-rouge">docker stop 容器名</code>      发送停止信号，等待关闭<br />
+ <code class="highlighter-rouge">docker kill 容器名 </code>     直接关闭容器</p>
+  </li>
+</ol>
+
+<h2 id="0x03-nginx部署示例">0x03 Nginx部署示例</h2>
+<div class="highlighter-rouge"><pre class="highlight"><code>```
+# 创建映射端口为80的交互式界面：
+docker run -p 80 --name web -i -t ubuntu /bin/bash
+
+# 第一次使用更新源
+apt-get update
+
+# 安装nginx
+apt-get install nginx
+
+# 安装vim
+apt-get install vim
+
+whereis nginx
+nginx: /usr/sbin/nginx /etc/nginx /usr/share/nginx
+
+# 配置文件
+vim /etc/nginx/conf.d/localhost.conf
+
+    server {
+        listen       80;
+        server_name  localhost;
+
+        location / {
+            root   /var/www/; 
+            index  index.html index.htm;
+        }   
+
+    }
+
+# 创建一个新目录
+mkdir -p /var/www/
+vim /var/www/index.html
+
+# 启动nginx
+nginx
+
+# 使用Crtl+P(即Crtl+shift+p)退出容器，并后台运行。
+
+# 查看 
+docker port web
+docker top web
+
+``` ## 0x04 镜像加速器
+
+某些原因，需要使用加速器&lt;br&gt;
+`https://dev.aliyun.com/`
+
+登陆进入管理控制台就能看到了，按照操作文档进行加速器设置
+</code></pre>
+</div>
+
+    </div>
+    
+
+	
+	<div class="share-component" data-disabled="" data-description="Share.js - 一键分享到微博，QQ空间，腾讯微博，人人，豆瓣">一键分享</div>
+	
+
+
+	<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pa55w0rd.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//pa55w0rd.disqus.com/count.js" async></script>
+
+
+  </div>
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+<!--
+<script language=JavaScript>
+
+var caution = false
+function setCookie(name, value, expires, path, domain, secure) {
+var curCookie = name + "=" + escape(value) +
+((expires) ? "; expires=" + expires.toGMTString() : "") +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+((secure) ? "; secure" : "")
+if (!caution || (name + "=" + escape(value)).length <= 4000)
+document.cookie = curCookie
+else
+if (confirm("Cookie exceeds 4KB and will be cut!"))
+document.cookie = curCookie
+}
+function getCookie(name) {
+var prefix = name + "="
+var cookieStartIndex = document.cookie.indexOf(prefix)
+if (cookieStartIndex == -1)
+return null
+var cookieEndIndex = document.cookie.indexOf(";", cookieStartIndex + prefix.length)
+if (cookieEndIndex == -1)
+cookieEndIndex = document.cookie.length
+return unescape(document.cookie.substring(cookieStartIndex + prefix.length, cookieEndIndex))
+}
+function deleteCookie(name, path, domain) {
+if (getCookie(name)) {
+document.cookie = name + "=" +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+"; expires=Thu, 01-Jan-70 00:00:01 GMT"
+}
+}
+function fixDate(date) {
+var base = new Date(0)
+var skew = base.getTime()
+if (skew > 0)
+date.setTime(date.getTime() - skew)
+}
+var now = new Date()
+fixDate(now)
+now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000)
+var visits = getCookie("counter")
+if (!visits)
+visits = 1
+else
+visits = parseInt(visits) + 1
+setCookie("counter", visits, now)
+document.write("您是第" + visits + "位访问本篇文章的！")
+
+</script>
+-->
+
+</article>
+
+    </div>
+  </main>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+</body>
+</html>

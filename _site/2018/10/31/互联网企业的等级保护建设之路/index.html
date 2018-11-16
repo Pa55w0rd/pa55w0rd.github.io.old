@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>互联网企业的等级保护建设之路（转发） - Pa55w0rd的博客</title>
+	<meta name="description" content="随着互联网企业的迅猛发展，其自身核心业务安全性的不断提升和行业监管力度的不断加强，如何应对与日俱增的内部需求和外部驱动，本文分析了互联网企业面临的安全威胁及合规监管，以及业内现有的针对该行业的安全建设内容，然后提出了我们基于三级等保的互联网企业信息安全建设思路，从整体上发现并解决互联网行业的安全问题。">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#2d2a2a">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#2d2a2a">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#2d2a2a">
+
+	<link href="https://fonts.googleapis.com/css?family=Finger+Paint|PT+Sans:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+  <div class="sidebar-container">
+    <div class="sidebar-logo">
+      <a href="/" class="logo">Pa55w0rd</a>
+    </div>
+
+    <menu class="sidebar-menu">
+      <li class="menu-items"><a class="menu-links" href="/">主页</a></li>
+      <li class="menu-items"><a class="menu-links" href="/list/">目录</a></li>
+      <li class="menu-items"><a class="menu-links" href="/about/">关于我</a></li>
+      <li class="menu-items"><a class="menu-links" href="https://github.com/Pa55w0rd/">Github 项目</a></li>
+    </menu>
+
+    <div class="sidebar-social">
+ <!--     <li class="social-items"><a href="https://www.facebook.com/" class="social-links"><i class="social-icons fa fa-facebook" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://twitter.com/" class="social-links"><i class="social-icons fa fa-twitter" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://plus.google.com/" class="social-links"><i class="social-icons fa fa-google-plus" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://github.com/https://github.com/Pa55w0rd" class="social-links"><i class="social-icons fa fa-github" aria-hidden="true"></i></a></li>
+-->
+		      <div>Copyright © 2018 www.pa55w0rd.club All Rights Reserved </div>
+	  <div>Email：pa55w0rd@aliyun.com </div>
+	</div>
+
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126660308-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126660308-1');
+</script>
+
+</aside>
+
+
+  <main role="main">
+    <div class="content">
+      <article class="page-article">
+  <div class="wrap-content">
+    <header class="page-header">
+      <h1 class="page-title">互联网企业的等级保护建设之路（转发）</h1>
+      <div class="page-date"><span>2018, Oct 31&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+    </header>
+    <div class="page-content">
+      
+      <blockquote>
+  <p>From : http://blog.nsfocus.net/construction-grade-protection-internet-enterprises/</p>
+</blockquote>
+
+<ul id="markdown-toc">
+  <li><a href="#0x00-前言" id="markdown-toc-0x00-前言">0x00 前言</a></li>
+  <li><a href="#0x01-序-互联网企业的兴盛与隐患" id="markdown-toc-0x01-序-互联网企业的兴盛与隐患">0x01 序-互联网企业的兴盛与隐患</a></li>
+  <li><a href="#0x02-起-黑客重点攻击的行业目标" id="markdown-toc-0x02-起-黑客重点攻击的行业目标">0x02 起-黑客重点攻击的行业目标</a></li>
+  <li><a href="#0x03-转-国家信息安全的基本保障制度" id="markdown-toc-0x03-转-国家信息安全的基本保障制度">0x03 转-国家信息安全的基本保障制度</a></li>
+  <li><a href="#0x04-赋-等级保护之于互联网企业的意义" id="markdown-toc-0x04-赋-等级保护之于互联网企业的意义">0x04 赋-等级保护之于互联网企业的意义</a></li>
+  <li><a href="#0x05-比-互联网企业的等级保护解决方案" id="markdown-toc-0x05-比-互联网企业的等级保护解决方案">0x05 比-互联网企业的等级保护解决方案</a></li>
+  <li><a href="#0x06-兴-巨人背后的安全专家" id="markdown-toc-0x06-兴-巨人背后的安全专家">0x06 兴-巨人背后的安全专家</a></li>
+  <li><a href="#0x07-终-nsfocus-伴您扬帆远航" id="markdown-toc-0x07-终-nsfocus-伴您扬帆远航">0x07 终-NSFOCUS 伴您扬帆远航</a></li>
+</ul>
+
+<h2 id="0x00-前言">0x00 前言</h2>
+
+<p>随着互联网企业的迅猛发展，其自身核心业务安全性的不断提升和行业监管力度的不断加强，如何应对与日俱增的内部需求和外部驱动，本文分析了互联网企业面临的安全威胁及合规监管，以及业内现有的针对该行业的安全建设内容，然后提出了我们基于三级等保的互联网企业信息安全建设思路，从整体上发现并解决互联网行业的安全问题。</p>
+
+<h2 id="0x01-序-互联网企业的兴盛与隐患">0x01 序-互联网企业的兴盛与隐患</h2>
+
+<p>1994年，中国通过一条64K的国际专线接入互联网。20年后，互联网带给整个中国经济模式的改变已经影响到了社会的方方面面。可以说，互联网极大地改变了中国，而这种改变仍在继续。</p>
+
+<p>中国拥有庞大的网民数量，大量的需求被创造，给新的互联网行业形态出现奠定良好基础。其次，中国互联网行业的商业模式日渐成熟。网络广告、搜索引擎、电子商务、网络支付等业务日渐被人接受，各大互联网公司从各自核心领域优势向这几个方面渗透，形成有序竞争，带动互联网行业良性发展。再次，中国网络基础设施的建设、4G/5G互联网的发展、国家政策的扶持规划，均给整个互联网行业创造了一个非常好的前景。</p>
+
+<p>中国的互联网企业发展迅速，目前已有多家跻身全球互联网公司市值排行榜top10中，像大家熟知的阿里巴巴、京东、腾讯及百度均榜上有名。</p>
+
+<p><img src="http://blog.nsfocus.net/wp-content/uploads/2017/01/1-300x169.jpg" alt="" /></p>
+
+<p>相对于传统行业，互联网行业还显得很年轻，在一派欣欣向荣的快速发展背后，互联网行业同时隐藏着让人难以捉摸的巨大的安全风险，由于技术和监管的诸多问题，使得该行业已陷入危机四伏的困境中。</p>
+
+<p>2016年4月3日，土耳其爆发重大数据泄露事件，近5000W土耳其公民个人信息被黑客打包放置网络上任人下载。为证明被盗数据的真实性，黑客还公布土耳其现任总统埃尔多安的个人信息以作示范。</p>
+
+<p>2016年7月29日，越南两个机场被黑客攻击，这是越南遭受迄今最严重的黑客攻击事件。黑客通过攻陷机场电子显示屏及广播系统，散发“南海是中国的固有领土”等信息，给机场候机的乘客带来视觉和听觉上的冲击，造成的混乱远超常见的攻击网页行为。</p>
+
+<p>而在最近披露的一项报道中，俄罗斯黑客成功盗取了2.723亿个帐号，以俄罗斯最受欢迎的电子邮件服务Mail.ru用户为主，此外还有Gmail地址、雅虎以及微软电邮Hotmail用户。数以亿计的数据目前正在“俄罗斯的地下黑市”出售。</p>
+
+<p>不只是境外企业，国内互联网企业也正在成为最大的受害者。2016上半年，全国互联网企业安全漏洞总量同比增长181.9%。相关人士表示，目前互联网行业存在很大的安全隐患，而且伴随着相当程度的数据泄露风险。</p>
+
+<p><img src="http://blog.nsfocus.net/wp-content/uploads/2017/01/2-300x169.jpg" alt="" /></p>
+
+<h2 id="0x02-起-黑客重点攻击的行业目标">0x02 起-黑客重点攻击的行业目标</h2>
+
+<p>作为一种新生事物，互联网企业起步于民营企业，很多小平台风险意识淡薄，把关注重点放在扩大客户规模、赚取利润上。而技术防护则严重缺失，另外出于成本考虑，大多数企业采用廉价的开源系统，这些系统存在大量风险漏洞，安全性严重缺乏保障，企业数据安全岌岌可危。那么知名大企业又如何呢？随着互联网技术的发展，黑客技术也在升级，企业投入巨大财力和人力研发的系统，同样存在不可预知的问题。因此，也不可避免的遭受黑客的恶意攻击。近年来，知名大企业数据泄露事件频频发生，逐年增多。</p>
+
+<p><img src="http://blog.nsfocus.net/wp-content/uploads/2017/01/3-300x169.jpg" alt="" /></p>
+
+<p>据调查统计，黑客攻击互联网企业平台的目的主要为窃取数据，占比高达48%，其次为敲诈勒索和商业竞争。</p>
+
+<p>通过攻陷大批互联网企业平台，引起系统瘫痪，黑客还能将数据恶意修改、洗劫一空。此外，黑客还可能通过申请账号、篡改数据、冒充投资人进行恶意提现甚至盗取资金。</p>
+
+<p>企业数据泄露，造成的不只是业务的巨大损失，更为重要的是信誉上的丧失。互联网企业的门户网站作为信誉展示的首要平台，如果因为网站信息泄露、宕机、页面篡改等原因导致用户信任丧失，那么平台也就丢失了本身的信誉，成为无源之水。</p>
+
+<p>因此，互联网企业如何有效保护信息安全，事关企业生死存亡。</p>
+
+<h2 id="0x03-转-国家信息安全的基本保障制度">0x03 转-国家信息安全的基本保障制度</h2>
+
+<p>互联网行业是需要依托互联网的，其核心业务需要IT系统的支撑，因此安全是首当其冲的。而等级保护是国家推行的在Cyber空间安全的强制保护制度，其最终目的是保护信息系统和基础信息网络不受到侵害，保护用户的业务数据和系统的服务功能。</p>
+
+<p><img src="http://blog.nsfocus.net/wp-content/uploads/2017/01/4-300x56.jpg" alt="" /></p>
+
+<p>从1994年国务院颁布的《中华人民共和国计算机信息系统安全保护条例》（147号令）开始，到今年（2016年）10月份在昆明举办的由公安部网络安全保卫局、中央网信办网络安全协调局、工信部网络安全管理局、国家密码管理局、国家保密局、中国科学院办公厅为指导单位和由公安部第三研究所主办的第五届全国信息安全等级保护技术大会上提出的进入等级保护制度2.0时代为止，等级保护这一项国家政策已经走过逾20个年头，等级保护不仅是对信息安全产品或系统的检测、评估以及定级，更重要的，它是围绕信息安全保障全过程的一项基础性的国家管理制度，是一项基础性和制度性的工作。</p>
+
+<p>如何帮助互联网企业有效的防范网络入侵、网络拒绝服务攻击以及网络非法监听等恶意网络行为，就有必要了解相应的合规要求。而国家等级保护标准中对于网络安全方面的要求，特别是对网络安全管理、访问控制、入侵防范、网络设备防护、安全审计的相关条款对于和网络密不可分的互联网企业来说，确实有着十分重要且重大的意义。</p>
+
+<h2 id="0x04-赋-等级保护之于互联网企业的意义">0x04 赋-等级保护之于互联网企业的意义</h2>
+
+<p>在互联网产业不断融合的态势下，互联网跨界融合竞争的趋势越发凸显，线上与线下问题不断交织，新现象、新问题不断涌现，政府的管理也面临前所未有的挑战。因此从2015年，工信部开始进一步加强和改进互联网行业管理，促进互联网企业良性有序发展。”</p>
+
+<p>信息安全是永远不变的话题，工信部部长苗圩认为应该高度重视我们所面临的严峻安全形势，大力提升网络与信息安全的保障能力。“促进互联网融合发展，安全是基础，更是保障，必须处理好安全与发展的关系，做到协调一致。不断健全互联网行业网络和信息安全机制，持续推进信息安全和体制化建设，推动完善网络安全的法律法规、标准体系，严格落实互联网企业信息安全的责任，加强网络信息安全监管和网络环境的综合治理。”</p>
+
+<p>除却自身发展面临的网络安全问题，国家有关部门对互联网行业网络安全方面的监管力度也逐年增加。在内部需求和外部监管的双重压力下，加快互联网企业信息安全等级保护建设显得迫在眉睫。</p>
+
+<p>国家等级保护的核心思想：</p>
+
+<ul>
+  <li>全方位划分安全等级是实施信息安全等级保护的基本条件；</li>
+  <li>信息系统等级化安全设计是实施信息安全等级保护的基本方法。</li>
+  <li>信息安全技术和信息安全管理是实现信息系统安全的基础。企业必须根据安全建设目标将需求分析结果进行逐步细化，并转化为信息安全体系建设的总体安全策略，根据登记保护建设的具体要求，可以形成技术层面的安全管理和管理层面的安全策略并通过总体安全策略的落实构建安全技术体系和安全管理体系框架。对于互联网企业来说，实施信息安全等级保护测评能够有效地提高企业信息系统安全建设的整体水平，有效控制企业信息安全建设成本；有利于明确国家、法人和其他组织、公民的信息安全责任，加强企业信息安全管理。</li>
+  <li>对于企业的信息系统来说，通过等级保护测评可及时发现信息系统安全状况并制定方案进行整改，当信息系统完全达到安全保护能力要求时，信息系统就基本可做到“<strong>进不来、拿不走、改不了、看不懂、跑不了、可审计、打不垮</strong>”。</li>
+  <li>对抗能力和恢复能力已然构成了信息系统的安全保护能力。安全保护能力主要表现为信息系统应对威胁的能力，但当信息系统无法阻挡威胁对自身的破坏时，信息系统的恢复能力使系统在一定时间内恢复到原有状态，从而降低负面影响。</li>
+  <li>对信息安全技术和信息安全管理进行等级划分是信息系统安全等级保护的需要，也是对信息安全技术和信息安全管理进行规范化的需要。</li>
+</ul>
+
+<h2 id="0x05-比-互联网企业的等级保护解决方案">0x05 比-互联网企业的等级保护解决方案</h2>
+
+<p>按照国家信息安全等级保护的相关标准，互联网企业一般通过第三方测评机构或安全厂商按照如下流程进行等保建设：</p>
+
+<p><img src="http://blog.nsfocus.net/wp-content/uploads/2017/01/5-300x99.jpg" alt="" /></p>
+
+<p>同时，按照等级保护中针对技术和管理的不同要求，应持续开展如下工作：</p>
+
+<ul>
+  <li>【保障基础设施安全】保障网络周边环境和物理特性引起的网络设备和线路的持续使用。</li>
+  <li>【保障网络连接安全】保障网络传输中的安全，尤其保障网络边界和外部接入中的安全。</li>
+  <li>【保障计算环境的安全】保障操作系统、数据库、服务器、用户终端及相关商用产品的安全。</li>
+  <li>【保障应用系统安全】保障应用程序层对网络信息的保密性、完整性和信源的真实的保护和鉴别，防止和抵御各种安全威胁和攻击手段，在一定程度上弥补和完善现有操作系统和网络信息系统的安全风险。</li>
+  <li>【保障数据安全及备份恢复】保障数据完整性、数据保密性、备份和恢复等。</li>
+  <li>【安全管理体系保障】根据国家有关信息安全等级保护方面的标准和规范要求，建立一套切实可行的安全管理体系，加强安全管理机制。</li>
+</ul>
+
+<h2 id="0x06-兴-巨人背后的安全专家">0x06 兴-巨人背后的安全专家</h2>
+
+<p>针对互联网企业的信息安全等级保护建设，绿盟科技作为国内安全厂商当仁不让的领军品牌，基于对信息安全的深刻理解，以为互联网客户信息系统构建“等级化的安全体系”为等级保护工作的服务理念，旨在根据等级保护不同等级、不同阶段的业务特性、安全需求及安全应用重点，为互联网客户在等级保护的框架下构建一个安全、可靠、灵活、可持续改进的信息安全体系。</p>
+
+<p><img src="http://blog.nsfocus.net/wp-content/uploads/2017/01/6-300x169.jpg" alt="" /></p>
+
+<p>由于网约车新政的落地实施，交管局明令要求各大网约车平台尽可能快的进行线上业务系统的三级等级保护测评，因为最终测评通过与否关系着该平台营业执照的办理。</p>
+
+<p>以下以易到租车为例，详细阐述绿盟科技针对互联网用户的信息安全等级保护建设。</p>
+
+<p>各网约车平台由于自身业务系统的差异，对预约系统应用架构会有不同的设计，但基本的技术构成是类似的，其各部分的功能也相似。</p>
+
+<p><img src="http://blog.nsfocus.net/wp-content/uploads/2017/01/7-300x169.jpg" alt="" /></p>
+
+<p>针对易到租车预约APP核心应用的等保三级安全建设，绿盟科技本着“重点防护，纵深防御”的原则，在各服务器区以防火墙作为区域安全边界，为提高预约业务的整体安全性，各区域边界防火墙采用功能与性能兼备的产品，由此在整体布局上形成了“多层异构防火墙”安全架构。从业务功能上考虑，把这种安全架构划分成四个安全区域：互联网接入区、DMZ区（接入WEB服务器、RA服务器）、核心业务区（接入APP服务器、DB服务器）、数据中心内网区。</p>
+
+<p><img src="http://blog.nsfocus.net/wp-content/uploads/2017/01/8-300x169.jpg" alt="" /></p>
+
+<p><strong>互联网接入区：</strong></p>
+
+<ul>
+  <li>部署链路分担设备，提供多ISP的互联网接入。</li>
+  <li>部署流量清洗，防御DDOS攻击</li>
+  <li>部署外网边界防火墙，实现互联网与DMZ区隔离</li>
+</ul>
+
+<p><strong>DMZ区：</strong></p>
+
+<ul>
+  <li>部署WAF，为WEB服务器提供深层次的安全保护；</li>
+  <li>部署WEB-APP边界防火墙，实现DMZ与核心业务区的隔离；</li>
+</ul>
+
+<p><strong>核心业务区</strong></p>
+
+<ul>
+  <li>APP服务器与DB服务器间可部署防火墙实现访问控制；</li>
+  <li>部署内网边界防火墙，实现核心业务区与数据中心服务器区间的隔离；</li>
+  <li>DB服务器旁路接入DAS，实现对数据库的监听与审计</li>
+</ul>
+
+<p><strong>数据中心内网区</strong></p>
+
+<ul>
+  <li>采用“核心 —— 边缘”分区模块化架构，各服务器区围绕网络核心区部署，</li>
+  <li>各服务器区与网络核心区之间通过防火墙做访问控制；</li>
+  <li>内网核心旁路接入SAS-H，实现对IP可达的所有设备的单点登录及运维审计</li>
+</ul>
+
+<p><img src="http://blog.nsfocus.net/wp-content/uploads/2017/01/9-300x169.jpg" alt="" /></p>
+
+<p>安全技术手段作为支撑，辅以绿盟科技等保咨询服务，为客户搭建信息安全管理与策略体系。如此双管齐下，既能满足国家信息安全等级保护相关政策与标准要求，又可为客户搭建等级化的安全保障体系，在全面防护中突出重点，帮助客户最终通过等保三级测评，不仅提升了安全防护能力，也间接增强了客户的核心竞争力。</p>
+
+<h2 id="0x07-终-nsfocus-伴您扬帆远航">0x07 终-NSFOCUS 伴您扬帆远航</h2>
+
+<p>互联网行业的三级安全等保技术要求，既有与其它行业要求的共性，又有其自己的特点。</p>
+
+<p>三级等保对于互联网企业既是一次命题考试，又是一次切实提升企业安全能力的好机会。作为等保技术要求的主要部分——网络安全，因其分散、覆盖面广和难以管理，也是整个等保安全的难点。绿盟科技从网络与安全融合、终端与边界融合、集中与分级融合等多个维度，覆盖了包括结构安全、访问控制、安全审计、边界完整性、入侵防范、恶意代码入侵和设备防护在内的绝大多数技术要求，为互联网客户提供完整的三级等保解决方案方案。</p>
+
+
+    </div>
+    
+
+	
+	<div class="share-component" data-disabled="" data-description="Share.js - 一键分享到微博，QQ空间，腾讯微博，人人，豆瓣">一键分享</div>
+	
+
+
+	<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pa55w0rd.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//pa55w0rd.disqus.com/count.js" async></script>
+
+
+  </div>
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+<!--
+<script language=JavaScript>
+
+var caution = false
+function setCookie(name, value, expires, path, domain, secure) {
+var curCookie = name + "=" + escape(value) +
+((expires) ? "; expires=" + expires.toGMTString() : "") +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+((secure) ? "; secure" : "")
+if (!caution || (name + "=" + escape(value)).length <= 4000)
+document.cookie = curCookie
+else
+if (confirm("Cookie exceeds 4KB and will be cut!"))
+document.cookie = curCookie
+}
+function getCookie(name) {
+var prefix = name + "="
+var cookieStartIndex = document.cookie.indexOf(prefix)
+if (cookieStartIndex == -1)
+return null
+var cookieEndIndex = document.cookie.indexOf(";", cookieStartIndex + prefix.length)
+if (cookieEndIndex == -1)
+cookieEndIndex = document.cookie.length
+return unescape(document.cookie.substring(cookieStartIndex + prefix.length, cookieEndIndex))
+}
+function deleteCookie(name, path, domain) {
+if (getCookie(name)) {
+document.cookie = name + "=" +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+"; expires=Thu, 01-Jan-70 00:00:01 GMT"
+}
+}
+function fixDate(date) {
+var base = new Date(0)
+var skew = base.getTime()
+if (skew > 0)
+date.setTime(date.getTime() - skew)
+}
+var now = new Date()
+fixDate(now)
+now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000)
+var visits = getCookie("counter")
+if (!visits)
+visits = 1
+else
+visits = parseInt(visits) + 1
+setCookie("counter", visits, now)
+document.write("您是第" + visits + "位访问本篇文章的！")
+
+</script>
+-->
+
+</article>
+
+    </div>
+  </main>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+</body>
+</html>

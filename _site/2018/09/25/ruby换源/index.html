@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>ruby换源、安装jekyll - Pa55w0rd的博客</title>
+	<meta name="description" content="ruby换源问题，百度了一堆教程都是换taobao源，但是taobao源已经停止维护了。。。">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#2d2a2a">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#2d2a2a">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#2d2a2a">
+
+	<link href="https://fonts.googleapis.com/css?family=Finger+Paint|PT+Sans:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+  <div class="sidebar-container">
+    <div class="sidebar-logo">
+      <a href="/" class="logo">Pa55w0rd</a>
+    </div>
+
+    <menu class="sidebar-menu">
+      <li class="menu-items"><a class="menu-links" href="/">主页</a></li>
+      <li class="menu-items"><a class="menu-links" href="/list/">目录</a></li>
+      <li class="menu-items"><a class="menu-links" href="/about/">关于我</a></li>
+      <li class="menu-items"><a class="menu-links" href="https://github.com/Pa55w0rd/">Github 项目</a></li>
+    </menu>
+
+    <div class="sidebar-social">
+ <!--     <li class="social-items"><a href="https://www.facebook.com/" class="social-links"><i class="social-icons fa fa-facebook" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://twitter.com/" class="social-links"><i class="social-icons fa fa-twitter" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://plus.google.com/" class="social-links"><i class="social-icons fa fa-google-plus" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://github.com/https://github.com/Pa55w0rd" class="social-links"><i class="social-icons fa fa-github" aria-hidden="true"></i></a></li>
+-->
+		      <div>Copyright © 2018 www.pa55w0rd.club All Rights Reserved </div>
+	  <div>Email：pa55w0rd@aliyun.com </div>
+	</div>
+
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126660308-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126660308-1');
+</script>
+
+</aside>
+
+
+  <main role="main">
+    <div class="content">
+      <article class="page-article">
+  <div class="wrap-content">
+    <header class="page-header">
+      <h1 class="page-title">ruby换源、安装jekyll</h1>
+      <div class="page-date"><span>2018, Sep 25&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+    </header>
+    <div class="page-content">
+      
+      <ul id="markdown-toc">
+  <li><a href="#0x00-描述" id="markdown-toc-0x00-描述">0x00 描述</a></li>
+  <li><a href="#0x01-安装ruby" id="markdown-toc-0x01-安装ruby">0x01 安装ruby</a></li>
+  <li><a href="#0x02-切换ruby源" id="markdown-toc-0x02-切换ruby源">0x02 切换ruby源</a></li>
+  <li><a href="#0x03-安装jekyll" id="markdown-toc-0x03-安装jekyll">0x03 安装jekyll</a>    <ul>
+      <li><a href="#先安装依赖包管理工具bundler" id="markdown-toc-先安装依赖包管理工具bundler">先安装依赖包管理工具bundler</a></li>
+      <li><a href="#安装jekyll" id="markdown-toc-安装jekyll">安装jekyll</a></li>
+    </ul>
+  </li>
+  <li><a href="#0x04-jekyll使用" id="markdown-toc-0x04-jekyll使用">0x04 jekyll使用</a></li>
+  <li><a href="#0x05-其他方式-rvm安装ruby" id="markdown-toc-0x05-其他方式-rvm安装ruby">0x05 其他方式 rvm安装ruby</a></li>
+</ul>
+
+<h2 id="0x00-描述">0x00 描述</h2>
+
+<p>jekyll是一个静态网站生成工具，可以通过markdown编写文档，使用模板自定义网站结构，通过sass或css自定义格式。jekyll是用ruby编写的工具，因此在安装jekyll之前需要安装ruby环境，由于官方源访问问题，需要切换国内源。</p>
+
+<h2 id="0x01-安装ruby">0x01 安装ruby</h2>
+<div class="highlighter-rouge"><pre class="highlight"><code>apt-get install ruby
+apt-get install ruby-dev (ubuntu)
+apt-get install ruby-devel (centos)
+</code></pre>
+</div>
+
+<h2 id="0x02-切换ruby源">0x02 切换ruby源</h2>
+<div class="highlighter-rouge"><pre class="highlight"><code>gem sources -l   # 查看当前已经添加的源
+gem sources -r https://rubygems.org/  # 移除官方源
+gem sources -a http://gems.ruby-china.com   # 添加ruby china源，HTTP\HTTPs
+gem sources -u    #刷新
+gem sources -l   # 查看是否添加成功
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>如果使用bundler，需要
+bundle config mirror.https://rubygems.org https://gems.ruby-china.com
+</code></pre>
+</div>
+<h2 id="0x03-安装jekyll">0x03 安装jekyll</h2>
+
+<h3 id="先安装依赖包管理工具bundler">先安装依赖包管理工具bundler</h3>
+<div class="highlighter-rouge"><pre class="highlight"><code>gem install bundler
+</code></pre>
+</div>
+<h3 id="安装jekyll">安装jekyll</h3>
+<div class="highlighter-rouge"><pre class="highlight"><code>gem install jekyll
+</code></pre>
+</div>
+
+<h2 id="0x04-jekyll使用">0x04 jekyll使用</h2>
+
+<p><a href="http://jekyllthemes.org/">jekyll主题</a></p>
+
+<p><a href="https://www.jekyll.com.cn/docs/home/">jekyll使用文档</a></p>
+
+<hr />
+
+<h2 id="0x05-其他方式-rvm安装ruby">0x05 其他方式 rvm安装ruby</h2>
+<ol>
+  <li>安装rvm</li>
+</ol>
+
+<p><code class="highlighter-rouge">curl -sSL https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer | bash</code></p>
+
+<p><code class="highlighter-rouge">source /usr/local/rvm/scripts/rvm</code></p>
+
+<ol>
+  <li>查看rvm库中已知的ruby版本</li>
+</ol>
+
+<p><code class="highlighter-rouge">rvm list known</code></p>
+
+<ol>
+  <li>安装一个ruby</li>
+</ol>
+
+<p><code class="highlighter-rouge">rvm install 2.5.1</code></p>
+
+<ol>
+  <li>使用一个ruby版本</li>
+</ol>
+
+<p><code class="highlighter-rouge">rvm use 2.5.1</code></p>
+
+<p><code class="highlighter-rouge">ruby --version</code></p>
+
+<ol>
+  <li>安装jekyll</li>
+</ol>
+
+<p><code class="highlighter-rouge">gem install jekyll</code></p>
+
+    </div>
+    
+
+	
+	<div class="share-component" data-disabled="" data-description="Share.js - 一键分享到微博，QQ空间，腾讯微博，人人，豆瓣">一键分享</div>
+	
+
+
+	<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pa55w0rd.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//pa55w0rd.disqus.com/count.js" async></script>
+
+
+  </div>
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+<!--
+<script language=JavaScript>
+
+var caution = false
+function setCookie(name, value, expires, path, domain, secure) {
+var curCookie = name + "=" + escape(value) +
+((expires) ? "; expires=" + expires.toGMTString() : "") +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+((secure) ? "; secure" : "")
+if (!caution || (name + "=" + escape(value)).length <= 4000)
+document.cookie = curCookie
+else
+if (confirm("Cookie exceeds 4KB and will be cut!"))
+document.cookie = curCookie
+}
+function getCookie(name) {
+var prefix = name + "="
+var cookieStartIndex = document.cookie.indexOf(prefix)
+if (cookieStartIndex == -1)
+return null
+var cookieEndIndex = document.cookie.indexOf(";", cookieStartIndex + prefix.length)
+if (cookieEndIndex == -1)
+cookieEndIndex = document.cookie.length
+return unescape(document.cookie.substring(cookieStartIndex + prefix.length, cookieEndIndex))
+}
+function deleteCookie(name, path, domain) {
+if (getCookie(name)) {
+document.cookie = name + "=" +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+"; expires=Thu, 01-Jan-70 00:00:01 GMT"
+}
+}
+function fixDate(date) {
+var base = new Date(0)
+var skew = base.getTime()
+if (skew > 0)
+date.setTime(date.getTime() - skew)
+}
+var now = new Date()
+fixDate(now)
+now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000)
+var visits = getCookie("counter")
+if (!visits)
+visits = 1
+else
+visits = parseInt(visits) + 1
+setCookie("counter", visits, now)
+document.write("您是第" + visits + "位访问本篇文章的！")
+
+</script>
+-->
+
+</article>
+
+    </div>
+  </main>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+</body>
+</html>

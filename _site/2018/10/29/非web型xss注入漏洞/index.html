@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>看！这里有三种非Web型的XSS注入漏洞 （转发） - Pa55w0rd的博客</title>
+	<meta name="description" content="通常情况下，当讨论应用程序的安全性时，我们都知道“永远不要信任任何数据输入”这道圣谕；遗憾的是，并非所有开发人员都透彻地理解了“任何数据输入”的真正含义，因此，攻击者总有许多可乘之机。。。">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#2d2a2a">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#2d2a2a">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#2d2a2a">
+
+	<link href="https://fonts.googleapis.com/css?family=Finger+Paint|PT+Sans:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+  <div class="sidebar-container">
+    <div class="sidebar-logo">
+      <a href="/" class="logo">Pa55w0rd</a>
+    </div>
+
+    <menu class="sidebar-menu">
+      <li class="menu-items"><a class="menu-links" href="/">主页</a></li>
+      <li class="menu-items"><a class="menu-links" href="/list/">目录</a></li>
+      <li class="menu-items"><a class="menu-links" href="/about/">关于我</a></li>
+      <li class="menu-items"><a class="menu-links" href="https://github.com/Pa55w0rd/">Github 项目</a></li>
+    </menu>
+
+    <div class="sidebar-social">
+ <!--     <li class="social-items"><a href="https://www.facebook.com/" class="social-links"><i class="social-icons fa fa-facebook" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://twitter.com/" class="social-links"><i class="social-icons fa fa-twitter" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://plus.google.com/" class="social-links"><i class="social-icons fa fa-google-plus" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://github.com/https://github.com/Pa55w0rd" class="social-links"><i class="social-icons fa fa-github" aria-hidden="true"></i></a></li>
+-->
+		      <div>Copyright © 2018 www.pa55w0rd.club All Rights Reserved </div>
+	  <div>Email：pa55w0rd@aliyun.com </div>
+	</div>
+
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126660308-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126660308-1');
+</script>
+
+</aside>
+
+
+  <main role="main">
+    <div class="content">
+      <article class="page-article">
+  <div class="wrap-content">
+    <header class="page-header">
+      <h1 class="page-title">看！这里有三种非Web型的XSS注入漏洞 （转发）</h1>
+      <div class="page-date"><span>2018, Oct 29&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+    </header>
+    <div class="page-content">
+      
+      <blockquote>
+  <p>原文：https://websec.ca/publication/Blog/Three-Non-Web-based-XSS-Injections</p>
+</blockquote>
+
+<blockquote>
+  <p>译文：https://xz.aliyun.com/t/3048</p>
+</blockquote>
+
+<ul id="markdown-toc">
+  <li><a href="#0x00-前言" id="markdown-toc-0x00-前言">0x00 前言</a></li>
+  <li><a href="#0x01-powerdns-recursor" id="markdown-toc-0x01-powerdns-recursor">0x01 PowerDNS Recursor</a></li>
+  <li><a href="#0x02-symantec-ssl-toolbox" id="markdown-toc-0x02-symantec-ssl-toolbox">0x02 Symantec SSL Toolbox</a></li>
+  <li><a href="#0x03-ratsrough-auditing-tool-for-security" id="markdown-toc-0x03-ratsrough-auditing-tool-for-security">0x03 RATS（Rough Auditing Tool for Security）</a></li>
+  <li><a href="#0x04-总结" id="markdown-toc-0x04-总结">0x04 总结</a></li>
+</ul>
+
+<h2 id="0x00-前言">0x00 前言</h2>
+
+<p>前些天，我跟老友Chris Navarrete进行了一次深入的交流，当谈及为什么选择这个职业时，我给出的理由是：</p>
+
+<p>我们喜欢让事物以迥异于初衷的方式运作，例如利用缓冲区溢出来改变执行流程的方向、将JavaScript代码注入到不该注入的地方。</p>
+
+<p>对于大部分Web安全方面的教程来说，都是教我们如何以非常简单的方式来测试XSS漏洞 “XSS漏洞”)：在反射或存储Web请求中的数据输入时，没有进行严格的安全过滤处理，从而导致反射型XSS或存储型XSS漏洞。</p>
+
+<p>通常情况下，当讨论应用程序的安全性时，我们都知道“永远不要信任任何数据输入”这道圣谕；遗憾的是，并非所有开发人员都透彻地理解了“任何数据输入”的真正含义，因此，攻击者总有许多可乘之机。下面，我们举例进行说明：</p>
+
+<h2 id="0x01-powerdns-recursor">0x01 PowerDNS Recursor</h2>
+
+<p>在我们的讨论中，Chris曾经提到曾在一个流行的DNS软件中发现了一个不同寻常的XSS漏洞，所以，我决定以它为例，让读者意识到Web并非唯一的攻击向量。</p>
+
+<p>PowerDNS Recursor是一款高端、高性能的名称解析服务器，至少可以为1亿用户提供DNS解析服务。该产品的设计初衷，主要就是将其用于DNS解析服务器。</p>
+
+<p>有一篇<a href="https://www.fortinet.com/blog/threat-research/powerdns-recursor-html-script-injection-vulnerability-a-walkthrough.html">文章</a>详细展示了如何使用命令行工具dig通过DNS查询注入XSS有效载荷的过程：</p>
+
+<p><img src="\assets\img\xss\1.png" alt="1" /></p>
+
+<p>之后，我们会在Web UI中看到：</p>
+
+<p><img src="\assets\img\xss\2.png" alt="1" /></p>
+
+<h2 id="0x02-symantec-ssl-toolbox">0x02 Symantec SSL Toolbox</h2>
+
+<p>这是三年前我在赛门铁克的SSL Certificate Tester中找到的一个漏洞，在我提交后，目前该漏洞已经得到了修复。这个免费在线服务用于从给定URL的x509 SSL证书中提取和显示相应的值，由于它完全信任这些内容，所以没有对各个字段中的数据进行安全过滤。</p>
+
+<p>因此，我创建了一个SSL证书，使其不同的字段中值都为<code class="highlighter-rouge">&lt;script&gt;alert(document.cookie);&lt;/script&gt;</code>，并将其安装在Web服务器的前端：</p>
+
+<p><img src="\assets\img\xss\3.png" alt="1" /></p>
+
+<p>所以，这个免费服务解析该证书的时候，就会执行JavaScript代码：</p>
+
+<p><img src="\assets\img\xss\4.png" alt="1" /></p>
+
+<h2 id="0x03-ratsrough-auditing-tool-for-security">0x03 RATS（Rough Auditing Tool for Security）</h2>
+
+<p>RATS由CERN计算机安全部门开发一款非常优秀的静态代码分析工具。我个人非常喜欢这款工具，并且已经用了许多年了。然而，该工具已经于2013年12月停止更新，估计现在已经没有人在维护该项目了，但具体情况我也拿不准。</p>
+
+<p>去年的时候，由于坐火车时很无聊，为了打发时间，竟然在该软件中找到了一个XSS漏洞。RATS需要接收一个包含源代码的文件夹，并创建一个包含分析结果的HTML报告，其中还包括所分析文件的名称，因此，攻击向量也就非常明显了。我在其名称中创建了一个包含JavaScript代码的文件：</p>
+
+<p><img src="\assets\img\xss\5.png" alt="1" /></p>
+
+<p>分析完成之后，注入的JavaScript代码将在报告中呈现：</p>
+
+<p><img src="\assets\img\xss\6.png" alt="1" /></p>
+
+<p>如果我是一名开发人员，并且知道自己repos中的代码肯定会进行安全审查的话，那么，我肯定会在文件名中加入相关代码来“搞”安全审计人员。</p>
+
+<h2 id="0x04-总结">0x04 总结</h2>
+
+<ul>
+  <li>数据输入并不一定来自HTTP请求。</li>
+  <li>考虑所有可能的数据输入：从文件系统到数据库、用户名、时间戳、日志，不要放过任何可能性。</li>
+  <li>开发人员不要信任任何数据输入，在后端使用这些数据之前，一定要对接收到的数据以及发回给用户的数据进行彻底的安全过滤。</li>
+</ul>
+
+    </div>
+    
+
+	
+	<div class="share-component" data-disabled="" data-description="Share.js - 一键分享到微博，QQ空间，腾讯微博，人人，豆瓣">一键分享</div>
+	
+
+
+	<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pa55w0rd.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//pa55w0rd.disqus.com/count.js" async></script>
+
+
+  </div>
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+<!--
+<script language=JavaScript>
+
+var caution = false
+function setCookie(name, value, expires, path, domain, secure) {
+var curCookie = name + "=" + escape(value) +
+((expires) ? "; expires=" + expires.toGMTString() : "") +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+((secure) ? "; secure" : "")
+if (!caution || (name + "=" + escape(value)).length <= 4000)
+document.cookie = curCookie
+else
+if (confirm("Cookie exceeds 4KB and will be cut!"))
+document.cookie = curCookie
+}
+function getCookie(name) {
+var prefix = name + "="
+var cookieStartIndex = document.cookie.indexOf(prefix)
+if (cookieStartIndex == -1)
+return null
+var cookieEndIndex = document.cookie.indexOf(";", cookieStartIndex + prefix.length)
+if (cookieEndIndex == -1)
+cookieEndIndex = document.cookie.length
+return unescape(document.cookie.substring(cookieStartIndex + prefix.length, cookieEndIndex))
+}
+function deleteCookie(name, path, domain) {
+if (getCookie(name)) {
+document.cookie = name + "=" +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+"; expires=Thu, 01-Jan-70 00:00:01 GMT"
+}
+}
+function fixDate(date) {
+var base = new Date(0)
+var skew = base.getTime()
+if (skew > 0)
+date.setTime(date.getTime() - skew)
+}
+var now = new Date()
+fixDate(now)
+now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000)
+var visits = getCookie("counter")
+if (!visits)
+visits = 1
+else
+visits = parseInt(visits) + 1
+setCookie("counter", visits, now)
+document.write("您是第" + visits + "位访问本篇文章的！")
+
+</script>
+-->
+
+</article>
+
+    </div>
+  </main>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+</body>
+</html>

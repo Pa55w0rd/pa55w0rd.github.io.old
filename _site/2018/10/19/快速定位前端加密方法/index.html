@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>快速定位前端加密方法（转发） - Pa55w0rd的博客</title>
+	<meta name="description" content="快速定位前端加密方法">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#2d2a2a">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#2d2a2a">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#2d2a2a">
+
+	<link href="https://fonts.googleapis.com/css?family=Finger+Paint|PT+Sans:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+  <div class="sidebar-container">
+    <div class="sidebar-logo">
+      <a href="/" class="logo">Pa55w0rd</a>
+    </div>
+
+    <menu class="sidebar-menu">
+      <li class="menu-items"><a class="menu-links" href="/">主页</a></li>
+      <li class="menu-items"><a class="menu-links" href="/list/">目录</a></li>
+      <li class="menu-items"><a class="menu-links" href="/about/">关于我</a></li>
+      <li class="menu-items"><a class="menu-links" href="https://github.com/Pa55w0rd/">Github 项目</a></li>
+    </menu>
+
+    <div class="sidebar-social">
+ <!--     <li class="social-items"><a href="https://www.facebook.com/" class="social-links"><i class="social-icons fa fa-facebook" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://twitter.com/" class="social-links"><i class="social-icons fa fa-twitter" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://plus.google.com/" class="social-links"><i class="social-icons fa fa-google-plus" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://github.com/https://github.com/Pa55w0rd" class="social-links"><i class="social-icons fa fa-github" aria-hidden="true"></i></a></li>
+-->
+		      <div>Copyright © 2018 www.pa55w0rd.club All Rights Reserved </div>
+	  <div>Email：pa55w0rd@aliyun.com </div>
+	</div>
+
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126660308-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126660308-1');
+</script>
+
+</aside>
+
+
+  <main role="main">
+    <div class="content">
+      <article class="page-article">
+  <div class="wrap-content">
+    <header class="page-header">
+      <h1 class="page-title">快速定位前端加密方法（转发）</h1>
+      <div class="page-date"><span>2018, Oct 19&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+    </header>
+    <div class="page-content">
+      
+      <p>转自</p>
+<blockquote>
+  <p>http://gv7.me/articles/2018/fast-locate-the-front-end-encryption-method/</p>
+</blockquote>
+
+<ul id="markdown-toc">
+  <li><a href="#0x00-前言" id="markdown-toc-0x00-前言">0x00 前言</a></li>
+  <li><a href="#0x01-onclick定位法" id="markdown-toc-0x01-onclick定位法">0x01 onClick定位法</a></li>
+  <li><a href="#0x02-event-listeners定位法" id="markdown-toc-0x02-event-listeners定位法">0x02 Event Listeners定位法</a></li>
+  <li><a href="#0x03-搜索定位法" id="markdown-toc-0x03-搜索定位法">0x03 搜索定位法</a></li>
+  <li><a href="#0x04-调试确认" id="markdown-toc-0x04-调试确认">0x04 调试确认</a></li>
+  <li><a href="#0x05-最后的话" id="markdown-toc-0x05-最后的话">0x05 最后的话</a></li>
+</ul>
+
+<h2 id="0x00-前言">0x00 前言</h2>
+
+<p>相信用过我jsEncrypter这个插件的朋友，都会碰到一个问题。 <strong>那就是一些大型网站前端太复杂，以至于无法定位到前端数据加密函数所在的位置</strong>。无法定位到加密方法所在，自然就无法编写jsEncrypter的phantomJS脚本了。k哥在今晚给了我很多灵感，让我对这个问题有一个完美的解决方案。以至于现在已是12号的凌晨3点，我仍不舍得搁浅内心零散的想法。窗外稍许的车辆略过的轰鸣，在夜深人静时显得格外刺耳。不过还好，没破坏我静静码字感觉。下面让我慢慢将这简单弱智有点零散，但细细思考，却有点意思的想法，串成一个流程。</p>
+
+<h2 id="0x01-onclick定位法">0x01 onClick定位法</h2>
+
+<p>有时候在触发提交表单的标签中会存在一个onClik属性，该属性的值正好是一个js函数。而这个函数往往就是我们要找的数据加密函数。我们只需要找到它定义的地方即可。</p>
+
+<p><img src="\assets\img\ecnrypt\1.png" alt="图1-通过onClick属性定位" /></p>
+
+<p>找到了加密数据的方法名之后，我们就可以去找一下该方法在那个js文件中定义，即可定位到位置。</p>
+
+<p><img src="\assets\img\ecnrypt\2.png" alt="图2-通过onClick定位到的方法" /></p>
+
+<h2 id="0x02-event-listeners定位法">0x02 Event Listeners定位法</h2>
+
+<p>这个方法非常好，也是我觉得最好的方法。F12打开开发者工具，然后使用选择箭头选择目标标签，最后打开开发者工具Event Listeners面板。就能显示该标签对应的额事件了。我们关注的当然是click事件了。</p>
+
+<p><img src="\assets\img\ecnrypt\3.png" alt="图3-通过Event Listeners定位" /></p>
+
+<p>由此我们就知道，我们的数据加密方法在<code class="highlighter-rouge">uni_loginv4_tangram_dde753f.js</code>文件的32行。点击该链接就能直接调转到代码处。</p>
+
+<p><img src="\assets\img\ecnrypt\4.png" alt="图4-通过Event Listeners定位的代码" /></p>
+
+<p>这个方法虽然非常好，但是有一个天坑需要注意！有时候标签是有绑定方法的，但看到Event Listeners面板却是空的。我猜是因为浏览器它没有加载完全所有的数据，导致无法分析出各个元素绑定的方法。这时我们可以进行将登录整个流程走一遍，多次刷新页面，甚至可以ctrl+s将网页保存到本地等操作，总之只为一个目的： <strong>间接告诉浏览器赶紧将一些网页资源保存下来，以供Event Listeners分析出click事件对应的方法</strong>。目前发现这样勉强能解决。</p>
+
+<p>这里插一句题外话：有一个和Event Listeners有关的辅助插件Visual Event，大家可以去体验一下。不过个人觉得不是特别好！</p>
+
+<h2 id="0x03-搜索定位法">0x03 搜索定位法</h2>
+
+<p>如果遇到的情况很糟糕，页面没有指定onClick方法，Event Listeners怎么操作都是空白一片，Visual Event也是半死不活的时候。这是我们就只能自己动手，丰衣足食了。当然我承认这种情况基本不可能发生。然而谁还没有个万一呢？</p>
+
+<p>先将页面ctrl+s,保存起来。然后使用notepad++搜索保存目录下所有内容。这时我们就要考虑寻找搜索关键字了。搜索操作过程虽然有点繁琐，但很简单。这里我挑比较有意思的选择搜索关键字的思考跟大家分享一下。</p>
+
+<ol>
+  <li>
+    <p>从源头搜，什么是我们的源头搜呢？我们触发前端数据加密，然后进行传输的整个过程皆因为点击了一个标签造成。所以我们就可以通过这个标签的<code class="highlighter-rouge">id名</code>，<code class="highlighter-rouge">class名</code>或者<code class="highlighter-rouge">标签名</code>作为关键字去搜索，就能定位到开始进行加密处理的位置。最后根据起始位置，一步一步跟进就能找到我们的加密方法。</p>
+  </li>
+  <li>
+    <p>从终点搜，什么是我们的终点呢？当然是我们的最终发送数据包这一步了。我们可以用burp进行抓包，然后分析数据包的特点，提取关键字来定位。比如我们可以拿数据包提交的路径，可以拿数据包的参数等等作为关键字。定位到加密流程的最后一步，最后一步一步回溯找到加密方法。</p>
+  </li>
+</ol>
+
+<p>例如：我打算从源头开始搜，查看到源码中淘宝的登录按钮标签id值为<code class="highlighter-rouge">J_SubmitStatic</code>,于是我以<code class="highlighter-rouge">#J_SubmitStatic</code>作为关键字开始定位。</p>
+
+<p><img src="\assets\img\ecnrypt\5.png" alt="图5-通过关键定位" /></p>
+
+<h2 id="0x04-调试确认">0x04 调试确认</h2>
+
+<p>在使用了以上三个方法加辅助插件，基本可以保证能定位到99%网站前端密码的处理函数了。但我们仍然需要通过调式来确定我们定位到的地方就是数据加密方法。首选我们在定位的方法中打一个断点，然后在表单输入账号密码，最后点击提交。就可以进入调试模式了。进入调式模式，我们可以单步执行，梳理加密处理的每一步。方便我们更好的编写jsEncrypter插件的phantomJs脚本。</p>
+
+<p><img src="\assets\img\ecnrypt\6.png" alt="图6-调试确认" /></p>
+
+<h2 id="0x05-最后的话">0x05 最后的话</h2>
+
+<p>我使用了以上流程，先后定位到了百度，淘宝，腾讯和京东的前端页面数据加密方法。证明了我们的流程大体还是很实用的。各位同学可以按照上面的方法去测试一下，看看自己能否快速定位到数据加密方法？当然你有更加快速的方法，欢迎留言，让我们的这个快速定位前端加密方法的流程更加完美！已是凌晨4点，明天还有工作。祝每个还在深夜码字写代码的灵魂晚安！</p>
+
+    </div>
+    
+
+	
+	<div class="share-component" data-disabled="" data-description="Share.js - 一键分享到微博，QQ空间，腾讯微博，人人，豆瓣">一键分享</div>
+	
+
+
+	<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pa55w0rd.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//pa55w0rd.disqus.com/count.js" async></script>
+
+
+  </div>
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+<!--
+<script language=JavaScript>
+
+var caution = false
+function setCookie(name, value, expires, path, domain, secure) {
+var curCookie = name + "=" + escape(value) +
+((expires) ? "; expires=" + expires.toGMTString() : "") +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+((secure) ? "; secure" : "")
+if (!caution || (name + "=" + escape(value)).length <= 4000)
+document.cookie = curCookie
+else
+if (confirm("Cookie exceeds 4KB and will be cut!"))
+document.cookie = curCookie
+}
+function getCookie(name) {
+var prefix = name + "="
+var cookieStartIndex = document.cookie.indexOf(prefix)
+if (cookieStartIndex == -1)
+return null
+var cookieEndIndex = document.cookie.indexOf(";", cookieStartIndex + prefix.length)
+if (cookieEndIndex == -1)
+cookieEndIndex = document.cookie.length
+return unescape(document.cookie.substring(cookieStartIndex + prefix.length, cookieEndIndex))
+}
+function deleteCookie(name, path, domain) {
+if (getCookie(name)) {
+document.cookie = name + "=" +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+"; expires=Thu, 01-Jan-70 00:00:01 GMT"
+}
+}
+function fixDate(date) {
+var base = new Date(0)
+var skew = base.getTime()
+if (skew > 0)
+date.setTime(date.getTime() - skew)
+}
+var now = new Date()
+fixDate(now)
+now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000)
+var visits = getCookie("counter")
+if (!visits)
+visits = 1
+else
+visits = parseInt(visits) + 1
+setCookie("counter", visits, now)
+document.write("您是第" + visits + "位访问本篇文章的！")
+
+</script>
+-->
+
+</article>
+
+    </div>
+  </main>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>野路子企业安全架构设计（转发） - Pa55w0rd的博客</title>
+	<meta name="description" content="首先，知道业务有哪些，有多少资产，然后是数据的流向，知道要分析哪些流量。想要发现什么，阻止什么。">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#2d2a2a">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#2d2a2a">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#2d2a2a">
+
+	<link href="https://fonts.googleapis.com/css?family=Finger+Paint|PT+Sans:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+  <div class="sidebar-container">
+    <div class="sidebar-logo">
+      <a href="/" class="logo">Pa55w0rd</a>
+    </div>
+
+    <menu class="sidebar-menu">
+      <li class="menu-items"><a class="menu-links" href="/">主页</a></li>
+      <li class="menu-items"><a class="menu-links" href="/list/">目录</a></li>
+      <li class="menu-items"><a class="menu-links" href="/about/">关于我</a></li>
+      <li class="menu-items"><a class="menu-links" href="https://github.com/Pa55w0rd/">Github 项目</a></li>
+    </menu>
+
+    <div class="sidebar-social">
+ <!--     <li class="social-items"><a href="https://www.facebook.com/" class="social-links"><i class="social-icons fa fa-facebook" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://twitter.com/" class="social-links"><i class="social-icons fa fa-twitter" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://plus.google.com/" class="social-links"><i class="social-icons fa fa-google-plus" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://github.com/https://github.com/Pa55w0rd" class="social-links"><i class="social-icons fa fa-github" aria-hidden="true"></i></a></li>
+-->
+		      <div>Copyright © 2018 www.pa55w0rd.club All Rights Reserved </div>
+	  <div>Email：pa55w0rd@aliyun.com </div>
+	</div>
+
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126660308-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126660308-1');
+</script>
+
+</aside>
+
+
+  <main role="main">
+    <div class="content">
+      <article class="page-article">
+  <div class="wrap-content">
+    <header class="page-header">
+      <h1 class="page-title">野路子企业安全架构设计（转发）</h1>
+      <div class="page-date"><span>2018, Sep 28&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+    </header>
+    <div class="page-content">
+      
+      <h2 id="转发自-httpsgithubcommylamourblogissues33">转发自 <a href="https://github.com/mylamour/blog/issues/33">https://github.com/mylamour/blog/issues/33</a></h2>
+
+<p><img src="https://user-images.githubusercontent.com/12653147/43885348-37bde086-9beb-11e8-8406-3b34d9d96700.png" alt="default" />
+首先，知道业务有哪些，有多少资产，然后是数据的流向，知道要分析哪些流量。想要发现什么，阻止什么。其实Google的OKR也可以在这里应用。例如，安全架构的OKR可以这样：</p>
+
+<p>O:  发现入侵者，减缓或者阻断攻击，以及取证。</p>
+
+<p>KR: 资产管理系统   ——— 19%</p>
+
+<p>KR: 入侵检测系统   ——— 19%</p>
+
+<p>KR: 日志收集系统   ——— 19%</p>
+
+<p>KR: 关联分析系统   ——— 19%</p>
+
+<p>KR: 应急响应系统   ——— 19%</p>
+
+<p>但，即便都做了，也不能100%保证不出问题，还需要做定期的渗透测试。我们先按照这种思路，画出类似的OKR图</p>
+
+<p>O: 日志收集</p>
+
+<p>KR: 明确数据流向   ——— 50%</p>
+
+<p>KR: 明确收集类型   ——— 40%</p>
+
+<p>KR: 明确收集方式   ——— 5%</p>
+
+<p>KR: 明确存储方式   ——— 5%</p>
+
+<p>其实我之前画的时候，是先画的脑图，分析下当前系统拥有的哪些资产以及所需的对应的措施。然后绘制的。下图就是结合现状列出的日志列表。</p>
+
+<p><a href="https://user-images.githubusercontent.com/12653147/43366971-1ba02b82-9378-11e8-86af-9a69002bf42f.png"><img src="https://user-images.githubusercontent.com/12653147/43366971-1ba02b82-9378-11e8-86af-9a69002bf42f.png" alt="image" /></a></p>
+
+<p>明确了各个部分之后，其实整个系统就有点呼之如出了。但是即便如此，之后还是需要进行修改，此时可以去继续和其他部门进行沟通，比如说我之前就先和区块链代理组沟通对方的架构，和产品经理沟通关键业务有哪些，又和运维沟通，让其统计出相应的资产。跨职能沟通并不是一件容易的事，碰到sb的话就更困难了。</p>
+
+<p>下面看一个V1版本的设计
+<a href="https://user-images.githubusercontent.com/12653147/43367427-2ea05d7c-937f-11e8-8d5a-6c923c6b99a3.png"><img src="https://user-images.githubusercontent.com/12653147/43367427-2ea05d7c-937f-11e8-8d5a-6c923c6b99a3.png" alt="image" /></a></p>
+
+<p>这是一个V2的版本设计，修改后的，明显的对比是增加了蜜罐系统，复用威胁情报，以及补上了内网的IDS系统。</p>
+
+<p><a href="https://user-images.githubusercontent.com/12653147/43367453-ad736694-937f-11e8-96c0-b492feca5d96.png"><img src="https://user-images.githubusercontent.com/12653147/43367453-ad736694-937f-11e8-96c0-b492feca5d96.png" alt="image" /></a></p>
+
+<p>当然具体到落地实现，还需要不少东西，比如说，是否是要修改开源ids，使agent监听某个服务，一旦更新规则，自动发送到每台机器。或者说ossec、suricata已具有这些功能，以及关联分析的时候，怎么选择适应的算法，并降低误报和漏报，引流到蜜罐系统等等，不一而足。以及自动化的部署更新。每个模块其实都需要一个人或者几个人去负责，但是作为一个人的安全部，能做的就是按照轻重缓急，自己排期进行。</p>
+
+<p>你应该还能看到这里其实还缺少SDL相关的设计以及落地。还有就是切记不能忘了安全系统本身的漏洞问题，不要因为具有高权限的安全系统本身有问题，导致从该点被攻破。在日常的设计中，20%的防御做好就能抵挡住80%的攻击。 比如说 生产环境的CDN + WAF 1+ WAF 2 + IDS。测试环境的ACL,这些最基本的防护足以抵挡80%的攻击，甚至90%。但是作为一个安全人员，我不希望看到的是，做到这20%就结束了，出现问题就跑路(引咎辞职其实是很不负责的行为), 而是应该专注于剩下的80%，怎么做好，做的更好。不仅从工具上(很多人喜欢安装一套又一套的系统，以其展现的报表去谋得赞扬。而不是通过跨职能的沟通和设计适合自己系统的安全架构和SDL流程去做剩下的80%)。</p>
+
+<p>但是在现在这样的环境里，很多事情都是步步维艰。只求做好自己的事情了。</p>
+
+
+    </div>
+    
+
+	
+	<div class="share-component" data-disabled="" data-description="Share.js - 一键分享到微博，QQ空间，腾讯微博，人人，豆瓣">一键分享</div>
+	
+
+
+	<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pa55w0rd.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//pa55w0rd.disqus.com/count.js" async></script>
+
+
+  </div>
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+<!--
+<script language=JavaScript>
+
+var caution = false
+function setCookie(name, value, expires, path, domain, secure) {
+var curCookie = name + "=" + escape(value) +
+((expires) ? "; expires=" + expires.toGMTString() : "") +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+((secure) ? "; secure" : "")
+if (!caution || (name + "=" + escape(value)).length <= 4000)
+document.cookie = curCookie
+else
+if (confirm("Cookie exceeds 4KB and will be cut!"))
+document.cookie = curCookie
+}
+function getCookie(name) {
+var prefix = name + "="
+var cookieStartIndex = document.cookie.indexOf(prefix)
+if (cookieStartIndex == -1)
+return null
+var cookieEndIndex = document.cookie.indexOf(";", cookieStartIndex + prefix.length)
+if (cookieEndIndex == -1)
+cookieEndIndex = document.cookie.length
+return unescape(document.cookie.substring(cookieStartIndex + prefix.length, cookieEndIndex))
+}
+function deleteCookie(name, path, domain) {
+if (getCookie(name)) {
+document.cookie = name + "=" +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+"; expires=Thu, 01-Jan-70 00:00:01 GMT"
+}
+}
+function fixDate(date) {
+var base = new Date(0)
+var skew = base.getTime()
+if (skew > 0)
+date.setTime(date.getTime() - skew)
+}
+var now = new Date()
+fixDate(now)
+now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000)
+var visits = getCookie("counter")
+if (!visits)
+visits = 1
+else
+visits = parseInt(visits) + 1
+setCookie("counter", visits, now)
+document.write("您是第" + visits + "位访问本篇文章的！")
+
+</script>
+-->
+
+</article>
+
+    </div>
+  </main>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+</body>
+</html>

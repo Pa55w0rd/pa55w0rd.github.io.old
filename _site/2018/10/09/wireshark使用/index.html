@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Wireshark使用 - Pa55w0rd的博客</title>
+	<meta name="description" content="Wireshark（前称Ethereal）是一个网络封包分析软件。网络封包分析软件的功能是撷取网络封包，并尽可能显示出最为详细的网络封包资料。Wireshark使用WinPCAP作为接口，直接与网卡进行数据报文交换。">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#2d2a2a">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#2d2a2a">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#2d2a2a">
+
+	<link href="https://fonts.googleapis.com/css?family=Finger+Paint|PT+Sans:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+  <div class="sidebar-container">
+    <div class="sidebar-logo">
+      <a href="/" class="logo">Pa55w0rd</a>
+    </div>
+
+    <menu class="sidebar-menu">
+      <li class="menu-items"><a class="menu-links" href="/">主页</a></li>
+      <li class="menu-items"><a class="menu-links" href="/list/">目录</a></li>
+      <li class="menu-items"><a class="menu-links" href="/about/">关于我</a></li>
+      <li class="menu-items"><a class="menu-links" href="https://github.com/Pa55w0rd/">Github 项目</a></li>
+    </menu>
+
+    <div class="sidebar-social">
+ <!--     <li class="social-items"><a href="https://www.facebook.com/" class="social-links"><i class="social-icons fa fa-facebook" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://twitter.com/" class="social-links"><i class="social-icons fa fa-twitter" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://plus.google.com/" class="social-links"><i class="social-icons fa fa-google-plus" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://github.com/https://github.com/Pa55w0rd" class="social-links"><i class="social-icons fa fa-github" aria-hidden="true"></i></a></li>
+-->
+		      <div>Copyright © 2018 www.pa55w0rd.club All Rights Reserved </div>
+	  <div>Email：pa55w0rd@aliyun.com </div>
+	</div>
+
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126660308-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126660308-1');
+</script>
+
+</aside>
+
+
+  <main role="main">
+    <div class="content">
+      <article class="page-article">
+  <div class="wrap-content">
+    <header class="page-header">
+      <h1 class="page-title">Wireshark使用</h1>
+      <div class="page-date"><span>2018, Oct 09&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+    </header>
+    <div class="page-content">
+      
+      <h2 id="0x00-前言">0x00 前言</h2>
+<p>Wireshark（前称Ethereal）是一个网络封包分析软件。网络封包分析软件的功能是撷取网络封包，并尽可能显示出最为详细的网络封包资料。Wireshark使用WinPCAP作为接口，直接与网卡进行数据报文交换。大家可以用它来排查故障、分析攻击类型等，可以更快理解和发现问题</p>
+
+<h2 id="0x01-工作流程">0x01 工作流程</h2>
+
+<ol>
+  <li>确定Wireshark的位置。如果没有一个正确的位置，启动Wireshark后会花费很长的时间捕获一些与自己无关的数据。</li>
+  <li>选择捕获接口。一般都是选择连接到Internet网络的接口，这样才可以捕获到与网络相关的数据。否则，捕获到的其它数据对自己也没有任何帮助。</li>
+  <li>使用捕获过滤器。通过设置捕获过滤器，可以避免产生过大的捕获文件。这样用户在分析数据时，也不会受其它数据干扰。而且，还可以为用户节约大量的时间。</li>
+  <li>使用显示过滤器。通常使用捕获过滤器过滤后的数据，往往还是很复杂。为了使过滤的数据包再更细致，此时使用显示过滤器进行过滤。</li>
+  <li>使用着色规则。通常使用显示过滤器过滤后的数据，都是有用的数据包。如果想更加突出的显示某个会话，可以使用着色规则高亮显示。</li>
+  <li>构建图表。如果用户想要更明显的看出一个网络中数据的变化情况，使用图表的形式可以很方便的展现数据分布情况。</li>
+  <li>重组数据。Wireshark的重组功能，可以重组一个会话中不同数据包的信息，或者是一个重组一个完整的图片或文件。由于传输的文件往往较大，所以信息分布在多个数据包中。为了能够查看到整个图片或文件，这时候就需要使用重组数据的方法来实现。</li>
+</ol>
+
+<h2 id="0x02-使用技巧">0x02 使用技巧</h2>
+
+<h3 id="tcp流绘制">TCP流绘制</h3>
+
+<p>为了便于理解在整个TCP会话期间，TCP 的Seq号和Ack号的工作过程，可使用Wireshark的绘制流功能，选择菜单栏中的<code class="highlighter-rouge">统计 -&gt;流量图 -&gt;TCP flows</code>，会自动创建一个TCP流的图形。</p>
+
+<p>每行代表一个数据包，左边列显示时间，中间列显示包的方向、TCP端口、包的负载长度和设置的标志位，右边列以10进制的方式显示相关Seq号/Ack号。</p>
+
+<p><img src="/assets/img/wireshark/1.png" alt="tcp流绘制" /></p>
+
+<p>Wireshark默认展示的是相对Seq号/Ack号，相对Seq号/Ack号是和TCP会话的初始序列号相关联的。跟真实Seq号/Ack号相比，跟踪更小的相对Seq号/Ack号会相对容易一些。</p>
+
+<p>如果想要关闭相对序列号/确认号，可以选择Wireshark菜单栏中的<code class="highlighter-rouge">编辑 -&gt; 首选项 -&gt;protocols -&gt;TCP</code>，取消勾选<code class="highlighter-rouge">Relative sequence number</code>选项即可。</p>
+
+<h3 id="包的拼接与拆解">包的拼接与拆解</h3>
+
+<p><strong>包的拆解</strong>：在数据包保存时，<code class="highlighter-rouge">文件 -&gt; 导出特定分组</code>在对话框下面有一些保存选项，这里可以设置按什么方将包拆解。选好后填好文件名保存即可完成拆解。</p>
+
+<p><img src="/assets/img/wireshark/2.png" alt="包拆解" /></p>
+
+<p><strong>包的拼接</strong>：<code class="highlighter-rouge">文件 -&gt; 合并（merge）</code> 然后选中一个将要被拼接的包，在该对话框下面设置接接方式和显示过滤器等</p>
+
+<p><img src="/assets/img/wireshark/3.png" alt="包拼接" /></p>
+
+<h3 id="相对时间显示">相对时间显示</h3>
+
+<p>以一个数据包的时间为基准，后面的数据包显示都是以这个数据包的时间作为基准，这种方式常用于对网络延时的响应判断，是判断服务器还是客户端还是线路的延迟，来解决网络速度问题。有时数据包丢失并非延迟造成，当两台主机间通信很慢时，并没有TCP 重传或者重复ACK 特征，这时需要查看初始连接握手以及接下来的两个数据包。以相对时间显示来查看数据包的延迟情况。</p>
+
+<p><img src="/assets/img/wireshark/4.png" alt="相对时间显示" /></p>
+
+<h3 id="协议统计分层信息">协议统计分层信息</h3>
+
+<p>使用<code class="highlighter-rouge">统计 –&gt; 协议分级</code>，此信息显示的是抓包文件包含的所有协议的树状分支。数据包通常会包含许多协议，有很多协议会在每个包中被统计。End Packets，End Bytes，End Mbit/s列是该层在抓包中作为最后一层协议的统计数据，按分组百分比参照的是相同协议层的百分比。</p>
+
+<p><img src="/assets/img/wireshark/5.png" alt="协议分级统计" /></p>
+
+<h3 id="网络会话列表">网络会话列表</h3>
+
+<p>网络会话是两个指定终端之间的数据流，使用<code class="highlighter-rouge">统计 —&gt; 对话</code>统计功能分析协议，通过对话列表，能看出很多网络问题。</p>
+
+<p>第3层IP统计数据，IP会话是两个IP地址之间的所有数据流，观察源ip和目的ip分布规律可知道ip地址请求报文分布，点击每列表头可得到排序；也可知道包大小，字节大小。通过字节分布，看看是小包攻击还是应用层攻击。</p>
+
+<p>第4层TCP或UDP统计数据：看看主要是tcp攻击还是udp数据包，此列表主要分析tcp的链接次数、源端口和目的端口分布规律，是固定还是随机的。比如每一个PC合理的连接数是10到20个，上百个则是不正常的。</p>
+
+<p><img src="/assets/img/wireshark/6.png" alt="会话列表" /></p>
+
+<h3 id="网络端点列表">网络端点列表</h3>
+
+<p>选择菜单栏中的<code class="highlighter-rouge">统计 -&gt; 端点</code>，分析IP地址的pps和bps，以及统计每个端点的地址、发送或收到的数据包的数量和字节。少量IP终端节点与大量TCP终端节点：可能的情况是每一台主机有很多个TCP连接，进而推测可能是网络攻击。</p>
+
+<p><img src="/assets/img/wireshark/7.png" alt="端点列表" /></p>
+
+<h3 id="ip地址统计列表">IP地址统计列表</h3>
+
+<p>使用<code class="highlighter-rouge">统计 —IP Statistics—all addresss</code>，分析IP地址的排序和百分比</p>
+
+<p><img src="/assets/img/wireshark/8.png" alt="ip地址统计" /></p>
+
+<h3 id="应用层数据包分析">应用层数据包分析</h3>
+
+<p>使用<code class="highlighter-rouge">统计 -http-分组计数器</code>、可以看到http get和post数据包分布规律，发现数据包大部分是get。</p>
+
+<p><img src="/assets/img/wireshark/9.png" alt="应用层统计" /></p>
+
+<p>使用<code class="highlighter-rouge">统计 -http-请求</code>可以看到请求url分布过来，发现get请求的url集中在极个别的url上面，url带有明显特征。</p>
+
+<p><img src="/assets/img/wireshark/10.png" alt="应用层统计" /></p>
+
+<h3 id="数据包着色">数据包着色</h3>
+
+<p>Wireshark地彩色高亮有助于快速标识协议。将数据包进行彩色高亮，可以让你很快地讲不通协议的数据包分开，而不需要对每个数据包都查看Packet List面板中地协议列，举例来说，如果觉得网络上有一个恶意的DHCP服务器在分发IP，可以简单地修改DHCP协议的着色规则，使其呈现黄色（或者其他便于辨认地颜色）。这可以能够更快地找出所有DHCP流量，数据包分析工作更有效率。使用<code class="highlighter-rouge">视图 - 着色规则</code>来修改</p>
+
+<p><img src="/assets/img/wireshark/11.png" alt="着色规则" /></p>
+
+    </div>
+    
+
+	
+	<div class="share-component" data-disabled="" data-description="Share.js - 一键分享到微博，QQ空间，腾讯微博，人人，豆瓣">一键分享</div>
+	
+
+
+	<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pa55w0rd.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//pa55w0rd.disqus.com/count.js" async></script>
+
+
+  </div>
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+<!--
+<script language=JavaScript>
+
+var caution = false
+function setCookie(name, value, expires, path, domain, secure) {
+var curCookie = name + "=" + escape(value) +
+((expires) ? "; expires=" + expires.toGMTString() : "") +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+((secure) ? "; secure" : "")
+if (!caution || (name + "=" + escape(value)).length <= 4000)
+document.cookie = curCookie
+else
+if (confirm("Cookie exceeds 4KB and will be cut!"))
+document.cookie = curCookie
+}
+function getCookie(name) {
+var prefix = name + "="
+var cookieStartIndex = document.cookie.indexOf(prefix)
+if (cookieStartIndex == -1)
+return null
+var cookieEndIndex = document.cookie.indexOf(";", cookieStartIndex + prefix.length)
+if (cookieEndIndex == -1)
+cookieEndIndex = document.cookie.length
+return unescape(document.cookie.substring(cookieStartIndex + prefix.length, cookieEndIndex))
+}
+function deleteCookie(name, path, domain) {
+if (getCookie(name)) {
+document.cookie = name + "=" +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+"; expires=Thu, 01-Jan-70 00:00:01 GMT"
+}
+}
+function fixDate(date) {
+var base = new Date(0)
+var skew = base.getTime()
+if (skew > 0)
+date.setTime(date.getTime() - skew)
+}
+var now = new Date()
+fixDate(now)
+now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000)
+var visits = getCookie("counter")
+if (!visits)
+visits = 1
+else
+visits = parseInt(visits) + 1
+setCookie("counter", visits, now)
+document.write("您是第" + visits + "位访问本篇文章的！")
+
+</script>
+-->
+
+</article>
+
+    </div>
+  </main>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>应用系统开发安全 - Pa55w0rd的博客</title>
+	<meta name="description" content="应用系统开发安全">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#2d2a2a">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#2d2a2a">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#2d2a2a">
+
+	<link href="https://fonts.googleapis.com/css?family=Finger+Paint|PT+Sans:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+  <div class="sidebar-container">
+    <div class="sidebar-logo">
+      <a href="/" class="logo">Pa55w0rd</a>
+    </div>
+
+    <menu class="sidebar-menu">
+      <li class="menu-items"><a class="menu-links" href="/">主页</a></li>
+      <li class="menu-items"><a class="menu-links" href="/list/">目录</a></li>
+      <li class="menu-items"><a class="menu-links" href="/about/">关于我</a></li>
+      <li class="menu-items"><a class="menu-links" href="https://github.com/Pa55w0rd/">Github 项目</a></li>
+    </menu>
+
+    <div class="sidebar-social">
+ <!--     <li class="social-items"><a href="https://www.facebook.com/" class="social-links"><i class="social-icons fa fa-facebook" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://twitter.com/" class="social-links"><i class="social-icons fa fa-twitter" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://plus.google.com/" class="social-links"><i class="social-icons fa fa-google-plus" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://github.com/https://github.com/Pa55w0rd" class="social-links"><i class="social-icons fa fa-github" aria-hidden="true"></i></a></li>
+-->
+		      <div>Copyright © 2018 www.pa55w0rd.club All Rights Reserved </div>
+	  <div>Email：pa55w0rd@aliyun.com </div>
+	</div>
+
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126660308-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126660308-1');
+</script>
+
+</aside>
+
+
+  <main role="main">
+    <div class="content">
+      <article class="page-article">
+  <div class="wrap-content">
+    <header class="page-header">
+      <h1 class="page-title">应用系统开发安全</h1>
+      <div class="page-date"><span>2018, Sep 28&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+    </header>
+    <div class="page-content">
+      
+      <ul id="markdown-toc">
+  <li><a href="#一安全原则" id="markdown-toc-一安全原则">一、安全原则</a></li>
+  <li><a href="#二需求管理阶段" id="markdown-toc-二需求管理阶段">二、需求管理阶段</a></li>
+  <li><a href="#三系统设计阶段" id="markdown-toc-三系统设计阶段">三、系统设计阶段</a></li>
+  <li><a href="#四系统实现阶段" id="markdown-toc-四系统实现阶段">四、系统实现阶段</a></li>
+  <li><a href="#五系统测试阶段" id="markdown-toc-五系统测试阶段">五、系统测试阶段</a></li>
+  <li><a href="#六系统上线阶段" id="markdown-toc-六系统上线阶段">六、系统上线阶段</a></li>
+  <li><a href="#七文档管理" id="markdown-toc-七文档管理">七、文档管理</a></li>
+  <li><a href="#八外包管理" id="markdown-toc-八外包管理">八、外包管理</a></li>
+</ul>
+
+<h2 id="一安全原则">一、安全原则</h2>
+
+<ol>
+  <li>保护最薄弱的环节原则：保护最易受攻击影响的部分；</li>
+  <li>纵深防御原则：不同层面、不同角度之间需要相互配合；</li>
+  <li>最小权限原则：只授予执行操作所需的最小权限；</li>
+  <li>最小共享原则：使共享文件资源尽可能少；</li>
+  <li>权限分离原则：授予不同用户所需的最小权限，并在它们之间形成相互制约的关系；</li>
+</ol>
+
+<hr />
+
+<h2 id="二需求管理阶段">二、需求管理阶段</h2>
+
+<ol>
+  <li>根据业务目标分析并制定系统安全目标；</li>
+  <li>确认安全需求规格说明。</li>
+</ol>
+
+<hr />
+
+<h2 id="三系统设计阶段">三、系统设计阶段</h2>
+<ol>
+  <li>根据安全目标执行威胁建模，识别威胁和风险；</li>
+  <li>根据威胁建模制定对应开发安全任务：
+    <ul>
+      <li>确定安全体系架构，设计安全协议和安全接口；</li>
+      <li>确定访问控制与身份鉴别机制，定义主体角色和权限；</li>
+      <li>信息输入的安全过滤，信息输出的校验和控制；</li>
+      <li>数据结构安全设计，选择加密方法和算法；</li>
+      <li>确定敏感数据保护方法；</li>
+      <li>内部处理逻辑安全设计；</li>
+      <li>评估内部通信机制，确定完整性机制。</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h2 id="四系统实现阶段">四、系统实现阶段</h2>
+<ol>
+  <li>开发环境安全管理要求：
+    <ul>
+      <li>软件系统开发、测试禁止在生产环境中进行；</li>
+      <li>开发环境中的开发用机应进行统一安全配置及时进行系统补丁升级和漏洞修复；</li>
+      <li>软件程序不得篡改应用软件所运行的环境或平台中任何安全配置、安全文件和安全程序。</li>
+    </ul>
+  </li>
+  <li>编码安全要求（后面会有详细讲解）：
+    <ul>
+      <li>遵循代码编写安全规范，根据代码编写安全规范以及安全设计方案进行系统开发；</li>
+      <li>遵循通用安全编程准则，包括输入验证、缓存溢出、安全调用组件和程序编译等；</li>
+      <li>遵循机密性要求，保护用户访问信息的机密性，严禁在客户端存放敏感数据</li>
+      <li>避免内存溢出，严格检查和验证输入输出信息等；</li>
+      <li>遵循结构化异常处理机制，捕捉并处理程序异常，防止系统信息泄露</li>
+      <li>遵循代码脆弱性防范要求，包括缓冲区溢出、SQL注入、跨站脚本攻击、XML注入攻击、HTTP HEAD注入等。</li>
+    </ul>
+  </li>
+  <li>开发流程安全要求：
+    <ul>
+      <li>开发过程中应对阶段性开发成果进行有效管理；</li>
+      <li>开发过程中应定期进行代码静态分析，使用代码审核工具对源代码进行检测，并报告源代码中存在的安全弱点；</li>
+      <li>开发人员不得超越其规定权限进行开发，不得在程序中设置后门或恶意代码程序。</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h2 id="五系统测试阶段">五、系统测试阶段</h2>
+<ol>
+  <li>测试内容应包括代码的安全测试和安全功能测试；</li>
+  <li>代码的安全测试是指使用代码测试工具或渗透测试来识别代码的安全脆弱性，并应按照其提供的修复建议进行修复；</li>
+  <li>安全功能测试主要包括身份认证和访问控制的功能测试；</li>
+  <li>测试系统环境应尽可能模拟生产环境并与生产环境进行安全隔离；</li>
+  <li>真实数据不得直接在测试环境中使用，须进行适当修改或屏蔽，在测试完成之后须立即从测试应用系统清除运行信息；</li>
+  <li>测试人员编制安全测试方案，构造安全测试用例；</li>
+  <li>验收测试不得由开发人员兼岗。</li>
+</ol>
+
+<hr />
+
+<h2 id="六系统上线阶段">六、系统上线阶段</h2>
+<ol>
+  <li>系统上线须在内部验收通过后进行；</li>
+  <li>需进行上线前试运行，确认应用系统是否符合上线要求；</li>
+  <li>上线成功后，记录上线的日期和内容。</li>
+</ol>
+
+<hr />
+
+<h2 id="七文档管理">七、文档管理</h2>
+<ol>
+  <li>源代码的变更和版本发布进行统一控制，对程序资源库的任何修改、更新和发布都需经部门主管领导授权和批准；</li>
+  <li>应指定专人妥善保管程序源代码及相关技术文档。</li>
+</ol>
+
+<hr />
+
+<h2 id="八外包管理">八、外包管理</h2>
+<ol>
+  <li>应与外包开发单位签署相关知识产权保护协议和保密协议；</li>
+  <li>外包开发单位进行系统开发过程中须严格遵循本制度的相关安全要求；</li>
+  <li>在系统开发过程中须指派专人监督审核外包开发单位在各个阶段安全要求的执行情况；</li>
+  <li>外包开发单位在系统开发完成后提供程序源代码和相关技术文档，不得将计算机系统采用的关键安全技术措施和核心安全功能设计对外公开；</li>
+  <li>应对开发完成后的应用软件进行审查或检测。</li>
+</ol>
+
+    </div>
+    
+
+	
+	<div class="share-component" data-disabled="" data-description="Share.js - 一键分享到微博，QQ空间，腾讯微博，人人，豆瓣">一键分享</div>
+	
+
+
+	<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pa55w0rd.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//pa55w0rd.disqus.com/count.js" async></script>
+
+
+  </div>
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+<!--
+<script language=JavaScript>
+
+var caution = false
+function setCookie(name, value, expires, path, domain, secure) {
+var curCookie = name + "=" + escape(value) +
+((expires) ? "; expires=" + expires.toGMTString() : "") +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+((secure) ? "; secure" : "")
+if (!caution || (name + "=" + escape(value)).length <= 4000)
+document.cookie = curCookie
+else
+if (confirm("Cookie exceeds 4KB and will be cut!"))
+document.cookie = curCookie
+}
+function getCookie(name) {
+var prefix = name + "="
+var cookieStartIndex = document.cookie.indexOf(prefix)
+if (cookieStartIndex == -1)
+return null
+var cookieEndIndex = document.cookie.indexOf(";", cookieStartIndex + prefix.length)
+if (cookieEndIndex == -1)
+cookieEndIndex = document.cookie.length
+return unescape(document.cookie.substring(cookieStartIndex + prefix.length, cookieEndIndex))
+}
+function deleteCookie(name, path, domain) {
+if (getCookie(name)) {
+document.cookie = name + "=" +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+"; expires=Thu, 01-Jan-70 00:00:01 GMT"
+}
+}
+function fixDate(date) {
+var base = new Date(0)
+var skew = base.getTime()
+if (skew > 0)
+date.setTime(date.getTime() - skew)
+}
+var now = new Date()
+fixDate(now)
+now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000)
+var visits = getCookie("counter")
+if (!visits)
+visits = 1
+else
+visits = parseInt(visits) + 1
+setCookie("counter", visits, now)
+document.write("您是第" + visits + "位访问本篇文章的！")
+
+</script>
+-->
+
+</article>
+
+    </div>
+  </main>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+</body>
+</html>

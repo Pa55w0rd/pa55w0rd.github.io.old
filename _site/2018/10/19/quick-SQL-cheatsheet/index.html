@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>SQL 速查表 - Pa55w0rd的博客</title>
+	<meta name="description" content="一个 SQL 语句用法的速查表。">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#2d2a2a">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#2d2a2a">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#2d2a2a">
+
+	<link href="https://fonts.googleapis.com/css?family=Finger+Paint|PT+Sans:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+  <div class="sidebar-container">
+    <div class="sidebar-logo">
+      <a href="/" class="logo">Pa55w0rd</a>
+    </div>
+
+    <menu class="sidebar-menu">
+      <li class="menu-items"><a class="menu-links" href="/">主页</a></li>
+      <li class="menu-items"><a class="menu-links" href="/list/">目录</a></li>
+      <li class="menu-items"><a class="menu-links" href="/about/">关于我</a></li>
+      <li class="menu-items"><a class="menu-links" href="https://github.com/Pa55w0rd/">Github 项目</a></li>
+    </menu>
+
+    <div class="sidebar-social">
+ <!--     <li class="social-items"><a href="https://www.facebook.com/" class="social-links"><i class="social-icons fa fa-facebook" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://twitter.com/" class="social-links"><i class="social-icons fa fa-twitter" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://plus.google.com/" class="social-links"><i class="social-icons fa fa-google-plus" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://github.com/https://github.com/Pa55w0rd" class="social-links"><i class="social-icons fa fa-github" aria-hidden="true"></i></a></li>
+-->
+		      <div>Copyright © 2018 www.pa55w0rd.club All Rights Reserved </div>
+	  <div>Email：pa55w0rd@aliyun.com </div>
+	</div>
+
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126660308-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126660308-1');
+</script>
+
+</aside>
+
+
+  <main role="main">
+    <div class="content">
+      <article class="page-article">
+  <div class="wrap-content">
+    <header class="page-header">
+      <h1 class="page-title">SQL 速查表</h1>
+      <div class="page-date"><span>2018, Oct 19&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+    </header>
+    <div class="page-content">
+      
+      <ul id="markdown-toc">
+  <li><a href="#1-查找数据的查询" id="markdown-toc-1-查找数据的查询">1. 查找数据的查询</a>    <ul>
+      <li><a href="#select-用于从数据库中选择数据" id="markdown-toc-select-用于从数据库中选择数据"><strong>SELECT</strong>: 用于从数据库中选择数据</a></li>
+      <li><a href="#distinct-用于过滤掉重复的值并返回指定列的行" id="markdown-toc-distinct-用于过滤掉重复的值并返回指定列的行"><strong>DISTINCT</strong>: 用于过滤掉重复的值并返回指定列的行</a></li>
+      <li><a href="#where-用于过滤记录行" id="markdown-toc-where-用于过滤记录行"><strong>WHERE</strong>: 用于过滤记录/行</a></li>
+      <li><a href="#order-by-用于结果集的排序升序asc或者降序desc" id="markdown-toc-order-by-用于结果集的排序升序asc或者降序desc"><strong>ORDER BY</strong>: 用于结果集的排序，升序（ASC）或者降序（DESC）</a></li>
+      <li><a href="#select-top-用于指定从表顶部返回的记录数" id="markdown-toc-select-top-用于指定从表顶部返回的记录数"><strong>SELECT TOP</strong>: 用于指定从表顶部返回的记录数</a></li>
+      <li><a href="#like-用于搜索列中的特定模式where-子句中使用的运算符" id="markdown-toc-like-用于搜索列中的特定模式where-子句中使用的运算符"><strong>LIKE</strong>: 用于搜索列中的特定模式，WHERE 子句中使用的运算符</a></li>
+      <li><a href="#in-用于在-where-子句中指定多个值的运算符" id="markdown-toc-in-用于在-where-子句中指定多个值的运算符"><strong>IN</strong>: 用于在 WHERE 子句中指定多个值的运算符</a></li>
+      <li><a href="#between-用于过滤给定范围的值的运算符" id="markdown-toc-between-用于过滤给定范围的值的运算符"><strong>BETWEEN</strong>: 用于过滤给定范围的值的运算符</a></li>
+      <li><a href="#null-代表一个字段没有值" id="markdown-toc-null-代表一个字段没有值"><strong>NULL</strong>: 代表一个字段没有值</a></li>
+      <li><a href="#as-用于给表或者列分配别名" id="markdown-toc-as-用于给表或者列分配别名"><strong>AS</strong>: 用于给表或者列分配别名</a></li>
+      <li><a href="#union-用于组合两个或者多个-select-语句的结果集的运算符" id="markdown-toc-union-用于组合两个或者多个-select-语句的结果集的运算符"><strong>UNION</strong>: 用于组合两个或者多个 SELECT 语句的结果集的运算符</a></li>
+      <li><a href="#anyall-用于检查-where-或-having-子句中使用的子查询条件的运算符" id="markdown-toc-anyall-用于检查-where-或-having-子句中使用的子查询条件的运算符"><strong>ANY|ALL</strong>: 用于检查 WHERE 或 HAVING 子句中使用的子查询条件的运算符</a></li>
+      <li><a href="#group-by-通常与聚合函数countmaxminsumavg一起使用用于将结果集分组为一列或多列" id="markdown-toc-group-by-通常与聚合函数countmaxminsumavg一起使用用于将结果集分组为一列或多列"><strong>GROUP BY</strong>: 通常与聚合函数（COUNT，MAX，MIN，SUM，AVG）一起使用，用于将结果集分组为一列或多列</a></li>
+      <li><a href="#having-having-子句指定-select-语句应仅返回聚合值满足指定条件的行它被添加到-sql-语言中因为where关键字不能与聚合函数一起使用" id="markdown-toc-having-having-子句指定-select-语句应仅返回聚合值满足指定条件的行它被添加到-sql-语言中因为where关键字不能与聚合函数一起使用"><strong>HAVING</strong>: HAVING 子句指定 SELECT 语句应仅返回聚合值满足指定条件的行。它被添加到 SQL 语言中，因为WHERE关键字不能与聚合函数一起使用。</a></li>
+    </ul>
+  </li>
+  <li><a href="#2-修改数据的查询" id="markdown-toc-2-修改数据的查询">2. 修改数据的查询</a>    <ul>
+      <li><a href="#insert-into-用于在表中插入新记录行" id="markdown-toc-insert-into-用于在表中插入新记录行"><strong>INSERT INTO</strong>: 用于在表中插入新记录/行</a></li>
+      <li><a href="#update-用于修改表中的现有记录行" id="markdown-toc-update-用于修改表中的现有记录行"><strong>UPDATE</strong>: 用于修改表中的现有记录/行</a></li>
+      <li><a href="#delete-用于删除表中的现有记录行" id="markdown-toc-delete-用于删除表中的现有记录行"><strong>DELETE</strong>: 用于删除表中的现有记录/行</a></li>
+    </ul>
+  </li>
+  <li><a href="#3-聚合查询" id="markdown-toc-3-聚合查询">3. 聚合查询</a>    <ul>
+      <li><a href="#count-返回出现次数" id="markdown-toc-count-返回出现次数"><strong>COUNT</strong>: 返回出现次数</a></li>
+      <li><a href="#min-and-max-返回所选列的最小最大值" id="markdown-toc-min-and-max-返回所选列的最小最大值"><strong>MIN() and MAX()</strong>: 返回所选列的最小/最大值</a></li>
+      <li><a href="#avg-返回数字列的平均值" id="markdown-toc-avg-返回数字列的平均值"><strong>AVG()</strong>: 返回数字列的平均值</a></li>
+      <li><a href="#sum-返回数值列的总和" id="markdown-toc-sum-返回数值列的总和"><strong>SUM()</strong>: 返回数值列的总和</a></li>
+    </ul>
+  </li>
+  <li><a href="#4-连接查询" id="markdown-toc-4-连接查询">4. 连接查询</a>    <ul>
+      <li><a href="#inner-join-内连接返回在两张表中具有匹配值的记录" id="markdown-toc-inner-join-内连接返回在两张表中具有匹配值的记录"><strong>INNER JOIN</strong>: 内连接，返回在两张表中具有匹配值的记录</a></li>
+      <li><a href="#left-outer-join-左外连接返回左表table1中的所有记录以及右表中的匹配记录table2" id="markdown-toc-left-outer-join-左外连接返回左表table1中的所有记录以及右表中的匹配记录table2"><strong>LEFT (OUTER) JOIN</strong>: 左外连接，返回左表（table1）中的所有记录，以及右表中的匹配记录（table2）</a></li>
+      <li><a href="#right-outer-join-右外连接返回右表table2中的所有记录以及左表table1中匹配的记录" id="markdown-toc-right-outer-join-右外连接返回右表table2中的所有记录以及左表table1中匹配的记录"><strong>RIGHT (OUTER) JOIN</strong>: 右外连接，返回右表（table2）中的所有记录，以及左表（table1）中匹配的记录</a></li>
+      <li><a href="#full-outer-join-全外连接全连接是左右外连接的并集-连接表包含被连接的表的所有记录-如果缺少匹配的记录-以-null-填充" id="markdown-toc-full-outer-join-全外连接全连接是左右外连接的并集-连接表包含被连接的表的所有记录-如果缺少匹配的记录-以-null-填充"><strong>FULL (OUTER) JOIN</strong>: 全外连接，全连接是左右外连接的并集. 连接表包含被连接的表的所有记录, 如果缺少匹配的记录, 以 NULL 填充。</a></li>
+      <li><a href="#self-join-自连接表自身连接" id="markdown-toc-self-join-自连接表自身连接"><strong>Self JOIN</strong>: 自连接，表自身连接</a></li>
+    </ul>
+  </li>
+  <li><a href="#5-视图查询" id="markdown-toc-5-视图查询">5. 视图查询</a>    <ul>
+      <li><a href="#create-创建视图" id="markdown-toc-create-创建视图"><strong>CREATE</strong>: 创建视图</a></li>
+      <li><a href="#select-检索视图" id="markdown-toc-select-检索视图"><strong>SELECT</strong>: 检索视图</a></li>
+      <li><a href="#drop-删除视图" id="markdown-toc-drop-删除视图"><strong>DROP</strong>: 删除视图</a></li>
+    </ul>
+  </li>
+  <li><a href="#6-修改表的查询" id="markdown-toc-6-修改表的查询">6. 修改表的查询</a>    <ul>
+      <li><a href="#add-添加字段" id="markdown-toc-add-添加字段"><strong>ADD</strong>: 添加字段</a></li>
+      <li><a href="#modify-修改字段数据类型" id="markdown-toc-modify-修改字段数据类型"><strong>MODIFY</strong>: 修改字段数据类型</a></li>
+      <li><a href="#drop-删除字段" id="markdown-toc-drop-删除字段"><strong>DROP</strong>: 删除字段</a></li>
+    </ul>
+  </li>
+</ul>
+
+<!--
+# 内容 
+1. [ 查找数据的查询 ](#find)
+2. [ 修改数据的查询 ](#modify)
+3. [ 聚合查询 ](#report)
+4. [ 连接查询 ](#joins)
+5. [ 视图查询 ](#view)
+6. [ 修改表的查询 ](#alter) 
+https://github.com/enochtangg/quick-SQL-cheatsheet/edit/master/README_zh-hans.md
+-->
+
+<p><a name="find"></a></p>
+<h1 id="1-查找数据的查询">1. 查找数据的查询</h1>
+
+<h3 id="select-用于从数据库中选择数据"><strong>SELECT</strong>: 用于从数据库中选择数据</h3>
+<ul>
+  <li><code class="highlighter-rouge">SELECT</code> * <code class="highlighter-rouge">FROM</code> table_name;</li>
+</ul>
+
+<h3 id="distinct-用于过滤掉重复的值并返回指定列的行"><strong>DISTINCT</strong>: 用于过滤掉重复的值并返回指定列的行</h3>
+<ul>
+  <li><code class="highlighter-rouge">SELECT DISTINCT</code> column_name;</li>
+</ul>
+
+<h3 id="where-用于过滤记录行"><strong>WHERE</strong>: 用于过滤记录/行</h3>
+<ul>
+  <li><code class="highlighter-rouge">SELECT</code> column1, column2 <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">WHERE</code> condition;</li>
+  <li><code class="highlighter-rouge">SELECT</code> * <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">WHERE</code> condition1 <code class="highlighter-rouge">AND</code> condition2;</li>
+  <li><code class="highlighter-rouge">SELECT</code> * <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">WHERE</code> condition1 <code class="highlighter-rouge">OR</code> condition2;</li>
+  <li><code class="highlighter-rouge">SELECT</code> * <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">WHERE NOT</code> condition;</li>
+  <li><code class="highlighter-rouge">SELECT</code> * <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">WHERE</code> condition1 <code class="highlighter-rouge">AND</code> (condition2 <code class="highlighter-rouge">OR</code> condition3);</li>
+  <li><code class="highlighter-rouge">SELECT</code> * <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">WHERE EXISTS</code> (<code class="highlighter-rouge">SELECT</code> column_name <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">WHERE</code> condition);</li>
+</ul>
+
+<h3 id="order-by-用于结果集的排序升序asc或者降序desc"><strong>ORDER BY</strong>: 用于结果集的排序，升序（ASC）或者降序（DESC）</h3>
+<ul>
+  <li><code class="highlighter-rouge">SELECT</code> * <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">ORDER BY</code> column;</li>
+  <li><code class="highlighter-rouge">SELECT</code> * <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">ORDER BY</code> column <code class="highlighter-rouge">DESC</code>;</li>
+  <li><code class="highlighter-rouge">SELECT</code> * <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">ORDER BY</code> column1 <code class="highlighter-rouge">ASC</code>, column2 <code class="highlighter-rouge">DESC</code>;</li>
+</ul>
+
+<h3 id="select-top-用于指定从表顶部返回的记录数"><strong>SELECT TOP</strong>: 用于指定从表顶部返回的记录数</h3>
+<ul>
+  <li><code class="highlighter-rouge">SELECT TOP</code> number columns_names <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">WHERE</code> condition;</li>
+  <li><code class="highlighter-rouge">SELECT TOP</code> percent columns_names <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">WHERE</code> condition;</li>
+  <li>并非所有数据库系统都支持<code class="highlighter-rouge">SELECT TOP</code>。 MySQL 中是<code class="highlighter-rouge">LIMIT</code>子句</li>
+  <li><code class="highlighter-rouge">SELECT</code> column_names <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">LIMIT</code> offset, count;</li>
+</ul>
+
+<h3 id="like-用于搜索列中的特定模式where-子句中使用的运算符"><strong>LIKE</strong>: 用于搜索列中的特定模式，WHERE 子句中使用的运算符</h3>
+<ul>
+  <li>% (percent sign) 是一个表示零个，一个或多个字符的通配符</li>
+  <li>_ (underscore) 是一个表示单个字符通配符</li>
+  <li><code class="highlighter-rouge">SELECT</code> column_names <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">WHERE</code> column_name <code class="highlighter-rouge">LIKE</code> pattern;</li>
+  <li><code class="highlighter-rouge">LIKE</code> ‘a%’    （查找任何以“a”开头的值）</li>
+  <li><code class="highlighter-rouge">LIKE</code> ‘%a’    （查找任何以“a”结尾的值）</li>
+  <li><code class="highlighter-rouge">LIKE</code> ‘%or%’  （查找任何包含“or”的值）</li>
+  <li><code class="highlighter-rouge">LIKE</code> ‘_r%’   （查找任何第二位是“r”的值）</li>
+  <li><code class="highlighter-rouge">LIKE</code> ‘a_%_%’ （查找任何以“a”开头且长度至少为3的值）</li>
+  <li><code class="highlighter-rouge">LIKE</code> ‘[a-c]%’（查找任何以“a”或“b”或“c”开头的值）</li>
+</ul>
+
+<h3 id="in-用于在-where-子句中指定多个值的运算符"><strong>IN</strong>: 用于在 WHERE 子句中指定多个值的运算符</h3>
+<ul>
+  <li>本质上，IN运算符是多个OR条件的简写</li>
+  <li><code class="highlighter-rouge">SELECT</code> column_names <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">WHERE</code> column_name <code class="highlighter-rouge">IN</code> (value1, value2, …);</li>
+  <li><code class="highlighter-rouge">SELECT</code> column_names <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">WHERE</code> column_name <code class="highlighter-rouge">IN</code> (<code class="highlighter-rouge">SELECT STATEMENT</code>);</li>
+</ul>
+
+<h3 id="between-用于过滤给定范围的值的运算符"><strong>BETWEEN</strong>: 用于过滤给定范围的值的运算符</h3>
+<ul>
+  <li><code class="highlighter-rouge">SELECT</code> column_names <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">WHERE</code> column_name <code class="highlighter-rouge">BETWEEN</code> value1 <code class="highlighter-rouge">AND</code> value2;</li>
+  <li><code class="highlighter-rouge">SELECT</code> * <code class="highlighter-rouge">FROM</code> Products <code class="highlighter-rouge">WHERE</code> (column_name <code class="highlighter-rouge">BETWEEN</code> value1 <code class="highlighter-rouge">AND</code> value2) <code class="highlighter-rouge">AND NOT</code> column_name2 <code class="highlighter-rouge">IN</code> (value3, value4);</li>
+  <li><code class="highlighter-rouge">SELECT</code> * <code class="highlighter-rouge">FROM</code> Products <code class="highlighter-rouge">WHERE</code> column_name <code class="highlighter-rouge">BETWEEN</code> #01/07/1999# AND #03/12/1999#;</li>
+</ul>
+
+<h3 id="null-代表一个字段没有值"><strong>NULL</strong>: 代表一个字段没有值</h3>
+<ul>
+  <li><code class="highlighter-rouge">SELECT</code> * <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">WHERE</code> column_name <code class="highlighter-rouge">IS NULL</code>;</li>
+  <li><code class="highlighter-rouge">SELECT</code> * <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">WHERE</code> column_name <code class="highlighter-rouge">IS NOT NULL</code>;</li>
+</ul>
+
+<h3 id="as-用于给表或者列分配别名"><strong>AS</strong>: 用于给表或者列分配别名</h3>
+<ul>
+  <li><code class="highlighter-rouge">SELECT</code> column_name <code class="highlighter-rouge">AS</code> alias_name <code class="highlighter-rouge">FROM</code> table_name;</li>
+  <li><code class="highlighter-rouge">SELECT</code> column_name <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">AS</code> alias_name;</li>
+  <li><code class="highlighter-rouge">SELECT</code> column_name <code class="highlighter-rouge">AS</code> alias_name1, column_name2 <code class="highlighter-rouge">AS</code> alias_name2;</li>
+  <li><code class="highlighter-rouge">SELECT</code> column_name1, column_name2 + ‘, ‘ + column_name3 <code class="highlighter-rouge">AS</code> alias_name;</li>
+</ul>
+
+<h3 id="union-用于组合两个或者多个-select-语句的结果集的运算符"><strong>UNION</strong>: 用于组合两个或者多个 SELECT 语句的结果集的运算符</h3>
+<ul>
+  <li>每个 SELECT 语句必须拥有相同的列数</li>
+  <li>列必须拥有相似的数据类型</li>
+  <li>每个 SELECT 语句中的列也必须具有相同的顺序</li>
+  <li><code class="highlighter-rouge">SELECT</code> columns_names <code class="highlighter-rouge">FROM</code> table1 <code class="highlighter-rouge">UNION SELECT</code> column_name <code class="highlighter-rouge">FROM</code> table2;</li>
+  <li><code class="highlighter-rouge">UNION</code> 仅允许选择不同的值, <code class="highlighter-rouge">UNION ALL</code> 允许重复</li>
+</ul>
+
+<h3 id="anyall-用于检查-where-或-having-子句中使用的子查询条件的运算符"><strong>ANY|ALL</strong>: 用于检查 WHERE 或 HAVING 子句中使用的子查询条件的运算符</h3>
+<ul>
+  <li><code class="highlighter-rouge">ANY</code> 如果任何子查询值满足条件，则返回 true。</li>
+  <li><code class="highlighter-rouge">ALL</code> 如果任何子查询值满足条件，则返回 true。</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><code class="highlighter-rouge">SELECT</code> columns_names <code class="highlighter-rouge">FROM</code> table1 <code class="highlighter-rouge">WHERE</code> column_name operator (<code class="highlighter-rouge">ANY</code></td>
+          <td><code class="highlighter-rouge">ALL</code>) (<code class="highlighter-rouge">SELECT</code> column_name <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">WHERE</code> condition);</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h3 id="group-by-通常与聚合函数countmaxminsumavg一起使用用于将结果集分组为一列或多列"><strong>GROUP BY</strong>: 通常与聚合函数（COUNT，MAX，MIN，SUM，AVG）一起使用，用于将结果集分组为一列或多列</h3>
+<ul>
+  <li><code class="highlighter-rouge">SELECT</code> column_name1, COUNT(column_name2) <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">WHERE</code> condition <code class="highlighter-rouge">GROUP BY</code> column_name1 <code class="highlighter-rouge">ORDER BY</code> COUNT(column_name2) DESC;</li>
+</ul>
+
+<h3 id="having-having-子句指定-select-语句应仅返回聚合值满足指定条件的行它被添加到-sql-语言中因为where关键字不能与聚合函数一起使用"><strong>HAVING</strong>: HAVING 子句指定 SELECT 语句应仅返回聚合值满足指定条件的行。它被添加到 SQL 语言中，因为WHERE关键字不能与聚合函数一起使用。</h3>
+<ul>
+  <li><code class="highlighter-rouge">SELECT</code> <code class="highlighter-rouge">COUNT</code>(column_name1), column_name2 <code class="highlighter-rouge">FROM</code> table <code class="highlighter-rouge">GROUP BY</code> column_name2 <code class="highlighter-rouge">HAVING</code> <code class="highlighter-rouge">COUNT(</code>column_name1<code class="highlighter-rouge">)</code> &gt; 5;</li>
+</ul>
+
+<p><a name="modify"></a></p>
+<h1 id="2-修改数据的查询">2. 修改数据的查询</h1>
+
+<h3 id="insert-into-用于在表中插入新记录行"><strong>INSERT INTO</strong>: 用于在表中插入新记录/行</h3>
+<ul>
+  <li><code class="highlighter-rouge">INSERT INTO</code> table_name (column1, column2) <code class="highlighter-rouge">VALUES</code> (value1, value2);</li>
+  <li><code class="highlighter-rouge">INSERT INTO</code> table_name <code class="highlighter-rouge">VALUES</code> (value1, value2 …);</li>
+</ul>
+
+<h3 id="update-用于修改表中的现有记录行"><strong>UPDATE</strong>: 用于修改表中的现有记录/行</h3>
+<ul>
+  <li><code class="highlighter-rouge">UPDATE</code> table_name <code class="highlighter-rouge">SET</code> column1 = value1, column2 = value2 <code class="highlighter-rouge">WHERE</code> condition;</li>
+  <li><code class="highlighter-rouge">UPDATE</code> table_name <code class="highlighter-rouge">SET</code> column_name = value;</li>
+</ul>
+
+<h3 id="delete-用于删除表中的现有记录行"><strong>DELETE</strong>: 用于删除表中的现有记录/行</h3>
+<ul>
+  <li><code class="highlighter-rouge">DELETE FROM</code> table_name <code class="highlighter-rouge">WHERE</code> condition;</li>
+  <li><code class="highlighter-rouge">DELETE</code> * <code class="highlighter-rouge">FROM</code> table_name;</li>
+</ul>
+
+<p><a name="report"></a></p>
+<h1 id="3-聚合查询">3. 聚合查询</h1>
+
+<h3 id="count-返回出现次数"><strong>COUNT</strong>: 返回出现次数</h3>
+<ul>
+  <li><code class="highlighter-rouge">SELECT COUNT (DISTINCT</code> column_name<code class="highlighter-rouge">)</code>;</li>
+</ul>
+
+<h3 id="min-and-max-返回所选列的最小最大值"><strong>MIN() and MAX()</strong>: 返回所选列的最小/最大值</h3>
+<ul>
+  <li><code class="highlighter-rouge">SELECT MIN (</code>column_names<code class="highlighter-rouge">) FROM</code> table_name <code class="highlighter-rouge">WHERE</code> condition;</li>
+  <li><code class="highlighter-rouge">SELECT MAX (</code>column_names<code class="highlighter-rouge">) FROM</code> table_name <code class="highlighter-rouge">WHERE</code> condition;</li>
+</ul>
+
+<h3 id="avg-返回数字列的平均值"><strong>AVG()</strong>: 返回数字列的平均值</h3>
+<ul>
+  <li><code class="highlighter-rouge">SELECT AVG (</code>column_name<code class="highlighter-rouge">) FROM</code> table_name <code class="highlighter-rouge">WHERE</code> condition;</li>
+</ul>
+
+<h3 id="sum-返回数值列的总和"><strong>SUM()</strong>: 返回数值列的总和</h3>
+<ul>
+  <li><code class="highlighter-rouge">SELECT SUM (</code>column_name<code class="highlighter-rouge">) FROM</code> table_name <code class="highlighter-rouge">WHERE</code> condition;</li>
+</ul>
+
+<p><a name="joins"></a></p>
+<h1 id="4-连接查询">4. 连接查询</h1>
+
+<h3 id="inner-join-内连接返回在两张表中具有匹配值的记录"><strong>INNER JOIN</strong>: 内连接，返回在两张表中具有匹配值的记录</h3>
+<ul>
+  <li><code class="highlighter-rouge">SELECT</code> column_names <code class="highlighter-rouge">FROM</code> table1 <code class="highlighter-rouge">INNER JOIN</code> table2 <code class="highlighter-rouge">ON</code> table1.column_name=table2.column_name;</li>
+  <li><code class="highlighter-rouge">SELECT</code> table1.column_name1, table2.column_name2, table3.column_name3 <code class="highlighter-rouge">FROM</code> ((table1 <code class="highlighter-rouge">INNER JOIN</code> table2 <code class="highlighter-rouge">ON</code> relationship) <code class="highlighter-rouge">INNER JOIN</code> table3 <code class="highlighter-rouge">ON</code> relationship);</li>
+</ul>
+
+<h3 id="left-outer-join-左外连接返回左表table1中的所有记录以及右表中的匹配记录table2"><strong>LEFT (OUTER) JOIN</strong>: 左外连接，返回左表（table1）中的所有记录，以及右表中的匹配记录（table2）</h3>
+<ul>
+  <li><code class="highlighter-rouge">SELECT</code> column_names <code class="highlighter-rouge">FROM</code> table1 <code class="highlighter-rouge">LEFT JOIN</code> table2 <code class="highlighter-rouge">ON</code> table1.column_name=table2.column_name;</li>
+</ul>
+
+<h3 id="right-outer-join-右外连接返回右表table2中的所有记录以及左表table1中匹配的记录"><strong>RIGHT (OUTER) JOIN</strong>: 右外连接，返回右表（table2）中的所有记录，以及左表（table1）中匹配的记录</h3>
+<ul>
+  <li><code class="highlighter-rouge">SELECT</code> column_names <code class="highlighter-rouge">FROM</code> table1 <code class="highlighter-rouge">RIGHT JOIN</code> table2 <code class="highlighter-rouge">ON</code> table1.column_name=table2.column_name;</li>
+</ul>
+
+<h3 id="full-outer-join-全外连接全连接是左右外连接的并集-连接表包含被连接的表的所有记录-如果缺少匹配的记录-以-null-填充"><strong>FULL (OUTER) JOIN</strong>: 全外连接，全连接是左右外连接的并集. 连接表包含被连接的表的所有记录, 如果缺少匹配的记录, 以 NULL 填充。</h3>
+<ul>
+  <li><code class="highlighter-rouge">SELECT</code> column_names <code class="highlighter-rouge">FROM</code> table1 <code class="highlighter-rouge">FULL OUTER JOIN</code> table2 <code class="highlighter-rouge">ON</code> table1.column_name=table2.column_name;</li>
+</ul>
+
+<h3 id="self-join-自连接表自身连接"><strong>Self JOIN</strong>: 自连接，表自身连接</h3>
+<ul>
+  <li><code class="highlighter-rouge">SELECT</code> column_names <code class="highlighter-rouge">FROM</code> table1 T1, table1 T2 <code class="highlighter-rouge">WHERE</code> condition;</li>
+</ul>
+
+<p><a name="view"></a></p>
+<h1 id="5-视图查询">5. 视图查询</h1>
+
+<h3 id="create-创建视图"><strong>CREATE</strong>: 创建视图</h3>
+<ul>
+  <li><code class="highlighter-rouge">CREATE VIEW</code> view_name <code class="highlighter-rouge">AS SELECT</code> column1, column2 <code class="highlighter-rouge">FROM</code> table_name <code class="highlighter-rouge">WHERE</code> condition;</li>
+</ul>
+
+<h3 id="select-检索视图"><strong>SELECT</strong>: 检索视图</h3>
+<ul>
+  <li><code class="highlighter-rouge">SELECT</code> * <code class="highlighter-rouge">FROM</code> view_name;</li>
+</ul>
+
+<h3 id="drop-删除视图"><strong>DROP</strong>: 删除视图</h3>
+<ul>
+  <li><code class="highlighter-rouge">DROP VIEW</code> view_name;</li>
+</ul>
+
+<p><a name="alter"></a></p>
+<h1 id="6-修改表的查询">6. 修改表的查询</h1>
+
+<h3 id="add-添加字段"><strong>ADD</strong>: 添加字段</h3>
+<ul>
+  <li><code class="highlighter-rouge">ALTER TABLE</code> table_name <code class="highlighter-rouge">ADD</code> column_name column_definition;</li>
+</ul>
+
+<h3 id="modify-修改字段数据类型"><strong>MODIFY</strong>: 修改字段数据类型</h3>
+<ul>
+  <li><code class="highlighter-rouge">ALTER TABLE</code> table_name <code class="highlighter-rouge">MODIFY</code> column_name column_type;</li>
+</ul>
+
+<h3 id="drop-删除字段"><strong>DROP</strong>: 删除字段</h3>
+<ul>
+  <li><code class="highlighter-rouge">ALTER TABLE</code> table_name <code class="highlighter-rouge">DROP COLUMN</code> column_name;</li>
+</ul>
+
+
+    </div>
+    
+
+	
+	<div class="share-component" data-disabled="" data-description="Share.js - 一键分享到微博，QQ空间，腾讯微博，人人，豆瓣">一键分享</div>
+	
+
+
+	<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pa55w0rd.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//pa55w0rd.disqus.com/count.js" async></script>
+
+
+  </div>
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+<!--
+<script language=JavaScript>
+
+var caution = false
+function setCookie(name, value, expires, path, domain, secure) {
+var curCookie = name + "=" + escape(value) +
+((expires) ? "; expires=" + expires.toGMTString() : "") +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+((secure) ? "; secure" : "")
+if (!caution || (name + "=" + escape(value)).length <= 4000)
+document.cookie = curCookie
+else
+if (confirm("Cookie exceeds 4KB and will be cut!"))
+document.cookie = curCookie
+}
+function getCookie(name) {
+var prefix = name + "="
+var cookieStartIndex = document.cookie.indexOf(prefix)
+if (cookieStartIndex == -1)
+return null
+var cookieEndIndex = document.cookie.indexOf(";", cookieStartIndex + prefix.length)
+if (cookieEndIndex == -1)
+cookieEndIndex = document.cookie.length
+return unescape(document.cookie.substring(cookieStartIndex + prefix.length, cookieEndIndex))
+}
+function deleteCookie(name, path, domain) {
+if (getCookie(name)) {
+document.cookie = name + "=" +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+"; expires=Thu, 01-Jan-70 00:00:01 GMT"
+}
+}
+function fixDate(date) {
+var base = new Date(0)
+var skew = base.getTime()
+if (skew > 0)
+date.setTime(date.getTime() - skew)
+}
+var now = new Date()
+fixDate(now)
+now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000)
+var visits = getCookie("counter")
+if (!visits)
+visits = 1
+else
+visits = parseInt(visits) + 1
+setCookie("counter", visits, now)
+document.write("您是第" + visits + "位访问本篇文章的！")
+
+</script>
+-->
+
+</article>
+
+    </div>
+  </main>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+</body>
+</html>

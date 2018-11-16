@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>phpstudy配置ssl证书实现https加密访问 - Pa55w0rd的博客</title>
+	<meta name="description" content="phpstudy配置ssl证书实现https加密访问">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#2d2a2a">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#2d2a2a">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#2d2a2a">
+
+	<link href="https://fonts.googleapis.com/css?family=Finger+Paint|PT+Sans:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+  <div class="sidebar-container">
+    <div class="sidebar-logo">
+      <a href="/" class="logo">Pa55w0rd</a>
+    </div>
+
+    <menu class="sidebar-menu">
+      <li class="menu-items"><a class="menu-links" href="/">主页</a></li>
+      <li class="menu-items"><a class="menu-links" href="/list/">目录</a></li>
+      <li class="menu-items"><a class="menu-links" href="/about/">关于我</a></li>
+      <li class="menu-items"><a class="menu-links" href="https://github.com/Pa55w0rd/">Github 项目</a></li>
+    </menu>
+
+    <div class="sidebar-social">
+ <!--     <li class="social-items"><a href="https://www.facebook.com/" class="social-links"><i class="social-icons fa fa-facebook" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://twitter.com/" class="social-links"><i class="social-icons fa fa-twitter" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://plus.google.com/" class="social-links"><i class="social-icons fa fa-google-plus" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://github.com/https://github.com/Pa55w0rd" class="social-links"><i class="social-icons fa fa-github" aria-hidden="true"></i></a></li>
+-->
+		      <div>Copyright © 2018 www.pa55w0rd.club All Rights Reserved </div>
+	  <div>Email：pa55w0rd@aliyun.com </div>
+	</div>
+
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126660308-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126660308-1');
+</script>
+
+</aside>
+
+
+  <main role="main">
+    <div class="content">
+      <article class="page-article">
+  <div class="wrap-content">
+    <header class="page-header">
+      <h1 class="page-title">phpstudy配置ssl证书实现https加密访问</h1>
+      <div class="page-date"><span>2018, Oct 19&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+    </header>
+    <div class="page-content">
+      
+      <ul id="markdown-toc">
+  <li><a href="#0x00-前言" id="markdown-toc-0x00-前言">0x00 前言</a></li>
+  <li><a href="#0x01-使用openssl生成x509签名证书" id="markdown-toc-0x01-使用openssl生成x509签名证书">0x01 使用openssl生成x509签名证书</a></li>
+  <li><a href="#0x02-phpstudy安装ssl证书" id="markdown-toc-0x02-phpstudy安装ssl证书">0x02 phpstudy安装ssl证书</a></li>
+  <li><a href="#0x03-http301重定向到https" id="markdown-toc-0x03-http301重定向到https">0x03 HTTP301重定向到HTTPS</a></li>
+</ul>
+
+<h2 id="0x00-前言">0x00 前言</h2>
+
+<p>使用HTTP（超文本传输）协议访问互联网上的数据是没有经过加密的。也就是说，任何人都可以通过适当的工具拦截或者监听到在网络上传输的数据流。但是有时候，我们需要在网络上传输一些安全性或者私秘性的数据，譬如：包含信用卡及商品信息的电子订单。这个时候，如果仍然使用HTTP协议，势必会面临非常大的风险！相信没有人能接受自己的信用卡号在互联网上裸奔。</p>
+
+<p>HTTPS（超文本传输安全）协议无疑可以有效的解决这一问题。所谓HTTPS，其实就是HTTP和SSL/TLS的组合，用以提供加密通讯及对网络服务器的身份鉴定。HTTPS的主要思想是在不安全的网络上创建一安全信道，防止黑客的窃听和攻击。</p>
+
+<h2 id="0x01-使用openssl生成x509签名证书">0x01 使用openssl生成x509签名证书</h2>
+
+<p>x509证书一般会用到三类文，key，csr，crt</p>
+
+<ul>
+  <li>
+    <p>key是服务器上的私钥文件，用于对发送给客户端数据的加密，以及对从客户端接收到数据的解密，通常是rsa算法。</p>
+  </li>
+  <li>
+    <p>csr 是证书签名请求文件，用于申请证书。在制作csr文件的时，必须使用自己的私钥来签署申，还可以设定一个密钥。</p>
+  </li>
+  <li>
+    <p>crt是由证书颁发机构（CA）签名后的证书，或者是开发者自签名的证书，包含证书持有人的信息，持有人的公钥，以及签署者的签名等信息</p>
+  </li>
+</ul>
+
+<ol>
+  <li>
+    <p>key的生成</p>
+
+    <p><code class="highlighter-rouge"># openssl genrsa -des3 -out server.key 2048</code></p>
+
+    <p>这样是生成rsa私钥，des3算法，openssl格式，2048位强度。server.key是密钥文件名。为了生成这样的密钥，需要一个至少四位的密码。可以通过以下方法删除私钥中的密码:</p>
+
+    <p><code class="highlighter-rouge"># openssl rsa -in server.key -out server.key</code></p>
+  </li>
+  <li>生成CA的crt
+    <div class="highlighter-rouge"><pre class="highlight"><code> # openssl req -new -key server.key -out server.csr
+
+ Country Name (2 letter code) [AU]:CN
+ State or Province Name (full name) [Some-State]:Beijing
+ Locality Name (eg, city) []:Beijing
+ Organization Name (eg, company) [Internet Widgits Pty Ltd]:Test
+ Organizational Unit Name (eg, section) []:Test
+ Common Name (e.g. server FQDN or YOUR name) []:pa55w0rd.club
+ Email Address []:pa55w0rd@aliyun.com
+</code></pre>
+    </div>
+    <p>需要依次输入国家，地区，组织，email。common name可以写你的名字或者域名。如果为了https申请，这个必须和域名吻合，否则会引发浏览器警报。生成的csr文件交给CA签名后形成服务端自己的证书。</p>
+  </li>
+  <li>crt生成方法
+    <div class="highlighter-rouge"><pre class="highlight"><code> # openssl x509 -req -days 3650 -in server.csr -signkey server.key -out server.crt
+
+ Signature ok
+ subject=C = CN, ST = Beijing, L = Beijing, O = Test, OU = Test, CN = pa55w0rd.club, emailAddress = pa55w0rd@aliyun.com
+ Getting Private key
+</code></pre>
+    </div>
+
+    <p>crt上有证书持有人的信息，持有人的公钥，以及签署者的签名等信息。当用户安装了证书之后，便意味着信任了这份证书，同时拥有了其中的公钥。证书上会说明用途，例如服务器认证，客户端认证，或者签署其他证书。当系统收到一份新的证书的时候，证书会说明，是由谁签署的。如果这个签署者确实可以签署其他证书，并且收到证书上的签名和签署者的公钥可以对上的时候，系统就自动信任新的证书。</p>
+
+    <p>最后生成了私用密钥：server.key和自己认证的SSL证书：server.crt</p>
+
+    <p>证书合并：</p>
+
+    <p><code class="highlighter-rouge">cat server.key server.crt &gt; server.pem</code></p>
+  </li>
+  <li>
+    <p>客户端证书文件</p>
+
+    <p>上面三步骤为服务端证书生成步骤，用户配置单向SSL时需要使用的证书文件，如果要配置双向SSL</p>
+
+    <p>证书生成步骤是一样的，最后需要将crt和key合并生成客户端证书安装包 pfx</p>
+
+    <p><code class="highlighter-rouge">openssl pkcs12 -export -in client.crt -inkey client.key -out client.pfx</code></p>
+  </li>
+</ol>
+
+<h2 id="0x02-phpstudy安装ssl证书">0x02 phpstudy安装ssl证书</h2>
+
+<ol>
+  <li>
+    <p>打开<code class="highlighter-rouge">php-openssl</code> 选项</p>
+
+    <p>点击【其他选项菜单】按钮→选择【PHP扩展及设置】→选择【PHP扩展】→在【php-openssl】选项上打钩即可。</p>
+  </li>
+  <li>
+    <p>使SSL模块生效</p>
+
+    <p>打开<code class="highlighter-rouge">phpStudy\Apache\conf\httpd.conf</code>文件，修改配置文件注意备份</p>
+
+    <p>找到 <code class="highlighter-rouge">LoadModule ssl_module modules/mod_ssl.so</code>，去除<code class="highlighter-rouge">#</code>注释，使ssl模块生效</p>
+
+    <p>搜索<code class="highlighter-rouge">Include conf/vhosts.conf</code>，在其下面增加一条
+ <code class="highlighter-rouge">Include conf/vhostssl.conf</code></p>
+  </li>
+  <li>
+    <p>在Apache安装目录下创建cert目录，将生产的证书拷贝过来</p>
+  </li>
+  <li>
+    <p>在Apache安装目录下conf文件夹中创建一个vhostssl.conf配置文件(文件名要和httpd.conf文件中引用的名称一致)</p>
+
+    <pre><code class="language-PHP"> Listen 443
+ &lt;VirtualHost *:443&gt;
+     DocumentRoot "E:\phpStudy\WWW"
+     ServerName www.pa55w0rd.club
+     ServerAlias pa55w0rd.club
+     ErrorLog "E:\phpStudy\Apache\logs\error.log"
+     TransferLog "E:\phpStudy\Apache\logs\access.log"
+     SSLEngine on
+     SSLProtocol TLSv1 TLSv1.1 TLSv1.2
+     SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5
+     SSLCertificateFile "E:\phpStudy\Apache\cert\server.pem"
+     SSLCertificateKeyFile "E:\phpStudy\Apache\cert\server.key"
+     SSLCertificateChainFile "E:\phpStudy\Apache\cert\server.pem"
+   &lt;Directory "E:\phpStudy\WWW"&gt;
+       Options FollowSymLinks ExecCGI
+       AllowOverride All
+       Order allow,deny
+       Allow from all
+       Require all granted
+   &lt;/Directory&gt;
+ &lt;/VirtualHost&gt;
+</code></pre>
+  </li>
+  <li>
+    <p>重启Apache，访问https://xxx 访问正常</p>
+  </li>
+</ol>
+
+<h2 id="0x03-http301重定向到https">0x03 HTTP301重定向到HTTPS</h2>
+
+<p>配置完SSL证书，我们需要进行站点301重定向，将http的地址强制跳转到https地址，Apache环境下，在站点根目录添加.htaccess文件</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>RewriteEngine on
+RewriteBase /
+RewriteCond %{SERVER_PORT} !^443$
+RewriteRule ^.*$ https://%{SERVER_NAME}%{REQUEST_URI} [L,R=301]
+</code></pre>
+</div>
+
+<p>PS. Windows下不允许创建.开头的文件，可以先创建任意文件，通过copy命令重命名.htaccess</p>
+
+<p>测试自动跳转到https</p>
+
+    </div>
+    
+
+	
+	<div class="share-component" data-disabled="" data-description="Share.js - 一键分享到微博，QQ空间，腾讯微博，人人，豆瓣">一键分享</div>
+	
+
+
+	<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pa55w0rd.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//pa55w0rd.disqus.com/count.js" async></script>
+
+
+  </div>
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+<!--
+<script language=JavaScript>
+
+var caution = false
+function setCookie(name, value, expires, path, domain, secure) {
+var curCookie = name + "=" + escape(value) +
+((expires) ? "; expires=" + expires.toGMTString() : "") +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+((secure) ? "; secure" : "")
+if (!caution || (name + "=" + escape(value)).length <= 4000)
+document.cookie = curCookie
+else
+if (confirm("Cookie exceeds 4KB and will be cut!"))
+document.cookie = curCookie
+}
+function getCookie(name) {
+var prefix = name + "="
+var cookieStartIndex = document.cookie.indexOf(prefix)
+if (cookieStartIndex == -1)
+return null
+var cookieEndIndex = document.cookie.indexOf(";", cookieStartIndex + prefix.length)
+if (cookieEndIndex == -1)
+cookieEndIndex = document.cookie.length
+return unescape(document.cookie.substring(cookieStartIndex + prefix.length, cookieEndIndex))
+}
+function deleteCookie(name, path, domain) {
+if (getCookie(name)) {
+document.cookie = name + "=" +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+"; expires=Thu, 01-Jan-70 00:00:01 GMT"
+}
+}
+function fixDate(date) {
+var base = new Date(0)
+var skew = base.getTime()
+if (skew > 0)
+date.setTime(date.getTime() - skew)
+}
+var now = new Date()
+fixDate(now)
+now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000)
+var visits = getCookie("counter")
+if (!visits)
+visits = 1
+else
+visits = parseInt(visits) + 1
+setCookie("counter", visits, now)
+document.write("您是第" + visits + "位访问本篇文章的！")
+
+</script>
+-->
+
+</article>
+
+    </div>
+  </main>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+</body>
+</html>

